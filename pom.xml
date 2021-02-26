@@ -24,22 +24,22 @@
         <diffChangeLogFile>/.</diffChangeLogFile>
     </properties>
 
-<!--    <repositories>-->
-<!--        <repository>-->
-<!--            <id>primus-maven</id>-->
-<!--            <url>https://gitlab.com/api/v4/projects/22798453/packages/maven</url>-->
-<!--        </repository>-->
-<!--    </repositories>-->
-<!--    <distributionManagement>-->
-<!--        <repository>-->
-<!--            <id>primus-maven</id>-->
-<!--            <url>https://gitlab.com/api/v4/projects/22798334/packages/maven</url>-->
-<!--        </repository>-->
-<!--        <snapshotRepository>-->
-<!--            <id>primus-maven</id>-->
-<!--            <url>https://gitlab.com/api/v4/projects/22798334/packages/maven</url>-->
-<!--        </snapshotRepository>-->
-<!--    </distributionManagement>-->
+    <repositories>
+        <repository>
+            <id>iddera-maven</id>
+            <url>https://gitlab.com/api/v4/projects/24607722/packages/maven</url>
+        </repository>
+    </repositories>
+    <distributionManagement>
+        <repository>
+            <id>iddera-maven</id>
+            <url>https://gitlab.com/api/v4/projects/24607722/packages/maven</url>
+        </repository>
+        <snapshotRepository>
+            <id>iddera-maven</id>
+            <url>https://gitlab.com/api/v4/projects/24607722/packages/maven</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <dependencies>
         <dependency>
@@ -207,20 +207,6 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
-<!--            <plugin>-->
-<!--                <groupId>org.springframework.boot</groupId>-->
-<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--                <configuration>-->
-<!--                    <mainClass>gov.primus.ogirs.user.service.OgirsUserManagementServiceApplication</mainClass>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <goals>-->
-<!--                            <goal>repackage</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
