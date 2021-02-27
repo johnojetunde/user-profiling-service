@@ -2,14 +2,11 @@ package com.iddera.entity;
 
 import com.iddera.enums.Gender;
 import com.iddera.enums.MaritalStatus;
-import com.iddera.model.BaseEntity;
 import com.iddera.model.Location;
-import com.iddera.model.UserModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import javax.validation.Valid;

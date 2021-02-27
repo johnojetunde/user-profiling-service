@@ -1,7 +1,7 @@
 package com.iddera.repository;
 
 import com.iddera.enums.Status;
-import com.iddera.model.BaseEntity;
+import com.iddera.entity.BaseEntity;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
