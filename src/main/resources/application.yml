@@ -1,0 +1,34 @@
+server:
+  port: 9000
+
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DATABASE_URL:localhost:3306/user_profiling_db?createDatabaseIfNotExist=true&serverTimezone=UTC}
+    username: ${DATABASE_USERNAME:root}
+    password: ${DATABASE_PASSWORD:root}
+    maxConnections: 10
+
+    jpa:
+      show-sql: true
+      hibernate:
+        ddl-auto: none
+      dialect: org.hibernate.dialect.MySQL5Dialect
+      generate-ddl: false
+      properties:
+        hibernate:
+          format_sql: true
+    liquibase:
+      enabled: true
+      change-log: classpath:db/db.changeLog-master.xml
+redis:
+  host: ${REDIS_HOST:localhost}
+  port: ${REDIS_PORT:6379}
+  password: ${REDIS_PASSWORD:}
+logging:
+  level:
+    root: INFO
+  file:
+    name: iddera-user-profiling-service.log
+    max-size: 50MB
+swagger-auth-link: ${SWAGGER_AUTH_LINK:http://127.0.0.1:8080}

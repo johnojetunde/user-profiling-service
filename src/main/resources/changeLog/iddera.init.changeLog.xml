@@ -1,0 +1,39 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="oakinrele" id="202102271939-01">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="user_profiles"/>
+            </not>
+        </preConditions>
+        <createTable tableName="user_profiles">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
+            </column>
+
+            <column name="gender" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="marital_status" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="country" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="state" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="created_at" type="datetime"/>
+            <column name="created_by" type="VARCHAR(150)"/>
+            <column name="updated_at" type="datetime"/>
+            <column name="updated_by" type="VARCHAR(150)"/>
+            <column name="record_status" type="VARCHAR(50)"/>
+
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
