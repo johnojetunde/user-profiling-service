@@ -3,6 +3,7 @@ package com.iddera.entity;
 import com.iddera.enums.Gender;
 import com.iddera.enums.MaritalStatus;
 import com.iddera.model.Location;
+import com.iddera.model.UserProfileModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,7 @@ import javax.validation.constraints.NotNull;
 public class UserProfile extends BaseEntity {
      @Column(unique = true, nullable = false)
      @NotNull(message = "User Id can not be null")
-     private Long user_id;
+     private Long userId;
 
      @NotNull(message = "Gender can not be null")
      private Gender gender;
@@ -33,4 +34,13 @@ public class UserProfile extends BaseEntity {
      @Valid
      @NotNull(message = "Location can not be null")
      private Location location;
+
+     public UserProfileModel toModel() {
+          return new UserProfileModel()
+                     .setUserId(getUserId())
+                     .setGender(getGender())
+                     .setMaritalStatus(getMaritalStatus())
+                     .setCountry(getLocation().getCountry())
+                     .setState(getLocation().getState());
+     }
 }

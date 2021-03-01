@@ -1,5 +1,6 @@
 package com.iddera.model;
 
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
@@ -12,5 +13,4 @@ public class UserModel {
     private String lastName;
     private String email;
     private String username;
-    private UserProfile userProfile;
 }
