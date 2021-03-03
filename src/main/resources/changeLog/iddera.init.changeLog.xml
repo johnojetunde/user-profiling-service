@@ -14,6 +14,10 @@
                 <constraints nullable="false" primaryKey="true" unique="true"/>
             </column>
 
+            <column name="username" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+
             <column name="gender" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>

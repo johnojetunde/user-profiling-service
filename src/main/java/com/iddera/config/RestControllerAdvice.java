@@ -7,7 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.security.access.AccessDeniedException;
+//import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -58,11 +58,11 @@ public class RestControllerAdvice extends ResponseEntityExceptionHandler {
     }
 
 
-    @ExceptionHandler(value = {AccessDeniedException.class})
-    public ResponseEntity<ResponseModel> handleAccessDeniedException(AccessDeniedException ex, WebRequest request) {
-        log.error("Unhandled exception encountered: {}", ex.getMessage(), ex);
-        return new ResponseEntity<>(new ResponseModel(null, "", singletonList(ex.getMessage()), FORBIDDEN.value()), FORBIDDEN);
-    }
+//    @ExceptionHandler(value = {AccessDeniedException.class})
+//    public ResponseEntity<ResponseModel> handleAccessDeniedException(AccessDeniedException ex, WebRequest request) {
+//        log.error("Unhandled exception encountered: {}", ex.getMessage(), ex);
+//        return new ResponseEntity<>(new ResponseModel(null, "", singletonList(ex.getMessage()), FORBIDDEN.value()), FORBIDDEN);
+//    }
 
     @ExceptionHandler(value = {MultipartException.class})
     public ResponseEntity<ResponseModel> handleBadRequestException(Exception ex, WebRequest request) {

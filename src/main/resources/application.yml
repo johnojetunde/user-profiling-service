@@ -6,7 +6,7 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://${DATABASE_URL:localhost:3306/user_profiling_db?createDatabaseIfNotExist=true&serverTimezone=UTC}
     username: ${DATABASE_USERNAME:root}
-    password: ${DATABASE_PASSWORD:root}
+    password: ${DATABASE_PASSWORD:root123@}
     maxConnections: 10
 
     jpa:

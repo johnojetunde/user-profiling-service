@@ -20,8 +20,8 @@ import java.util.Map;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com.iddera",
-                       entityManagerFactoryRef = "iderraEntityManagerFactory",
-                       transactionManagerRef = "iderraTransactionManager")
+                       entityManagerFactoryRef = "idderaEntityManagerFactory",
+                       transactionManagerRef = "idderaTransactionManager")
 public class DataConfig {
 
     @Value("${spring.datasource.maxConnections}")
@@ -71,7 +71,7 @@ public class DataConfig {
 
     @Primary
     @Bean(name = "idderaEntityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean managerFactory(
+    public LocalContainerEntityManagerFactoryBean idderaEntityManagerFactory(
             EntityManagerFactoryBuilder builder) {
         Map<String, String> jpaPropertyMap = new HashMap<>();
         jpaPropertyMap.put("hibernate.id.new_generator_mappings", "false");
