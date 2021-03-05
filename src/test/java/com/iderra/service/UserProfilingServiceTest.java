@@ -3,8 +3,6 @@ package com.iderra.service;
 import com.iddera.enums.Gender;
 import com.iddera.enums.MaritalStatus;
 import com.iddera.exception.ApiException;
-import com.iddera.exception.UserProfilingException;
-import com.iddera.model.Location;
 import com.iddera.model.request.UserProfileRequest;
 import com.iddera.repository.UserProfileRepository;
 import com.iddera.service.impl.UserProfileServiceImpl;
@@ -38,14 +36,9 @@ public class UserProfilingServiceTest {
                                 .userId(null)
                                 .gender(Gender.FEMALE)
                                 .maritalStatus(MaritalStatus.SINGLE)
-                                .location(buildLocation())
+                                .countryId(1L)
+                                .stateId(1L)
+                                .lgaId(1l)
                                 .build();
-    }
-
-    public Location buildLocation(){
-        Location location = new Location();
-        location.setCountry("Nigeria");
-        location.setState("Lagos");
-        return location;
     }
 }

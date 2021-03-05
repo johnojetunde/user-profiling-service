@@ -21,7 +21,6 @@ import java.time.LocalDateTime;
 @ToString
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(ignoreUnknown = true)
 @Data
 public class BaseEntity implements Serializable {
     @Id
@@ -36,37 +35,7 @@ public class BaseEntity implements Serializable {
     @LastModifiedBy
     String updatedBy;
 
-    @Enumerated(value = EnumType.STRING)
     @Column(nullable = false, length = 31)
-    @ColumnDefault("'ACTIVE'")
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Status recordStatus = Status.ACTIVE;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-
-        if (o == null || getClass() != o.getClass()) return false;
-
-        if(id == null) return super.equals(o);
-
-        BaseEntity baseModel = (BaseEntity) o;
-
-        return new EqualsBuilder()
-                .append(id, baseModel.id)
-                .append(createdAt, baseModel.createdAt)
-                .append(updatedAt, baseModel.updatedAt)
-                .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        if (id == null) return super.hashCode();
-
-        return new HashCodeBuilder(17, 37)
-                .append(id)
-                .append(createdAt)
-                .append(updatedAt)
-                .toHashCode();
-    }
+    private boolean isDeleted;
 }

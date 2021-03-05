@@ -1,0 +1,450 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="oakinrele" id="state-NGA-AB">
+        <insert tableName="state">
+            <column name="id" valueNumeric="1"/>
+            <column name="code" value="NGA-AB"/>
+            <column name="name" value="Abia State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+        </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-AD">
+        <insert tableName="state">
+            <column name="id" valueNumeric="2"/>
+            <column name="code" value="NGA-AD"/>
+            <column name="name" value="Adamawa State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-AK">
+        <insert tableName="state">
+            <column name="id" valueNumeric="3"/>
+            <column name="code" value="NGA-AK"/>
+            <column name="name" value="Akwa Ibom State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-AN">
+        <insert tableName="state">
+            <column name="id" valueNumeric="4"/>
+            <column name="code" value="NGA-AN"/>
+            <column name="name" value="Anambra State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-BA">
+        <insert tableName="state">
+            <column name="id" valueNumeric="5"/>
+            <column name="code" value="NGA-BA"/>
+            <column name="name" value="Bauchi State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-BY">
+        <insert tableName="state">
+            <column name="id" valueNumeric="6"/>
+            <column name="code" value="NGA-BY"/>
+            <column name="name" value="Bayelsa State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-BE">
+        <insert tableName="state">
+            <column name="id" valueNumeric="7"/>
+            <column name="code" value="NGA-BE"/>
+            <column name="name" value="Benue State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-BO">
+        <insert tableName="state">
+            <column name="id" valueNumeric="8"/>
+            <column name="code" value="NGA-BO"/>
+            <column name="name" value="Borno State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-CR">
+        <insert tableName="state">
+            <column name="id" valueNumeric="9"/>
+            <column name="code" value="NGA-CR"/>
+            <column name="name" value="Cross River State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-DE">
+        <insert tableName="state">
+            <column name="id" valueNumeric="10"/>
+            <column name="code" value="NGA-DE"/>
+            <column name="name" value="Delta State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-EB">
+        <insert tableName="state">
+            <column name="id" valueNumeric="11"/>
+            <column name="code" value="NGA-EB"/>
+            <column name="name" value="Ebonyi State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-ED">
+        <insert tableName="state">
+            <column name="id" valueNumeric="12"/>
+            <column name="code" value="NGA-ED"/>
+            <column name="name" value="Edo State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-EK">
+        <insert tableName="state">
+            <column name="id" valueNumeric="13"/>
+            <column name="code" value="NGA-EK"/>
+            <column name="name" value="Ekiti State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-EN">
+        <insert tableName="state">
+            <column name="id" valueNumeric="14"/>
+            <column name="code" value="NGA-EN"/>
+            <column name="name" value="Enugu State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-FC">
+        <insert tableName="state">
+            <column name="id" valueNumeric="15"/>
+            <column name="code" value="NGA-FC"/>
+            <column name="name" value="FCT"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-GO">
+        <insert tableName="state">
+            <column name="id" valueNumeric="16"/>
+            <column name="code" value="NGA-GO"/>
+            <column name="name" value="Gombe State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-IM">
+        <insert tableName="state">
+            <column name="id" valueNumeric="17"/>
+            <column name="code" value="NGA-IM"/>
+            <column name="name" value="Imo State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-JI">
+        <insert tableName="state">
+            <column name="id" valueNumeric="18"/>
+            <column name="code" value="NGA-JI"/>
+            <column name="name" value="Jigawa State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-KD">
+        <insert tableName="state">
+            <column name="id" valueNumeric="19"/>
+            <column name="code" value="NGA-KD"/>
+            <column name="name" value="Kaduna State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-KN">
+        <insert tableName="state">
+            <column name="id" valueNumeric="20"/>
+            <column name="code" value="NGA-KN"/>
+            <column name="name" value="Kano State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-KT">
+        <insert tableName="state">
+            <column name="id" valueNumeric="21"/>
+            <column name="code" value="NGA-KT"/>
+            <column name="name" value="Katsina State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-KE">
+        <insert tableName="state">
+            <column name="id" valueNumeric="22"/>
+            <column name="code" value="NGA-KE"/>
+            <column name="name" value="Kebbi State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-KO">
+        <insert tableName="state">
+            <column name="id" valueNumeric="23"/>
+            <column name="code" value="NGA-KO"/>
+            <column name="name" value="Kogi State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-KW">
+        <insert tableName="state">
+            <column name="id" valueNumeric="24"/>
+            <column name="code" value="NGA-KW"/>
+            <column name="name" value="Kwara State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-LA">
+        <insert tableName="state">
+            <column name="id" valueNumeric="25"/>
+            <column name="code" value="NGA-LA"/>
+            <column name="name" value="Lagos State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-NA">
+        <insert tableName="state">
+            <column name="id" valueNumeric="26"/>
+            <column name="code" value="NGA-NA"/>
+            <column name="name" value="Nasarawa State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-NI">
+        <insert tableName="state">
+            <column name="id" valueNumeric="27"/>
+            <column name="code" value="NGA-NI"/>
+            <column name="name" value="Niger State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-OG">
+        <insert tableName="state">
+            <column name="id" valueNumeric="28"/>
+            <column name="code" value="NGA-OG"/>
+            <column name="name" value="Ogun State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-ON">
+        <insert tableName="state">
+            <column name="id" valueNumeric="29"/>
+            <column name="code" value="NGA-ON"/>
+            <column name="name" value="Ondo State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-OS">
+        <insert tableName="state">
+            <column name="id" valueNumeric="30"/>
+            <column name="code" value="NGA-OS"/>
+            <column name="name" value="Osun State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-OY">
+        <insert tableName="state">
+            <column name="id" valueNumeric="31"/>
+            <column name="code" value="NGA-OY"/>
+            <column name="name" value="Oyo State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+      </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-PL">
+        <insert tableName="state">
+            <column name="id" valueNumeric="32"/>
+            <column name="code" value="NGA-PL"/>
+            <column name="name" value="Plateau State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+        </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-RI">
+        <insert tableName="state">
+            <column name="id" valueNumeric="33"/>
+            <column name="code" value="NGA-RI"/>
+            <column name="name" value="Rivers State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+        </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-SO">
+        <insert tableName="state">
+            <column name="id" valueNumeric="34"/>
+            <column name="code" value="NGA-SO"/>
+            <column name="name" value="Sokoto State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+        </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-TA">
+        <insert tableName="state">
+            <column name="id" valueNumeric="35"/>
+            <column name="code" value="NGA-TA"/>
+            <column name="name" value="Taraba State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+        </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-YO">
+        <insert tableName="state">
+            <column name="id" valueNumeric="36"/>
+            <column name="code" value="NGA-YO"/>
+            <column name="name" value="Yobe State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+        </insert>
+    </changeSet>
+    <changeSet author="oakinrele" id="state-NGA-ZA">
+        <insert tableName="state">
+            <column name="id" valueNumeric="37"/>
+            <column name="code" value="NGA-ZA"/>
+            <column name="name" value="Zamfara State"/>
+            <column name="country_id" value="1"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+            <column name="updated_by" value="system"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

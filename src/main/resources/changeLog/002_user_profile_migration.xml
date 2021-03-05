@@ -1,0 +1,71 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="oakinrele" id="202102271939-01">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="user_profile"/>
+            </not>
+        </preConditions>
+        <createTable tableName="user_profile">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
+            </column>
+
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <column name="gender" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="marital_status" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="country_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="state_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="lga_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="created_at" type="datetime"/>
+            <column name="created_by" type="VARCHAR(150)"/>
+            <column name="updated_at" type="datetime"/>
+            <column name="updated_by" type="VARCHAR(150)"/>
+            <column name="is_deleted" defaultValueBoolean="false" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+
+    <changeSet  author="oakinrele"  id="202102271939-02">
+        <addForeignKeyConstraint baseColumnNames="country_id" baseTableName="user_profile"
+                                 constraintName="FK_user_profiles_country_id" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="country" validate="true"/>
+    </changeSet>
+
+    <changeSet  author="oakinrele"  id="202102271939-03">
+        <addForeignKeyConstraint baseColumnNames="state_id" baseTableName="user_profile"
+                                 constraintName="FK_user_profiles_state_id" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="state" validate="true"/>
+    </changeSet>
+
+    <changeSet  author="oakinrele"  id="202102271939-04">
+        <addForeignKeyConstraint baseColumnNames="lga_id" baseTableName="user_profile"
+                                 constraintName="FK_user_profile_lga_id" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="local_government_area" validate="true"/>
+    </changeSet>
+
+</databaseChangeLog>

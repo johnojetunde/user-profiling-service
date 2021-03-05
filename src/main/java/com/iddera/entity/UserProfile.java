@@ -2,7 +2,6 @@ package com.iddera.entity;
 
 import com.iddera.enums.Gender;
 import com.iddera.enums.MaritalStatus;
-import com.iddera.model.Location;
 import com.iddera.model.UserProfileModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,8 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
@@ -21,28 +18,33 @@ import javax.validation.constraints.NotNull;
 @Table(name = "user_profile")
 public class UserProfile extends BaseEntity {
      @Column(unique = true, nullable = false)
-     @NotNull(message = "User Id can not be null")
      private Long userId;
 
      @Enumerated(EnumType.STRING)
-     @NotNull(message = "Gender can not be null")
      private Gender gender;
 
      @Enumerated(EnumType.STRING)
-     @NotNull(message = "Marital status can not be null")
      private MaritalStatus maritalStatus;
 
-     @Embedded
-     @Valid
-     @NotNull(message = "Location can not be null")
-     private Location location;
+     @ManyToOne(targetEntity = Country.class)
+     @JoinColumn(name = "country_id", referencedColumnName = "id", nullable = false)
+     private Country country;
+
+     @ManyToOne(targetEntity = State.class)
+     @JoinColumn(name = "state_id", referencedColumnName = "id", nullable = false)
+     private State state;
+
+     @ManyToOne(targetEntity = LocalGovernmentArea.class)
+     @JoinColumn(name = "lga_id", referencedColumnName = "id", nullable = false)
+     private LocalGovernmentArea lga;
 
      public UserProfileModel toModel() {
           return new UserProfileModel()
                      .setUserId(getUserId())
                      .setGender(getGender())
                      .setMaritalStatus(getMaritalStatus())
-                     .setCountry(getLocation().getCountry())
-                     .setState(getLocation().getState());
+                     .setCountryId(getCountry().getId())
+                     .setStateId(getState().getId())
+                     .setLgaId(getLga().getId());
      }
 }

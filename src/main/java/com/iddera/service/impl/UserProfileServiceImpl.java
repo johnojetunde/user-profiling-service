@@ -1,10 +1,16 @@
 package com.iddera.service.impl;
 
+import com.iddera.entity.Country;
+import com.iddera.entity.LocalGovernmentArea;
+import com.iddera.entity.State;
 import com.iddera.entity.UserProfile;
 import com.iddera.exception.ApiException;
 import com.iddera.exception.UserProfilingException;
 import com.iddera.model.UserProfileModel;
 import com.iddera.model.request.UserProfileRequest;
+import com.iddera.repository.CountryRepository;
+import com.iddera.repository.LgaRepository;
+import com.iddera.repository.StateRepository;
 import com.iddera.repository.UserProfileRepository;
 import com.iddera.service.UserProfileService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,9 +26,18 @@ import static java.util.concurrent.CompletableFuture.supplyAsync;
 @Slf4j
 public class UserProfileServiceImpl implements UserProfileService {
     private final UserProfileRepository userProfileRepository;
+    private final CountryRepository countryRepository;
+    private final StateRepository stateRepository;
+    private final LgaRepository lgaRepository;
 
-    public UserProfileServiceImpl(UserProfileRepository userProfileRepository) {
+    public UserProfileServiceImpl(UserProfileRepository userProfileRepository,
+                                  CountryRepository countryRepository,
+                                  StateRepository stateRepository,
+                                  LgaRepository lgaRepository) {
         this.userProfileRepository = userProfileRepository;
+        this.countryRepository = countryRepository;
+        this.stateRepository = stateRepository;
+        this.lgaRepository = lgaRepository;
     }
 
     @Override
@@ -44,7 +59,9 @@ public class UserProfileServiceImpl implements UserProfileService {
                                      profile
                                     .setMaritalStatus(request.getMaritalStatus())
                                     .setGender(request.getGender())
-                                    .setLocation(request.getLocation());
+                                    .setCountry(ensureCountryExists(request.getCountryId()))
+                                    .setState(ensureStateExists(request.getStateId()))
+                                    .setLga(ensureLgaExists(request.getLgaId()));
 
             return userProfileRepository.save(profile);
         });
@@ -60,7 +77,9 @@ public class UserProfileServiceImpl implements UserProfileService {
                                       .setUserId(request.getUserId())
                                       .setMaritalStatus(request.getMaritalStatus())
                                       .setGender(request.getGender())
-                                      .setLocation(request.getLocation());
+                                      .setCountry(ensureCountryExists(request.getUserId()))
+                                      .setState(ensureStateExists(request.getUserId()))
+                                      .setLga(ensureLgaExists(request.getUserId()));
 
             return userProfileRepository.save(userProfile);
         });
@@ -70,6 +89,21 @@ public class UserProfileServiceImpl implements UserProfileService {
         var userProfileResult =  userProfileRepository.findByUserId(userId);
         return userProfileResult
                 .orElseThrow(() -> new ApiException(format("User profile for userId :%d does not exist.",userId)));
+    }
+
+    public Country ensureCountryExists(Long countryId) {
+        return countryRepository.findById(countryId)
+                .orElseThrow(() -> new ApiException(String.format("Country with id :%d does not exist.", countryId)));
+    }
+
+    public State ensureStateExists(Long stateId){
+        return stateRepository.findById(stateId)
+                .orElseThrow(() -> new ApiException(String.format("State with id :%d does not exist.",stateId)));
+    }
+
+    public LocalGovernmentArea ensureLgaExists(Long lgaId){
+        return lgaRepository.findById(lgaId)
+                .orElseThrow(() -> new ApiException(String.format("Local government area with id :%d does not exist.",lgaId)));
     }
 
     public void ensureUserProfileDoesNotExist(Long userId){

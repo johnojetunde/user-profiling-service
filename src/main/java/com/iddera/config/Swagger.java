@@ -52,8 +52,8 @@ public class Swagger {
 
     private ApiInfo apiEndPointsInfo() {
         return new ApiInfoBuilder()
-                .title("Iderra")
-                .description("Iderra User Profiling Service")
+                .title("Iddera")
+                .description("Iddera User Profiling Service")
                 .build();
     }
 

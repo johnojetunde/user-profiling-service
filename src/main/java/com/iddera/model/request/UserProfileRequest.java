@@ -2,11 +2,9 @@ package com.iddera.model.request;
 
 import com.iddera.enums.Gender;
 import com.iddera.enums.MaritalStatus;
-import com.iddera.model.Location;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import javax.persistence.EnumType;
@@ -28,6 +26,12 @@ public class UserProfileRequest {
     @NotNull(message = "Gender can not be null of empty")
     private Gender gender;
 
-    @NotNull(message = "Location can not be null")
-    private Location location;
+    @NotNull(message = "Country Id can not be null.")
+    private Long countryId;
+
+    @NotNull(message = "State Id can not be null.")
+    private Long stateId;
+
+    @NotNull(message = "Lga Id can not be null.")
+    private Long lgaId;
 }
