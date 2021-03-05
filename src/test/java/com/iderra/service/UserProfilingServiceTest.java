@@ -2,6 +2,7 @@ package com.iderra.service;
 
 import com.iddera.enums.Gender;
 import com.iddera.enums.MaritalStatus;
+import com.iddera.exception.ApiException;
 import com.iddera.exception.UserProfilingException;
 import com.iddera.model.Location;
 import com.iddera.model.request.UserProfileRequest;
@@ -27,7 +28,7 @@ public class UserProfilingServiceTest {
 
     @Test
     void createProfileFails_WhenUserIdIsInvalid() {
-        assertThatExceptionOfType(UserProfilingException.class)
+        assertThatExceptionOfType(ApiException.class)
                 .isThrownBy(() -> userProfileServiceImpl.create(buildUserProfileRequest()))
                 .withMessage("User Id can not be null.");
     }

@@ -985,3 +985,185 @@ com.iddera.exception.ApiException: Profile already exists for userId :1
 	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594) ~[na:na]
 	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183) ~[na:na]
 
+2021-03-05 05:05:25.463  INFO 89835 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-03-05 05:05:25.466  INFO 89835 --- [SpringContextShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-03-05 05:05:25.468  INFO 89835 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-03-05 05:05:25.479  INFO 89835 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-03-05 05:05:35.793  INFO 89888 --- [main] c.i.UserProfilingServiceApplication      : Starting UserProfilingServiceApplication on Oluwasanmis-MBP with PID 89888 (/Users/oakinrele/iddera/user-profiling-service/target/classes started by oakinrele in /Users/oakinrele/iddera/user-profiling-service)
+2021-03-05 05:05:35.794  INFO 89888 --- [main] c.i.UserProfilingServiceApplication      : No active profile set, falling back to default profiles: default
+2021-03-05 05:05:36.746  INFO 89888 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-03-05 05:05:36.747  INFO 89888 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2021-03-05 05:05:36.800  INFO 89888 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.iddera.repository.UserProfileRepository. If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2021-03-05 05:05:36.801  INFO 89888 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 48ms. Found 0 JDBC repository interfaces.
+2021-03-05 05:05:36.817  INFO 89888 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-03-05 05:05:36.818  INFO 89888 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-03-05 05:05:36.890  INFO 89888 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 66ms. Found 1 JPA repository interfaces.
+2021-03-05 05:05:37.330  INFO 89888 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-03-05 05:05:37.546  INFO 89888 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9000 (http)
+2021-03-05 05:05:37.554  INFO 89888 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-03-05 05:05:37.554  INFO 89888 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.30]
+2021-03-05 05:05:37.618  INFO 89888 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-03-05 05:05:37.618  INFO 89888 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1795 ms
+2021-03-05 05:05:37.868  INFO 89888 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-03-05 05:05:38.165  INFO 89888 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-03-05 05:05:38.710  INFO 89888 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT COUNT(*) FROM user_profiling_db.DATABASECHANGELOGLOCK
+2021-03-05 05:05:38.715  INFO 89888 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT COUNT(*) FROM user_profiling_db.DATABASECHANGELOGLOCK
+2021-03-05 05:05:38.717  INFO 89888 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT `LOCKED` FROM user_profiling_db.DATABASECHANGELOGLOCK WHERE ID=1
+2021-03-05 05:05:38.728  INFO 89888 --- [main] l.lockservice.StandardLockService        : Successfully acquired change log lock
+2021-03-05 05:05:40.255  INFO 89888 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT MD5SUM FROM user_profiling_db.DATABASECHANGELOG WHERE MD5SUM IS NOT NULL LIMIT 1
+2021-03-05 05:05:40.257  INFO 89888 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT COUNT(*) FROM user_profiling_db.DATABASECHANGELOG
+2021-03-05 05:05:40.258  INFO 89888 --- [main] l.c.StandardChangeLogHistoryService      : Reading from user_profiling_db.DATABASECHANGELOG
+2021-03-05 05:05:40.258  INFO 89888 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT * FROM user_profiling_db.DATABASECHANGELOG ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2021-03-05 05:05:40.271  INFO 89888 --- [main] l.lockservice.StandardLockService        : Successfully released change log lock
+2021-03-05 05:05:40.349  INFO 89888 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-03-05 05:05:40.428  INFO 89888 --- [main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.4.10.Final}
+2021-03-05 05:05:40.556  INFO 89888 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2021-03-05 05:05:40.651  INFO 89888 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-03-05 05:05:41.145  INFO 89888 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-03-05 05:05:41.152  INFO 89888 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-03-05 05:05:41.553  WARN 89888 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-03-05 05:05:41.658  INFO 89888 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2021-03-05 05:05:41.738  INFO 89888 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-03-05 05:05:41.837  INFO 89888 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-05 05:05:42.117  INFO 89888 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-03-05 05:05:42.133  INFO 89888 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-03-05 05:05:42.149  INFO 89888 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-03-05 05:05:42.289  INFO 89888 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
+2021-03-05 05:05:42.292  INFO 89888 --- [main] c.i.UserProfilingServiceApplication      : Started UserProfilingServiceApplication in 6.852 seconds (JVM running for 7.558)
+2021-03-05 05:05:42.598  INFO 89888 --- [RMI TCP Connection(2)-192.168.0.107] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-05 05:05:42.598  INFO 89888 --- [RMI TCP Connection(2)-192.168.0.107] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-03-05 05:05:42.606  INFO 89888 --- [RMI TCP Connection(2)-192.168.0.107] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
+2021-03-05 05:08:43.220  INFO 89888 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-03-05 05:08:43.225  INFO 89888 --- [SpringContextShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-03-05 05:08:43.228  INFO 89888 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-03-05 05:08:43.239  INFO 89888 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-03-05 05:08:53.398  INFO 89898 --- [main] c.i.UserProfilingServiceApplication      : Starting UserProfilingServiceApplication on Oluwasanmis-MBP with PID 89898 (/Users/oakinrele/iddera/user-profiling-service/target/classes started by oakinrele in /Users/oakinrele/iddera/user-profiling-service)
+2021-03-05 05:08:53.400  INFO 89898 --- [main] c.i.UserProfilingServiceApplication      : No active profile set, falling back to default profiles: default
+2021-03-05 05:08:54.241  INFO 89898 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-03-05 05:08:54.241  INFO 89898 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2021-03-05 05:08:54.271  INFO 89898 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.iddera.repository.UserProfileRepository. If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2021-03-05 05:08:54.272  INFO 89898 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 26ms. Found 0 JDBC repository interfaces.
+2021-03-05 05:08:54.279  INFO 89898 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-03-05 05:08:54.280  INFO 89898 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-03-05 05:08:54.301  INFO 89898 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 18ms. Found 1 JPA repository interfaces.
+2021-03-05 05:08:54.657  INFO 89898 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-03-05 05:08:55.103  INFO 89898 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9000 (http)
+2021-03-05 05:08:55.111  INFO 89898 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-03-05 05:08:55.112  INFO 89898 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.30]
+2021-03-05 05:08:55.182  INFO 89898 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-03-05 05:08:55.182  INFO 89898 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1748 ms
+2021-03-05 05:08:55.446  INFO 89898 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-03-05 05:08:55.749  INFO 89898 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-03-05 05:08:56.324  INFO 89898 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT COUNT(*) FROM user_profiling_db.DATABASECHANGELOGLOCK
+2021-03-05 05:08:56.329  INFO 89898 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT COUNT(*) FROM user_profiling_db.DATABASECHANGELOGLOCK
+2021-03-05 05:08:56.331  INFO 89898 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT `LOCKED` FROM user_profiling_db.DATABASECHANGELOGLOCK WHERE ID=1
+2021-03-05 05:08:56.340  INFO 89898 --- [main] l.lockservice.StandardLockService        : Successfully acquired change log lock
+2021-03-05 05:08:58.119  INFO 89898 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT MD5SUM FROM user_profiling_db.DATABASECHANGELOG WHERE MD5SUM IS NOT NULL LIMIT 1
+2021-03-05 05:08:58.120  INFO 89898 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT COUNT(*) FROM user_profiling_db.DATABASECHANGELOG
+2021-03-05 05:08:58.121  INFO 89898 --- [main] l.c.StandardChangeLogHistoryService      : Reading from user_profiling_db.DATABASECHANGELOG
+2021-03-05 05:08:58.122  INFO 89898 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT * FROM user_profiling_db.DATABASECHANGELOG ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2021-03-05 05:08:58.133  INFO 89898 --- [main] l.lockservice.StandardLockService        : Successfully released change log lock
+2021-03-05 05:08:58.213  INFO 89898 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-03-05 05:08:58.286  INFO 89898 --- [main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.4.10.Final}
+2021-03-05 05:08:58.393  INFO 89898 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2021-03-05 05:08:58.490  INFO 89898 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-03-05 05:08:58.996  INFO 89898 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-03-05 05:08:59.004  INFO 89898 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-03-05 05:08:59.479  WARN 89898 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-03-05 05:08:59.586  INFO 89898 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2021-03-05 05:08:59.668  INFO 89898 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-03-05 05:08:59.776  INFO 89898 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-05 05:08:59.863  WARN 89898 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'handlerExceptionResolver' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.web.servlet.HandlerExceptionResolver]: Factory method 'handlerExceptionResolver' threw exception; nested exception is java.lang.IllegalStateException: Ambiguous @ExceptionHandler method mapped for [class com.iddera.exception.UserProfilingException]: {public org.springframework.http.ResponseEntity com.iddera.config.RestControllerAdvice.handleDomainException(com.iddera.exception.UserProfilingException), public org.springframework.http.ResponseEntity com.iddera.config.RestControllerAdvice.handleBadRequestException(java.lang.Exception,org.springframework.web.context.request.WebRequest)}
+2021-03-05 05:08:59.864  INFO 89898 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-03-05 05:08:59.866  INFO 89898 --- [main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-03-05 05:08:59.867  INFO 89898 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-03-05 05:08:59.876  INFO 89898 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-03-05 05:08:59.878  INFO 89898 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2021-03-05 05:08:59.891  INFO 89898 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2021-03-05 05:08:59.898 ERROR 89898 --- [main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'handlerExceptionResolver' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.web.servlet.HandlerExceptionResolver]: Factory method 'handlerExceptionResolver' threw exception; nested exception is java.lang.IllegalStateException: Ambiguous @ExceptionHandler method mapped for [class com.iddera.exception.UserProfilingException]: {public org.springframework.http.ResponseEntity com.iddera.config.RestControllerAdvice.handleDomainException(com.iddera.exception.UserProfilingException), public org.springframework.http.ResponseEntity com.iddera.config.RestControllerAdvice.handleBadRequestException(java.lang.Exception,org.springframework.web.context.request.WebRequest)}
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:656) ~[spring-beans-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:636) ~[spring-beans-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1338) ~[spring-beans-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1177) ~[spring-beans-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557) ~[spring-beans-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:879) ~[spring-beans-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:878) ~[spring-context-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:550) ~[spring-context-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:141) ~[spring-boot-2.2.3.RELEASE.jar:2.2.3.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:747) ~[spring-boot-2.2.3.RELEASE.jar:2.2.3.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) ~[spring-boot-2.2.3.RELEASE.jar:2.2.3.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315) ~[spring-boot-2.2.3.RELEASE.jar:2.2.3.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226) ~[spring-boot-2.2.3.RELEASE.jar:2.2.3.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1215) ~[spring-boot-2.2.3.RELEASE.jar:2.2.3.RELEASE]
+	at com.iddera.UserProfilingServiceApplication.main(UserProfilingServiceApplication.java:11) ~[classes/:na]
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.web.servlet.HandlerExceptionResolver]: Factory method 'handlerExceptionResolver' threw exception; nested exception is java.lang.IllegalStateException: Ambiguous @ExceptionHandler method mapped for [class com.iddera.exception.UserProfilingException]: {public org.springframework.http.ResponseEntity com.iddera.config.RestControllerAdvice.handleDomainException(com.iddera.exception.UserProfilingException), public org.springframework.http.ResponseEntity com.iddera.config.RestControllerAdvice.handleBadRequestException(java.lang.Exception,org.springframework.web.context.request.WebRequest)}
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:185) ~[spring-beans-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:651) ~[spring-beans-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	... 19 common frames omitted
+Caused by: java.lang.IllegalStateException: Ambiguous @ExceptionHandler method mapped for [class com.iddera.exception.UserProfilingException]: {public org.springframework.http.ResponseEntity com.iddera.config.RestControllerAdvice.handleDomainException(com.iddera.exception.UserProfilingException), public org.springframework.http.ResponseEntity com.iddera.config.RestControllerAdvice.handleBadRequestException(java.lang.Exception,org.springframework.web.context.request.WebRequest)}
+	at org.springframework.web.method.annotation.ExceptionHandlerMethodResolver.addExceptionMapping(ExceptionHandlerMethodResolver.java:101) ~[spring-web-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.web.method.annotation.ExceptionHandlerMethodResolver.<init>(ExceptionHandlerMethodResolver.java:65) ~[spring-web-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver.initExceptionHandlerAdviceCache(ExceptionHandlerExceptionResolver.java:281) ~[spring-webmvc-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver.afterPropertiesSet(ExceptionHandlerExceptionResolver.java:258) ~[spring-webmvc-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport.addDefaultHandlerExceptionResolvers(WebMvcConfigurationSupport.java:1006) ~[spring-webmvc-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport.handlerExceptionResolver(WebMvcConfigurationSupport.java:948) ~[spring-webmvc-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:154) ~[spring-beans-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	... 20 common frames omitted
+
+2021-03-05 05:10:43.069  INFO 89917 --- [main] c.i.UserProfilingServiceApplication      : Starting UserProfilingServiceApplication on Oluwasanmis-MBP with PID 89917 (/Users/oakinrele/iddera/user-profiling-service/target/classes started by oakinrele in /Users/oakinrele/iddera/user-profiling-service)
+2021-03-05 05:10:43.071  INFO 89917 --- [main] c.i.UserProfilingServiceApplication      : No active profile set, falling back to default profiles: default
+2021-03-05 05:10:43.899  INFO 89917 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-03-05 05:10:43.899  INFO 89917 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2021-03-05 05:10:43.932  INFO 89917 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.iddera.repository.UserProfileRepository. If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2021-03-05 05:10:43.932  INFO 89917 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 30ms. Found 0 JDBC repository interfaces.
+2021-03-05 05:10:43.940  INFO 89917 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-03-05 05:10:43.940  INFO 89917 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-03-05 05:10:43.960  INFO 89917 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 18ms. Found 1 JPA repository interfaces.
+2021-03-05 05:10:44.192  INFO 89917 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-03-05 05:10:44.391  INFO 89917 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9000 (http)
+2021-03-05 05:10:44.397  INFO 89917 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-03-05 05:10:44.398  INFO 89917 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.30]
+2021-03-05 05:10:44.454  INFO 89917 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-03-05 05:10:44.455  INFO 89917 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1359 ms
+2021-03-05 05:10:44.710  INFO 89917 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-03-05 05:10:44.984  INFO 89917 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-03-05 05:10:45.622  INFO 89917 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT COUNT(*) FROM user_profiling_db.DATABASECHANGELOGLOCK
+2021-03-05 05:10:45.627  INFO 89917 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT COUNT(*) FROM user_profiling_db.DATABASECHANGELOGLOCK
+2021-03-05 05:10:45.630  INFO 89917 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT `LOCKED` FROM user_profiling_db.DATABASECHANGELOGLOCK WHERE ID=1
+2021-03-05 05:10:45.646  INFO 89917 --- [main] l.lockservice.StandardLockService        : Successfully acquired change log lock
+2021-03-05 05:10:47.124  INFO 89917 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT MD5SUM FROM user_profiling_db.DATABASECHANGELOG WHERE MD5SUM IS NOT NULL LIMIT 1
+2021-03-05 05:10:47.125  INFO 89917 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT COUNT(*) FROM user_profiling_db.DATABASECHANGELOG
+2021-03-05 05:10:47.126  INFO 89917 --- [main] l.c.StandardChangeLogHistoryService      : Reading from user_profiling_db.DATABASECHANGELOG
+2021-03-05 05:10:47.127  INFO 89917 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT * FROM user_profiling_db.DATABASECHANGELOG ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2021-03-05 05:10:47.137  INFO 89917 --- [main] l.lockservice.StandardLockService        : Successfully released change log lock
+2021-03-05 05:10:47.206  INFO 89917 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-03-05 05:10:47.265  INFO 89917 --- [main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.4.10.Final}
+2021-03-05 05:10:47.368  INFO 89917 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2021-03-05 05:10:47.462  INFO 89917 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-03-05 05:10:48.005  INFO 89917 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-03-05 05:10:48.012  INFO 89917 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-03-05 05:10:48.545  WARN 89917 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-03-05 05:10:48.666  INFO 89917 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2021-03-05 05:10:48.766  INFO 89917 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-03-05 05:10:48.905  INFO 89917 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-05 05:10:49.226  INFO 89917 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-03-05 05:10:49.248  INFO 89917 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-03-05 05:10:49.271  INFO 89917 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-03-05 05:10:49.440  INFO 89917 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
+2021-03-05 05:10:49.444  INFO 89917 --- [main] c.i.UserProfilingServiceApplication      : Started UserProfilingServiceApplication in 6.663 seconds (JVM running for 7.175)
+2021-03-05 05:10:49.560  INFO 89917 --- [RMI TCP Connection(2)-192.168.0.107] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-05 05:10:49.561  INFO 89917 --- [RMI TCP Connection(2)-192.168.0.107] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-03-05 05:10:49.569  INFO 89917 --- [RMI TCP Connection(2)-192.168.0.107] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms

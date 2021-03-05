@@ -1,4 +1,5 @@
 package com.iddera.config;
+import com.iddera.exception.ApiException;
 import com.iddera.exception.UserProfilingException;
 import com.iddera.model.ResponseModel;
 import lombok.extern.slf4j.Slf4j;
@@ -62,6 +63,12 @@ public class RestControllerAdvice extends ResponseEntityExceptionHandler {
         String msg = String.format("Exception message [%s] %n Metadata [%s]",
                 ex.getMessage(),
                 request.getDescription(false));
+        return new ResponseEntity<>(new ResponseModel(null, "", singletonList(msg), BAD_REQUEST.value()), BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = {ApiException.class})
+    public ResponseEntity<ResponseModel> handleApiException(ApiException ex){
+        String msg = String.format("Exception message [%s]", ex.getMessage());
         return new ResponseEntity<>(new ResponseModel(null, "", singletonList(msg), BAD_REQUEST.value()), BAD_REQUEST);
     }
 
