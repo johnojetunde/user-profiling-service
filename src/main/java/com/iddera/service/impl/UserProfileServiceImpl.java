@@ -1,6 +1,7 @@
 package com.iddera.service.impl;
 
 import com.iddera.entity.UserProfile;
+import com.iddera.exception.ApiException;
 import com.iddera.exception.UserProfilingException;
 import com.iddera.model.UserProfileModel;
 import com.iddera.model.request.UserProfileRequest;
@@ -68,13 +69,13 @@ public class UserProfileServiceImpl implements UserProfileService {
     public UserProfile getExistingUserProfile(Long userId){
         var userProfileResult =  userProfileRepository.findByUserId(userId);
         return userProfileResult
-                .orElseThrow(() -> new UserProfilingException(format("User profile for userId :%d does not exist.",userId)));
+                .orElseThrow(() -> new ApiException(format("User profile for userId :%d does not exist.",userId)));
     }
 
     public void ensureUserProfileDoesNotExist(Long userId){
         boolean profileExists = userProfileRepository.existsByUserId(userId);
         if(profileExists){
-            throw new UserProfilingException(String.format("Profile already exists for userId :%d",userId));
+            throw new ApiException(String.format("Profile already exists for userId :%d",userId));
         }
     }
 

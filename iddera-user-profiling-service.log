@@ -784,3 +784,204 @@ List of constraint violations:[
 2021-03-05 04:25:04.055  INFO 89628 --- [RMI TCP Connection(1)-192.168.0.107] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2021-03-05 04:25:04.056  INFO 89628 --- [RMI TCP Connection(1)-192.168.0.107] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2021-03-05 04:25:04.066  INFO 89628 --- [RMI TCP Connection(1)-192.168.0.107] o.s.web.servlet.DispatcherServlet        : Completed initialization in 9 ms
+2021-03-05 04:44:46.452  INFO 89628 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-03-05 04:44:46.459  INFO 89628 --- [SpringContextShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-03-05 04:44:46.467  INFO 89628 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-03-05 04:44:46.502  INFO 89628 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-03-05 04:55:42.954  INFO 89822 --- [main] c.i.UserProfilingServiceApplication      : Starting UserProfilingServiceApplication on Oluwasanmis-MBP with PID 89822 (/Users/oakinrele/iddera/user-profiling-service/target/classes started by oakinrele in /Users/oakinrele/iddera/user-profiling-service)
+2021-03-05 04:55:42.957  INFO 89822 --- [main] c.i.UserProfilingServiceApplication      : No active profile set, falling back to default profiles: default
+2021-03-05 04:55:44.015  INFO 89822 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-03-05 04:55:44.015  INFO 89822 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2021-03-05 04:55:44.057  INFO 89822 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.iddera.repository.UserProfileRepository. If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2021-03-05 04:55:44.058  INFO 89822 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 35ms. Found 0 JDBC repository interfaces.
+2021-03-05 04:55:44.067  INFO 89822 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-03-05 04:55:44.067  INFO 89822 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-03-05 04:55:44.094  INFO 89822 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25ms. Found 1 JPA repository interfaces.
+2021-03-05 04:55:44.381  INFO 89822 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-03-05 04:55:44.629  INFO 89822 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9000 (http)
+2021-03-05 04:55:44.638  INFO 89822 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-03-05 04:55:44.638  INFO 89822 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.30]
+2021-03-05 04:55:44.719  INFO 89822 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-03-05 04:55:44.720  INFO 89822 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1728 ms
+2021-03-05 04:55:45.004  INFO 89822 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-03-05 04:55:45.497  INFO 89822 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-03-05 04:55:46.116  INFO 89822 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT COUNT(*) FROM user_profiling_db.DATABASECHANGELOGLOCK
+2021-03-05 04:55:46.122  INFO 89822 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT COUNT(*) FROM user_profiling_db.DATABASECHANGELOGLOCK
+2021-03-05 04:55:46.125  INFO 89822 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT `LOCKED` FROM user_profiling_db.DATABASECHANGELOGLOCK WHERE ID=1
+2021-03-05 04:55:46.140  INFO 89822 --- [main] l.lockservice.StandardLockService        : Successfully acquired change log lock
+2021-03-05 04:55:47.732  INFO 89822 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT MD5SUM FROM user_profiling_db.DATABASECHANGELOG WHERE MD5SUM IS NOT NULL LIMIT 1
+2021-03-05 04:55:47.733  INFO 89822 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT COUNT(*) FROM user_profiling_db.DATABASECHANGELOG
+2021-03-05 04:55:47.734  INFO 89822 --- [main] l.c.StandardChangeLogHistoryService      : Reading from user_profiling_db.DATABASECHANGELOG
+2021-03-05 04:55:47.735  INFO 89822 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT * FROM user_profiling_db.DATABASECHANGELOG ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2021-03-05 04:55:47.748  INFO 89822 --- [main] l.lockservice.StandardLockService        : Successfully released change log lock
+2021-03-05 04:55:47.842  INFO 89822 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-03-05 04:55:47.935  INFO 89822 --- [main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.4.10.Final}
+2021-03-05 04:55:48.073  INFO 89822 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2021-03-05 04:55:48.168  INFO 89822 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-03-05 04:55:48.726  INFO 89822 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-03-05 04:55:48.733  INFO 89822 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-03-05 04:55:49.287  WARN 89822 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-03-05 04:55:49.398  INFO 89822 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2021-03-05 04:55:49.490  INFO 89822 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-03-05 04:55:49.624  INFO 89822 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-05 04:55:49.940  INFO 89822 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-03-05 04:55:49.959  INFO 89822 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-03-05 04:55:49.980  INFO 89822 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-03-05 04:55:50.153  INFO 89822 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
+2021-03-05 04:55:50.156  INFO 89822 --- [main] c.i.UserProfilingServiceApplication      : Started UserProfilingServiceApplication in 7.633 seconds (JVM running for 8.243)
+2021-03-05 04:55:50.637  INFO 89822 --- [RMI TCP Connection(1)-192.168.0.107] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-05 04:55:50.637  INFO 89822 --- [RMI TCP Connection(1)-192.168.0.107] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-03-05 04:55:50.646  INFO 89822 --- [RMI TCP Connection(1)-192.168.0.107] o.s.web.servlet.DispatcherServlet        : Completed initialization in 9 ms
+2021-03-05 04:55:58.668 ERROR 89822 --- [http-nio-9000-exec-3] com.iddera.config.RestControllerAdvice   : Unhandled exception encountered: Profile already exists for userId :1
+
+com.iddera.exception.UserProfilingException: Profile already exists for userId :1
+	at com.iddera.service.impl.UserProfileServiceImpl.ensureUserProfileDoesNotExist(UserProfileServiceImpl.java:77) ~[classes/:na]
+	at com.iddera.service.impl.UserProfileServiceImpl.lambda$createEntity$1(UserProfileServiceImpl.java:56) ~[classes/:na]
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1700) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.exec(CompletableFuture.java:1692) ~[na:na]
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290) ~[na:na]
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020) ~[na:na]
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656) ~[na:na]
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594) ~[na:na]
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183) ~[na:na]
+
+2021-03-05 04:55:58.670  WARN 89822 --- [http-nio-9000-exec-3] .m.m.a.ExceptionHandlerExceptionResolver : Failure in @ExceptionHandler com.iddera.config.RestControllerAdvice#handleDomainException(UserProfilingException)
+
+java.lang.IllegalArgumentException: No matching constant for [0]
+	at org.springframework.http.HttpStatus.valueOf(HttpStatus.java:538) ~[spring-web-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at com.iddera.config.RestControllerAdvice.handleDomainException(RestControllerAdvice.java:50) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190) ~[spring-web-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) ~[spring-web-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106) ~[spring-webmvc-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver.doResolveHandlerMethodException(ExceptionHandlerExceptionResolver.java:407) ~[spring-webmvc-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodExceptionResolver.doResolveException(AbstractHandlerMethodExceptionResolver.java:61) ~[spring-webmvc-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver.resolveException(AbstractHandlerExceptionResolver.java:141) ~[spring-webmvc-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.web.servlet.handler.HandlerExceptionResolverComposite.resolveException(HandlerExceptionResolverComposite.java:80) ~[spring-webmvc-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.processHandlerException(DispatcherServlet.java:1300) ~[spring-webmvc-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1111) ~[spring-webmvc-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1057) ~[spring-webmvc-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943) ~[spring-webmvc-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) ~[spring-webmvc-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660) ~[tomcat-embed-core-9.0.30.jar:9.0.30]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) ~[tomcat-embed-core-9.0.30.jar:9.0.30]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.30.jar:9.0.30]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.30.jar:9.0.30]
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:108) ~[spring-boot-actuator-2.2.3.RELEASE.jar:2.2.3.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.3.RELEASE.jar:5.2.3.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.30.jar:9.0.30]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.30.jar:9.0.30]
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:712) ~[tomcat-embed-core-9.0.30.jar:9.0.30]
+	at org.apache.catalina.core.ApplicationDispatcher.doDispatch(ApplicationDispatcher.java:633) ~[tomcat-embed-core-9.0.30.jar:9.0.30]
+	at org.apache.catalina.core.ApplicationDispatcher.dispatch(ApplicationDispatcher.java:601) ~[tomcat-embed-core-9.0.30.jar:9.0.30]
+	at org.apache.catalina.core.AsyncContextImpl$AsyncRunnable.run(AsyncContextImpl.java:585) ~[tomcat-embed-core-9.0.30.jar:9.0.30]
+	at org.apache.catalina.core.AsyncContextImpl.doInternalDispatch(AsyncContextImpl.java:364) ~[tomcat-embed-core-9.0.30.jar:9.0.30]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199) ~[tomcat-embed-core-9.0.30.jar:9.0.30]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) ~[tomcat-embed-core-9.0.30.jar:9.0.30]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541) ~[tomcat-embed-core-9.0.30.jar:9.0.30]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) ~[tomcat-embed-core-9.0.30.jar:9.0.30]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-9.0.30.jar:9.0.30]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-9.0.30.jar:9.0.30]
+	at org.apache.catalina.connector.CoyoteAdapter.asyncDispatch(CoyoteAdapter.java:235) ~[tomcat-embed-core-9.0.30.jar:9.0.30]
+	at org.apache.coyote.AbstractProcessor.dispatch(AbstractProcessor.java:237) ~[tomcat-embed-core-9.0.30.jar:9.0.30]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:59) ~[tomcat-embed-core-9.0.30.jar:9.0.30]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860) ~[tomcat-embed-core-9.0.30.jar:9.0.30]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1598) ~[tomcat-embed-core-9.0.30.jar:9.0.30]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.30.jar:9.0.30]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[na:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.30.jar:9.0.30]
+	at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
+
+2021-03-05 04:55:58.675 ERROR 89822 --- [http-nio-9000-exec-3] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] threw exception
+
+com.iddera.exception.UserProfilingException: Profile already exists for userId :1
+	at com.iddera.service.impl.UserProfileServiceImpl.ensureUserProfileDoesNotExist(UserProfileServiceImpl.java:77) ~[classes/:na]
+	at com.iddera.service.impl.UserProfileServiceImpl.lambda$createEntity$1(UserProfileServiceImpl.java:56) ~[classes/:na]
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1700) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.exec(CompletableFuture.java:1692) ~[na:na]
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290) ~[na:na]
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020) ~[na:na]
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656) ~[na:na]
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594) ~[na:na]
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183) ~[na:na]
+
+2021-03-05 04:55:58.676 ERROR 89822 --- [http-nio-9000-exec-3] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is com.iddera.exception.UserProfilingException: Profile already exists for userId :1] with root cause
+
+com.iddera.exception.UserProfilingException: Profile already exists for userId :1
+	at com.iddera.service.impl.UserProfileServiceImpl.ensureUserProfileDoesNotExist(UserProfileServiceImpl.java:77) ~[classes/:na]
+	at com.iddera.service.impl.UserProfileServiceImpl.lambda$createEntity$1(UserProfileServiceImpl.java:56) ~[classes/:na]
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1700) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.exec(CompletableFuture.java:1692) ~[na:na]
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290) ~[na:na]
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020) ~[na:na]
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656) ~[na:na]
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594) ~[na:na]
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183) ~[na:na]
+
+2021-03-05 04:59:25.460  INFO 89822 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-03-05 04:59:25.465  INFO 89822 --- [SpringContextShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-03-05 04:59:25.467  INFO 89822 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-03-05 04:59:25.478  INFO 89822 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-03-05 04:59:31.835  INFO 89835 --- [main] c.i.UserProfilingServiceApplication      : Starting UserProfilingServiceApplication on Oluwasanmis-MBP with PID 89835 (/Users/oakinrele/iddera/user-profiling-service/target/classes started by oakinrele in /Users/oakinrele/iddera/user-profiling-service)
+2021-03-05 04:59:31.837  INFO 89835 --- [main] c.i.UserProfilingServiceApplication      : No active profile set, falling back to default profiles: default
+2021-03-05 04:59:32.775  INFO 89835 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-03-05 04:59:32.776  INFO 89835 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2021-03-05 04:59:32.810  INFO 89835 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.iddera.repository.UserProfileRepository. If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2021-03-05 04:59:32.811  INFO 89835 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31ms. Found 0 JDBC repository interfaces.
+2021-03-05 04:59:32.821  INFO 89835 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-03-05 04:59:32.821  INFO 89835 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-03-05 04:59:32.846  INFO 89835 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22ms. Found 1 JPA repository interfaces.
+2021-03-05 04:59:33.106  INFO 89835 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-03-05 04:59:33.306  INFO 89835 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9000 (http)
+2021-03-05 04:59:33.315  INFO 89835 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-03-05 04:59:33.315  INFO 89835 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.30]
+2021-03-05 04:59:33.380  INFO 89835 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-03-05 04:59:33.380  INFO 89835 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1513 ms
+2021-03-05 04:59:33.654  INFO 89835 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-03-05 04:59:33.943  INFO 89835 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-03-05 04:59:34.558  INFO 89835 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT COUNT(*) FROM user_profiling_db.DATABASECHANGELOGLOCK
+2021-03-05 04:59:34.563  INFO 89835 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT COUNT(*) FROM user_profiling_db.DATABASECHANGELOGLOCK
+2021-03-05 04:59:34.565  INFO 89835 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT `LOCKED` FROM user_profiling_db.DATABASECHANGELOGLOCK WHERE ID=1
+2021-03-05 04:59:34.576  INFO 89835 --- [main] l.lockservice.StandardLockService        : Successfully acquired change log lock
+2021-03-05 04:59:36.299  INFO 89835 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT MD5SUM FROM user_profiling_db.DATABASECHANGELOG WHERE MD5SUM IS NOT NULL LIMIT 1
+2021-03-05 04:59:36.301  INFO 89835 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT COUNT(*) FROM user_profiling_db.DATABASECHANGELOG
+2021-03-05 04:59:36.302  INFO 89835 --- [main] l.c.StandardChangeLogHistoryService      : Reading from user_profiling_db.DATABASECHANGELOG
+2021-03-05 04:59:36.302  INFO 89835 --- [main] liquibase.executor.jvm.JdbcExecutor      : SELECT * FROM user_profiling_db.DATABASECHANGELOG ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC
+2021-03-05 04:59:36.314  INFO 89835 --- [main] l.lockservice.StandardLockService        : Successfully released change log lock
+2021-03-05 04:59:36.385  INFO 89835 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-03-05 04:59:36.460  INFO 89835 --- [main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.4.10.Final}
+2021-03-05 04:59:36.584  INFO 89835 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2021-03-05 04:59:36.671  INFO 89835 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-03-05 04:59:37.353  INFO 89835 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-03-05 04:59:37.360  INFO 89835 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-03-05 04:59:37.818  WARN 89835 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-03-05 04:59:37.928  INFO 89835 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2021-03-05 04:59:38.015  INFO 89835 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-03-05 04:59:38.129  INFO 89835 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-05 04:59:38.409  INFO 89835 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-03-05 04:59:38.424  INFO 89835 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-03-05 04:59:38.440  INFO 89835 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-03-05 04:59:38.581  INFO 89835 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
+2021-03-05 04:59:38.583  INFO 89835 --- [main] c.i.UserProfilingServiceApplication      : Started UserProfilingServiceApplication in 7.105 seconds (JVM running for 7.653)
+2021-03-05 04:59:39.257  INFO 89835 --- [RMI TCP Connection(5)-192.168.0.107] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-05 04:59:39.258  INFO 89835 --- [RMI TCP Connection(5)-192.168.0.107] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-03-05 04:59:39.267  INFO 89835 --- [RMI TCP Connection(5)-192.168.0.107] o.s.web.servlet.DispatcherServlet        : Completed initialization in 9 ms
+2021-03-05 04:59:54.454 ERROR 89835 --- [http-nio-9000-exec-3] com.iddera.config.RestControllerAdvice   : Unhandled exception encountered: Profile already exists for userId :1
+
+com.iddera.exception.ApiException: Profile already exists for userId :1
+	at com.iddera.service.impl.UserProfileServiceImpl.ensureUserProfileDoesNotExist(UserProfileServiceImpl.java:78) ~[classes/:na]
+	at com.iddera.service.impl.UserProfileServiceImpl.lambda$createEntity$1(UserProfileServiceImpl.java:57) ~[classes/:na]
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1700) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.exec(CompletableFuture.java:1692) ~[na:na]
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290) ~[na:na]
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020) ~[na:na]
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656) ~[na:na]
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594) ~[na:na]
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183) ~[na:na]
+
