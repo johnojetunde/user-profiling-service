@@ -27,11 +27,11 @@ public class UserProfileController {
                 .thenApply(ResponseModel::new);
     }
 
-    @PutMapping("/{username}")
+    @PutMapping("/{userId}")
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = UserProfileModel.class)})
     public CompletableFuture<ResponseModel> update(@Valid @RequestBody UserProfileRequest request,
-                                                   @PathVariable String username) {
-        return userProfileService.update(username, request)
+                                                   @PathVariable Long userId) {
+        return userProfileService.update(userId, request)
                 .thenApply(ResponseModel::new);
     }
 }

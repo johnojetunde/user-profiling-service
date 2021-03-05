@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @Builder
 public class UserProfileRequest {
-    private String username;
+    private Long userId;
 
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Marital status can not be null or empty")

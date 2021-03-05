@@ -7,5 +7,5 @@ import java.util.concurrent.CompletableFuture;
 
 public interface UserProfileService {
     CompletableFuture<UserProfileModel> create(UserProfileRequest request);
-    CompletableFuture<UserProfileModel> update(String username, UserProfileRequest request);
+    CompletableFuture<UserProfileModel> update(Long userId, UserProfileRequest request);
 }

@@ -1,6 +1,5 @@
 package com.iddera.service.impl;
 
-import com.google.common.base.Strings;
 import com.iddera.entity.UserProfile;
 import com.iddera.exception.UserProfilingException;
 import com.iddera.model.UserProfileModel;
@@ -20,7 +19,6 @@ import static java.util.concurrent.CompletableFuture.supplyAsync;
 @Slf4j
 public class UserProfileServiceImpl implements UserProfileService {
     private final UserProfileRepository userProfileRepository;
-    //private final Executor executor;
 
     public UserProfileServiceImpl(UserProfileRepository userProfileRepository) {
         this.userProfileRepository = userProfileRepository;
@@ -28,22 +26,21 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     @Override
     public CompletableFuture<UserProfileModel> create(UserProfileRequest request){
-        if(Strings.isNullOrEmpty(request.getUsername()))
-            throw new UserProfilingException("Username can not be null or empty");
+        if(request.getUserId() == null)
+            throw new UserProfilingException("UserId can not be null.");
         return createEntity(request).thenApply(UserProfile::toModel);
     }
 
     @Override
-    public CompletableFuture<UserProfileModel> update(String username, UserProfileRequest request){
-        return updateEntity(username,request).thenApply(UserProfile::toModel);
+    public CompletableFuture<UserProfileModel> update(Long userId, UserProfileRequest request){
+        return updateEntity(userId,request).thenApply(UserProfile::toModel);
     }
 
     @Transactional
-    public CompletableFuture<UserProfile> updateEntity(String username, UserProfileRequest request) {
+    public CompletableFuture<UserProfile> updateEntity(Long userId, UserProfileRequest request) {
         return supplyAsync(() -> {
-            UserProfile profile = ensureUserProfileExists(username);
+            UserProfile profile = getExistingUserProfile(userId);
                                      profile
-                                    .setUsername(request.getUsername())
                                     .setMaritalStatus(request.getMaritalStatus())
                                     .setGender(request.getGender())
                                     .setLocation(request.getLocation());
@@ -55,11 +52,11 @@ public class UserProfileServiceImpl implements UserProfileService {
     @Transactional
     public CompletableFuture<UserProfile> createEntity(UserProfileRequest request) {
             return supplyAsync(() -> {
-            ensureUserExists(request.getUsername());
-            ensureUserProfileDoesNotExist(request.getUsername());
+            ensureUserExists(request.getUserId());
+            ensureUserProfileDoesNotExist(request.getUserId());
 
             UserProfile userProfile = new UserProfile()
-                                      .setUsername(request.getUsername())
+                                      .setUserId(request.getUserId())
                                       .setMaritalStatus(request.getMaritalStatus())
                                       .setGender(request.getGender())
                                       .setLocation(request.getLocation());
@@ -68,21 +65,21 @@ public class UserProfileServiceImpl implements UserProfileService {
         });
     }
 
-    public UserProfile ensureUserProfileExists(String username){
-        var userProfileResult =  userProfileRepository.findByUsername(username);
+    public UserProfile getExistingUserProfile(Long userId){
+        var userProfileResult =  userProfileRepository.findByUserId(userId);
         return userProfileResult
-                .orElseThrow(() -> new UserProfilingException(format("User profile for user :%s does not exist.",username)));
+                .orElseThrow(() -> new UserProfilingException(format("User profile for userId :%d does not exist.",userId)));
     }
 
-    public void ensureUserProfileDoesNotExist(String username){
-        boolean profileExists = userProfileRepository.existsByUsername(username);
+    public void ensureUserProfileDoesNotExist(Long userId){
+        boolean profileExists = userProfileRepository.existsByUserId(userId);
         if(profileExists){
-            throw new UserProfilingException(String.format("Profile already exists for user :%s",username));
+            throw new UserProfilingException(String.format("Profile already exists for userId :%d",userId));
         }
     }
 
     //TODO: Make call to user management service to get the user's details.
-    public void ensureUserExists(String username){
+    public void ensureUserExists(Long userId){
     }
 
 }

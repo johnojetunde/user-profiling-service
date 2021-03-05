@@ -18,11 +18,11 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "user_profiles")
+@Table(name = "user_profile")
 public class UserProfile extends BaseEntity {
      @Column(unique = true, nullable = false)
      @NotNull(message = "User Id can not be null")
-     private String username;
+     private Long userId;
 
      @Enumerated(EnumType.STRING)
      @NotNull(message = "Gender can not be null")
@@ -39,7 +39,7 @@ public class UserProfile extends BaseEntity {
 
      public UserProfileModel toModel() {
           return new UserProfileModel()
-                     .setUsername(getUsername())
+                     .setUserId(getUserId())
                      .setGender(getGender())
                      .setMaritalStatus(getMaritalStatus())
                      .setCountry(getLocation().getCountry())

@@ -32,11 +32,9 @@ public class UserProfilingServiceTest {
                 .withMessage("User Id can not be null");
     }
 
-
-
     public UserProfileRequest buildUserProfileRequest(){
         return                   UserProfileRequest.builder()
-                                .username(null)
+                                .userId(null)
                                 .gender(Gender.FEMALE)
                                 .maritalStatus(MaritalStatus.SINGLE)
                                 .location(buildLocation())

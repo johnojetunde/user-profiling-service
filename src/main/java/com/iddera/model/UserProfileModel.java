@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @Data
 public class UserProfileModel {
-    private String username;
+    private Long userId;
     private String country;
     private String state;
     private Gender gender;

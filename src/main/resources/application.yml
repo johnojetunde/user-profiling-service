@@ -18,13 +18,9 @@ spring:
       properties:
         hibernate:
           format_sql: true
-    liquibase:
+  liquibase:
       enabled: true
       change-log: classpath:db/db.changeLog-master.xml
-redis:
-  host: ${REDIS_HOST:localhost}
-  port: ${REDIS_PORT:6379}
-  password: ${REDIS_PASSWORD:}
 logging:
   level:
     root: INFO

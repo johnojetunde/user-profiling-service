@@ -59,7 +59,7 @@ public interface ActiveJpaRepository<T extends BaseEntity> extends JpaRepository
     void hardDelete(long id);
 
     @Transactional
-    default void unDeleteById(long id) {
+    default void onDeleteById(long id) {
         T entity = findById(id)
                 .orElseThrow(() -> new RuntimeException(String.format("Id %s does not exist", id)));
         entity.setRecordStatus(Status.ACTIVE);
@@ -69,7 +69,7 @@ public interface ActiveJpaRepository<T extends BaseEntity> extends JpaRepository
 
     @Transactional
     default void unDelete(T entity) {
-        unDeleteById(entity.getId());
+        onDeleteById(entity.getId());
     }
 
     //default implementation for delete added to enable support for JPA Auditing
