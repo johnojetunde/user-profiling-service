@@ -27,7 +27,7 @@ public class UserProfileServiceImpl implements UserProfileService {
     @Override
     public CompletableFuture<UserProfileModel> create(UserProfileRequest request){
         if(request.getUserId() == null)
-            throw new UserProfilingException("UserId can not be null.");
+            throw new UserProfilingException("User Id can not be null.");
         return createEntity(request).thenApply(UserProfile::toModel);
     }
 
