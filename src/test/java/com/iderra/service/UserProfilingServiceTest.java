@@ -29,7 +29,7 @@ public class UserProfilingServiceTest {
     void createProfileFails_WhenUserIdIsInvalid() {
         assertThatExceptionOfType(UserProfilingException.class)
                 .isThrownBy(() -> userProfileServiceImpl.create(buildUserProfileRequest()))
-                .withMessage("User Id can not be null");
+                .withMessage("User Id can not be null.");
     }
 
     public UserProfileRequest buildUserProfileRequest(){
