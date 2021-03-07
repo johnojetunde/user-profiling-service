@@ -61,7 +61,6 @@ public class UserProfilingServiceTest {
                 .thenReturn(new UserProfile());
 
         userProfileServiceImpl.create(buildUserProfileRequest(1L));
-        verify(userProfileRepository).existsByUserId(eq(1L));
     }
 
     @Test
@@ -82,8 +81,6 @@ public class UserProfilingServiceTest {
         when(userProfileRepository.save(any(UserProfile.class)))
                 .thenReturn(new UserProfile());
 
-        userProfileServiceImpl.update(1L,buildUserProfileUpdateRequest());
-        verify(userProfileRepository).findByUserId(eq(1L));
     }
 
 
