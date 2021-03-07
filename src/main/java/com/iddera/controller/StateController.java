@@ -1,10 +1,17 @@
 package com.iddera.controller;
-import com.iddera.exception.ApiException;
+
+import com.iddera.model.ResponseModel;
 import com.iddera.model.dto.StateDto;
 import com.iddera.service.StateService;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/states")
@@ -13,16 +20,16 @@ public class StateController {
     private final StateService stateService;
 
     @GetMapping
-    public Page<StateDto> getStates(@RequestParam(required = false, defaultValue = "0") int page,
-                                    @RequestParam(required = false, defaultValue = "10") int size) {
-        return stateService.findAll(page, size);
+    @ApiResponses({@ApiResponse(code = 200, message = "Success", response = StateDto.class)})
+    public CompletableFuture<ResponseModel> getState() {
+        return stateService.findAll()
+                .thenApply(ResponseModel::new);
     }
 
-    @GetMapping("/{countryId}")
-    public Page<StateDto> getStatesByCountry(@PathVariable long countryId,
-                                    @RequestParam(required = false, defaultValue = "0") int page,
-                                    @RequestParam(required = false, defaultValue = "10") int size) throws ApiException {
-
-        return stateService.findAllByCountry(page, size,countryId);
+    @GetMapping("/{countryId}/new")
+    @ApiResponses({@ApiResponse(code = 200, message = "Success", response = StateDto.class)})
+    public CompletableFuture<ResponseModel> getStatesByCountryNew(@PathVariable long countryId) {
+        return stateService.findAllByCountry(countryId)
+                .thenApply(ResponseModel::new);
     }
 }

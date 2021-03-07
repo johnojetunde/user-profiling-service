@@ -4,14 +4,12 @@ import com.iddera.enums.Gender;
 import com.iddera.enums.MaritalStatus;
 import com.iddera.model.UserProfileModel;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 
 @Accessors(chain = true)
-@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @Data
 @Entity
@@ -26,15 +24,15 @@ public class UserProfile extends BaseEntity {
      @Enumerated(EnumType.STRING)
      private MaritalStatus maritalStatus;
 
-     @ManyToOne(targetEntity = Country.class)
+     @ManyToOne
      @JoinColumn(name = "country_id", referencedColumnName = "id", nullable = false)
      private Country country;
 
-     @ManyToOne(targetEntity = State.class)
+     @ManyToOne
      @JoinColumn(name = "state_id", referencedColumnName = "id", nullable = false)
      private State state;
 
-     @ManyToOne(targetEntity = LocalGovernmentArea.class)
+     @ManyToOne
      @JoinColumn(name = "lga_id", referencedColumnName = "id", nullable = false)
      private LocalGovernmentArea lga;
 

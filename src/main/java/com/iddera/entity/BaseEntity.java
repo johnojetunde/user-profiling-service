@@ -36,6 +36,5 @@ public class BaseEntity implements Serializable {
     String updatedBy;
 
     @Column(nullable = false, length = 31)
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private boolean isDeleted;
 }

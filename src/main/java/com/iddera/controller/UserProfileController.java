@@ -3,6 +3,7 @@ package com.iddera.controller;
 import com.iddera.model.ResponseModel;
 import com.iddera.model.UserProfileModel;
 import com.iddera.model.request.UserProfileRequest;
+import com.iddera.model.request.UserProfileUpdateRequest;
 import com.iddera.service.UserProfileService;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -29,7 +30,7 @@ public class UserProfileController {
 
     @PutMapping("/{userId}")
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = UserProfileModel.class)})
-    public CompletableFuture<ResponseModel> update(@Valid @RequestBody UserProfileRequest request,
+    public CompletableFuture<ResponseModel> update(@Valid @RequestBody UserProfileUpdateRequest request,
                                                    @PathVariable Long userId) {
         return userProfileService.update(userId, request)
                 .thenApply(ResponseModel::new);

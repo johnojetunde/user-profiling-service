@@ -1,17 +1,21 @@
 package com.iddera.service.impl;
 
-import com.iddera.exception.ApiException;
+import com.iddera.exception.UserProfilingException;
 import com.iddera.model.dto.StateDto;
 import com.iddera.repository.CountryRepository;
 import com.iddera.repository.StateRepository;
 import com.iddera.service.StateService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
+
+import static com.iddera.util.ExceptionUtil.handleCreateBadRequest;
+import static java.lang.String.format;
+import static java.util.concurrent.CompletableFuture.supplyAsync;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -19,29 +23,30 @@ import org.springframework.stereotype.Service;
 public class StateServiceImpl implements StateService {
     private final StateRepository stateRepository;
     private final CountryRepository countryRepository;
-    @Override
-    public Page<StateDto> findAll(int page, int size){
-        Pageable pageable = PageRequest.of(page,size, Sort.by(Sort.Direction.DESC,"id"));
 
-        return stateRepository.findAll(pageable)
-                .map(StateDto::convertToDto);
+    @Override
+    public CompletableFuture<List<StateDto>> findAll() {
+        return supplyAsync(() ->
+                stateRepository.findAll().stream()
+                        .map(StateDto::convertToDto)
+                        .collect(Collectors.toList()));
     }
 
     @Override
-    public Page<StateDto> findAllByCountry(int page, int size, long countryId) throws ApiException {
+    public CompletableFuture<List<StateDto>> findAllByCountry(long countryId){
         ensureCountryExists(countryId);
-        Pageable pageable = PageRequest.of(page,size,Sort.by(Sort.Direction.DESC,"id"));
 
-        return stateRepository.findAllByCountry(pageable,countryId)
-                .map(StateDto::convertToDto);
+        return supplyAsync(() ->
+                stateRepository.findStatesByCountry_Id(countryId).stream()
+                        .map(StateDto::convertToDto)
+                        .collect(Collectors.toList()));
     }
 
-
-    private void ensureCountryExists(long countryId) throws ApiException {
+    private void ensureCountryExists(long countryId){
         countryRepository.findById(countryId)
                 .orElseThrow(() -> {
-                    log.error(String.format("Country with supplied ID: %d does not exist",countryId));
-                    return new ApiException(String.format("Country with supplied ID: %d does not exist",countryId));
+                    log.error(format("Country with supplied ID: %d does not exist",countryId));
+                    return handleCreateBadRequest(format("Country with supplied ID: %d does not exist",countryId));
                 });
     }
 }

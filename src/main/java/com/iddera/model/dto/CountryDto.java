@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import javax.validation.constraints.NotBlank;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 @Builder
 public class CountryDto {

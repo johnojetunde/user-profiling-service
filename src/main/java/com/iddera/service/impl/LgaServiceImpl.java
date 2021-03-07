@@ -1,6 +1,6 @@
 package com.iddera.service.impl;
 
-import com.iddera.exception.ApiException;
+import com.iddera.exception.UserProfilingException;
 import com.iddera.model.dto.LocalGovernmentAreaDto;
 import com.iddera.repository.LgaRepository;
 import com.iddera.repository.StateRepository;
@@ -8,10 +8,16 @@ import com.iddera.service.LgaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
+
+import static com.iddera.util.ExceptionUtil.handleCreateBadRequest;
+import static java.lang.String.format;
+import static java.util.concurrent.CompletableFuture.supplyAsync;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -22,27 +28,27 @@ public class LgaServiceImpl implements LgaService {
 
 
     @Override
-    public Page<LocalGovernmentAreaDto> findAll(int page, int size){
-        Pageable pageable = PageRequest.of(page,size, Sort.by(Sort.Direction.DESC,"id"));
-
-        return lgaRepository.findAll(pageable)
-                .map(LocalGovernmentAreaDto::convertToDto);
+    public CompletableFuture<Page<LocalGovernmentAreaDto>> findAll(Pageable pageable){
+        return supplyAsync(() ->
+                lgaRepository.findAll(pageable)
+                .map(LocalGovernmentAreaDto::convertToDto));
     }
 
     @Override
-    public Page<LocalGovernmentAreaDto> findAllByState(int page, int size, long stateId) throws ApiException {
+    public CompletableFuture<List<LocalGovernmentAreaDto>> findAllByState(long stateId){
         ensureStateExists(stateId);
-        Pageable pageable = PageRequest.of(page,size,Sort.by(Sort.Direction.DESC,"id"));
 
-        return lgaRepository.findAllByState(pageable,stateId)
-                .map(LocalGovernmentAreaDto::convertToDto);
+        return supplyAsync(() ->
+                lgaRepository.findLocalGovernmentAreasByState_Id(stateId).stream()
+                .map(LocalGovernmentAreaDto::convertToDto)
+                .collect(Collectors.toList()));
     }
 
-    private void ensureStateExists(long stateId) throws ApiException {
+    private void ensureStateExists(long stateId){
                 stateRepository.findById(stateId)
                 .orElseThrow(() -> {
-                    log.error(String.format("State with supplied ID: %d does not exist",stateId));
-                    return new ApiException(String.format("State with supplied ID: %d does not exist",stateId));
+                    log.error(format("State with supplied ID: %d does not exist",stateId));
+                    return handleCreateBadRequest(format("State with supplied ID: %d does not exist",stateId));
                 });
     }
 }

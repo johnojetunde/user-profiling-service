@@ -3,10 +3,10 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
-    <!-- Idderra User Profile Migrations -->
-    <include file="classpath:changelog/001_country_state_lga_migration.xml" relativeToChangelogFile="false" />
-    <include file="classpath:changelog/002_user_profile_migration.xml" relativeToChangelogFile="false" />
-    <include file="classpath:changelog/003_country_data_migration.xml" relativeToChangelogFile="false" />
-    <include file="classpath:changelog/004_state_data_migration.xml" relativeToChangelogFile="false" />
-    <include file="classpath:changelog/005_lga_data_migration.xml" relativeToChangelogFile="false" />
+    <!-- Iddera User Profile Migrations -->
+    <include file="classpath:db/changelog/001_country_state_lga_migration.xml" relativeToChangelogFile="false" />
+    <include file="classpath:db/changelog/002_user_profile_migration.xml" relativeToChangelogFile="false" />
+    <include file="classpath:db/changelog/003_country_data_migration.xml" relativeToChangelogFile="false" />
+    <include file="classpath:db/changelog/004_state_data_migration.xml" relativeToChangelogFile="false" />
+    <include file="classpath:db/changelog/005_lga_data_migration.xml" relativeToChangelogFile="false" />
 </databaseChangeLog>

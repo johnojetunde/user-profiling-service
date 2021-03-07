@@ -9,7 +9,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
+
+import static java.util.concurrent.CompletableFuture.supplyAsync;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -18,10 +25,10 @@ public class CountryServiceImpl implements CountryService {
     private final CountryRepository countryRepository;
 
     @Override
-    public Page<CountryDto> findAll(int page, int size){
-        Pageable pageable = PageRequest.of(page,size, Sort.by(Sort.Direction.DESC,"id"));
-
-        return countryRepository.findAll(pageable)
-                .map(CountryDto::convertToDto);
+    public CompletableFuture<List<CountryDto>> findAll(){
+        return supplyAsync(() ->
+                countryRepository.findAll().stream()
+                .map(CountryDto::convertToDto)
+                .collect(Collectors.toList()));
     }
 }
