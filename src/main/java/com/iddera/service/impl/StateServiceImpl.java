@@ -46,7 +46,7 @@ public class StateServiceImpl implements StateService {
         countryRepository.findById(countryId)
                 .orElseThrow(() -> {
                     log.error(format("Country with supplied ID: %d does not exist",countryId));
-                    return handleCreateBadRequest(format("Country with supplied ID: %d does not exist",countryId));
+                    return handleCreateBadRequest(format("Country with supplied ID: %d does not exist.",countryId));
                 });
     }
 }

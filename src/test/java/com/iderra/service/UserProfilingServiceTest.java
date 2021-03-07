@@ -25,7 +25,6 @@ import java.util.concurrent.CompletionException;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -80,7 +79,6 @@ public class UserProfilingServiceTest {
                 .thenReturn(Optional.of(buildUserProfile()));
         when(userProfileRepository.save(any(UserProfile.class)))
                 .thenReturn(new UserProfile());
-
     }
 
 

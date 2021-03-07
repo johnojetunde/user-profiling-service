@@ -44,7 +44,7 @@ public class ExceptionUtil {
         if (ex instanceof UserProfilingException) {
             return new CompletionException(ex);
         }
-        return userMgtException(msg, ex);
+        return userProfilingException(msg, ex);
     }
 
     public static RuntimeException createNotImplementedException(String msg) {
@@ -52,11 +52,11 @@ public class ExceptionUtil {
     }
 
     public static RuntimeException handleCreateException(String msg, Object... args) {
-        return userMgtException(format(msg, args), INTERNAL_SERVER_ERROR.value());
+        return userProfilingException(format(msg, args), INTERNAL_SERVER_ERROR.value());
     }
 
     public static RuntimeException handleCreateException(String msg, HttpStatus code, Object... args) {
-        return userMgtException(format(msg, args), code.value());
+        return userProfilingException(format(msg, args), code.value());
     }
 
     public static RuntimeException handleCreateBadRequest(String msg, Object... args) {
@@ -79,12 +79,12 @@ public class ExceptionUtil {
         throw handleCreateException(msg, rootEx);
     }
 
-    private static UserProfilingException userMgtException(String msg, Throwable ex) {
+    private static UserProfilingException userProfilingException(String msg, Throwable ex) {
         logException(msg, ex);
         return new UserProfilingException(msg, ex, findExceptionCode(ex), null);
     }
 
-    private static UserProfilingException userMgtException(String msg, int code) {
+    private static UserProfilingException userProfilingException(String msg, int code) {
         log.error(msg);
         return new UserProfilingException(code, msg);
     }

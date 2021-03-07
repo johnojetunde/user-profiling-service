@@ -47,8 +47,8 @@ public class LgaServiceImpl implements LgaService {
     private void ensureStateExists(long stateId){
                 stateRepository.findById(stateId)
                 .orElseThrow(() -> {
-                    log.error(format("State with supplied ID: %d does not exist",stateId));
-                    return handleCreateBadRequest(format("State with supplied ID: %d does not exist",stateId));
+                    log.error(format("State with supplied ID: %d does not exist.",stateId));
+                    return handleCreateBadRequest(format("State with supplied ID: %d does not exist.",stateId));
                 });
     }
 }
