@@ -48,7 +48,8 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     @Override
     public CompletableFuture<UserProfileModel> update(Long userId, UserProfileUpdateRequest request) {
-        return updateEntity(userId, request).thenApply(UserProfile::toModel);
+        return updateEntity(userId, request)
+                .thenApply(UserProfile::toModel);
     }
 
     @Transactional
@@ -93,17 +94,17 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     public Country getCountryExists(Long countryId) {
         return countryRepository.findById(countryId)
-                .orElseThrow(() -> handleCreateBadRequest(format("Country with id :%d does not exist.", countryId)));
+                .orElseThrow(() -> handleCreateBadRequest(format("Country with id:%d does not exist.", countryId)));
     }
 
     public State getStateExists(Long stateId) {
         return stateRepository.findById(stateId)
-                .orElseThrow(() -> handleCreateBadRequest(format("State with id :%d does not exist.", stateId)));
+                .orElseThrow(() -> handleCreateBadRequest(format("State with id:%d does not exist.", stateId)));
     }
 
     public LocalGovernmentArea getLgaExists(Long lgaId) {
         return lgaRepository.findById(lgaId)
-                .orElseThrow(() -> handleCreateBadRequest(format("Local government area with id :%d does not exist.", lgaId)));
+                .orElseThrow(() -> handleCreateBadRequest(format("Local government area with id:%d does not exist.", lgaId)));
     }
 
     public void ensureUserProfileDoesNotExist(Long userId) {
