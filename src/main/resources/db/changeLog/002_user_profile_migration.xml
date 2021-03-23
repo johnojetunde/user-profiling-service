@@ -39,7 +39,7 @@
             <column name="created_by" type="VARCHAR(150)"/>
             <column name="updated_at" type="datetime"/>
             <column name="updated_by" type="VARCHAR(150)"/>
-            <column name="is_deleted" defaultValueBoolean="false" type="BIT(1)">
+            <column name="is_deleted" defaultValue="false" type="${boolean}">
                 <constraints nullable="false"/>
             </column>
 
