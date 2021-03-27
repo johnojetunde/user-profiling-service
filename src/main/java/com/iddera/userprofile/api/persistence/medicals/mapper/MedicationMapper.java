@@ -19,9 +19,7 @@ public class MedicationMapper implements EntityToDomainMapper<MedicationModel, M
                 .setDescription(model.getDescription())
                 .setDuration(model.getDuration())
                 .setName(model.getName())
-                .setPrescriptionStatus(model.getPrescriptionStatus())
-                .setStartDate(model.getStartDate())
-                .setStatus(model.getStatus());
+                .setHerbalMedication(model.getHerbalMedication());
 
         entity.setId(id);
         entity.setUsername(model.getUsername());

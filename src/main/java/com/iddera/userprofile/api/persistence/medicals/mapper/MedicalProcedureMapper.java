@@ -15,11 +15,9 @@ public class MedicalProcedureMapper implements EntityToDomainMapper<MedicalProce
     public MedicalProcedure toEntity(MedicalProcedureModel model, Long id) {
         var entity = new MedicalProcedure()
                 .setComment(model.getComment())
-                .setDate(model.getDate())
-                .setHospitalized(model.isHospitalized())
+                .setDateAdmitted(model.getDateAdmitted())
                 .setName(model.getName())
-                .setRecoveryPeriod(model.getRecoveryPeriod().getValue())
-                .setRecoverPeriodType(model.getRecoveryPeriod().getType());
+                .setRecoveryStatus(model.getRecoveryStatus());
 
         entity.setId(id);
         entity.setUsername(model.getUsername());

@@ -1,4 +1,4 @@
-package com.iderra.userprofile.api.domain.userprofile.service;
+package com.iddera.userprofile.api.domain.userprofile.service;
 
 import com.iddera.userprofile.api.app.model.UserProfileRequest;
 import com.iddera.userprofile.api.app.model.UserProfileUpdateRequest;
@@ -8,7 +8,6 @@ import com.iddera.userprofile.api.domain.model.LocationModel;
 import com.iddera.userprofile.api.domain.userprofile.enums.Gender;
 import com.iddera.userprofile.api.domain.userprofile.enums.MaritalStatus;
 import com.iddera.userprofile.api.domain.userprofile.model.UserProfileModel;
-import com.iddera.userprofile.api.domain.userprofile.service.UserProfileServiceImpl;
 import com.iddera.userprofile.api.persistence.userprofile.entity.Country;
 import com.iddera.userprofile.api.persistence.userprofile.entity.LocalGovernmentArea;
 import com.iddera.userprofile.api.persistence.userprofile.entity.State;

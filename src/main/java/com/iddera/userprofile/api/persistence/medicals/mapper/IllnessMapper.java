@@ -15,10 +15,10 @@ public class IllnessMapper implements EntityToDomainMapper<IllnessModel, Illness
     public Illness toEntity(IllnessModel model, Long id) {
         var entity = new Illness()
                 .setComment(model.getComment())
-                .setDate(model.getDate())
-                .setDuration(model.getDuration())
+                .setDateAdmitted(model.getDateAdmitted())
+                .setDurationType(model.getDuration().getType())
+                .setDurationValue(model.getDuration().getValue())
                 .setName(model.getName())
-                .setOngoing(model.isOngoing())
                 .setRecoveryStatus(model.getRecoveryStatus());
 
         entity.setId(id);

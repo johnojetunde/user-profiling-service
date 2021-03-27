@@ -8,10 +8,10 @@ import java.util.stream.Stream;
 import static com.iddera.commons.utils.FunctionUtil.isNullOrEmpty;
 
 public enum Frequency {
-    VERY_HIGH,
-    HIGH,
-    MODERATE,
-    LITTLE,
+    OCCASIONALLY,
+    MODERATELY,
+    FREQUENTLY,
+    A_LOT,
     UNKNOWN;
 
     @JsonValue

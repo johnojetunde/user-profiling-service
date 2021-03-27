@@ -7,8 +7,6 @@ import lombok.experimental.Accessors;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
 @Accessors(chain = true)
@@ -16,11 +14,9 @@ import java.util.Set;
 @Entity
 @Table(name = "allergy")
 public class Allergy extends BaseMedicalEntity {
-    private String category; //TODO: this should be clarified
+    private String category;
     @ElementCollection
     private Set<String> reactions;
-    @ElementCollection
-    private List<LocalDate> previousOccurrenceDates;
     private String comment;
 
     public AllergyModel toModel() {
@@ -29,7 +25,6 @@ public class Allergy extends BaseMedicalEntity {
                 .username(username)
                 .category(category)
                 .reactions(reactions)
-                .previousOccurrenceDates(previousOccurrenceDates)
                 .comment(comment)
                 .build();
 

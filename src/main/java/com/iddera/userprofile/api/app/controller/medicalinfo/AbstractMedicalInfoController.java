@@ -1,6 +1,7 @@
 package com.iddera.userprofile.api.app.controller.medicalinfo;
 
 import com.iddera.userprofile.api.app.model.ResponseModel;
+import com.iddera.userprofile.api.domain.medicalinfo.model.BaseModel;
 import com.iddera.userprofile.api.domain.medicalinfo.service.MedicalInfoService;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -11,7 +12,7 @@ import javax.validation.Valid;
 import java.util.concurrent.CompletableFuture;
 
 @RequiredArgsConstructor
-public abstract class AbstractMedicalInfoController<T> {
+public abstract class AbstractMedicalInfoController<T extends BaseModel> {
 
     private final MedicalInfoService<T> service;
 

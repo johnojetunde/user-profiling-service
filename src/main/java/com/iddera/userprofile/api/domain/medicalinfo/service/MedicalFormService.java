@@ -3,8 +3,11 @@ package com.iddera.userprofile.api.domain.medicalinfo.service;
 import com.iddera.userprofile.api.domain.medicalinfo.model.*;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import static java.util.Collections.emptyList;
+import static java.util.concurrent.CompletableFuture.completedFuture;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 
 @Service
@@ -12,7 +15,7 @@ public class MedicalFormService {
     private final MedicalInfoService<AlcoholHabitModel> alcoholService;
     private final MedicalInfoService<AllergyModel> allergyService;
     private final MedicalInfoService<DietaryPlanModel> dietaryPlanService;
-    private final MedicalInfoService<ExerciseInfoModel> exerciseInfoService;
+    private final MedicalInfoService<BloodDetailsModel> bloodDetailsService;
     private final MedicalInfoService<IllnessModel> illnessService;
     private final MedicalInfoService<MedicalProcedureModel> medicalProcedureService;
     private final MedicalInfoService<MedicationModel> medicationService;
@@ -21,7 +24,7 @@ public class MedicalFormService {
     public MedicalFormService(MedicalInfoService<AlcoholHabitModel> alcoholService,
                               MedicalInfoService<AllergyModel> allergyService,
                               MedicalInfoService<DietaryPlanModel> dietaryPlanService,
-                              MedicalInfoService<ExerciseInfoModel> exerciseInfoService,
+                              MedicalInfoService<BloodDetailsModel> bloodDetailsService,
                               MedicalInfoService<IllnessModel> illnessService,
                               MedicalInfoService<MedicalProcedureModel> medicalProcedureService,
                               MedicalInfoService<MedicationModel> medicationService,
@@ -29,7 +32,7 @@ public class MedicalFormService {
         this.alcoholService = alcoholService;
         this.allergyService = allergyService;
         this.dietaryPlanService = dietaryPlanService;
-        this.exerciseInfoService = exerciseInfoService;
+        this.bloodDetailsService = bloodDetailsService;
         this.illnessService = illnessService;
         this.medicalProcedureService = medicalProcedureService;
         this.medicationService = medicationService;
@@ -39,20 +42,20 @@ public class MedicalFormService {
 
     public CompletableFuture<MedicalForm> create(String username, MedicalForm model) {
         return supplyAsync(() -> {
-            var savedAlcohol = alcoholService.create(username, model.getAlcoholInfo()).join();
-            var savedAllergies = allergyService.create(username, model.getAllergies()).join();
-            var savedDietaryPlans = dietaryPlanService.create(username, model.getDietaryPlans()).join();
-            var savedExercise = exerciseInfoService.create(username, model.getExerciseInfo()).join();
-            var savedIllnesses = illnessService.create(username, model.getIllnesses()).join();
-            var savedMedicalProcedures = medicalProcedureService.create(username, model.getMedicalProcedures()).join();
-            var savedMedications = medicationService.create(username, model.getMedications()).join();
-            var savedSmokingHabit = smokingHabitService.create(username, model.getSmokingInfo()).join();
+            var savedAlcohol = create(username, model.getAlcoholInfo(), alcoholService).join();
+            var savedAllergies = create(username, model.getAllergies(), allergyService).join();
+            var savedDietaryPlans = create(username, model.getDietaryPlans(), dietaryPlanService).join();
+            var savedBloodDetails = create(username, model.getBloodDetails(), bloodDetailsService).join();
+            var savedIllnesses = create(username, model.getIllnesses(), illnessService).join();
+            var savedMedicalProcedures = create(username, model.getMedicalProcedures(), medicalProcedureService).join();
+            var savedMedications = create(username, model.getMedications(), medicationService).join();
+            var savedSmokingHabit = create(username, model.getSmokingInfo(), smokingHabitService).join();
 
             return MedicalForm.builder()
                     .alcoholInfo(savedAlcohol)
                     .allergies(savedAllergies)
                     .dietaryPlans(savedDietaryPlans)
-                    .exerciseInfo(savedExercise)
+                    .bloodDetails(savedBloodDetails)
                     .illnesses(savedIllnesses)
                     .medicalProcedures(savedMedicalProcedures)
                     .medications(savedMedications)
@@ -67,7 +70,7 @@ public class MedicalFormService {
             var savedAlcohol = alcoholService.getByUsername(username).join().orElse(null);
             var savedAllergies = allergyService.getByAll(username).join();
             var savedDietaryPlans = dietaryPlanService.getByAll(username).join();
-            var savedExercise = exerciseInfoService.getByUsername(username).join().orElse(null);
+            var savedBloodDetails = bloodDetailsService.getByUsername(username).join().orElse(null);
             var savedIllnesses = illnessService.getByAll(username).join();
             var savedMedicalProcedures = medicalProcedureService.getByAll(username).join();
             var savedMedications = medicationService.getByAll(username).join();
@@ -77,7 +80,7 @@ public class MedicalFormService {
                     .alcoholInfo(savedAlcohol)
                     .allergies(savedAllergies)
                     .dietaryPlans(savedDietaryPlans)
-                    .exerciseInfo(savedExercise)
+                    .bloodDetails(savedBloodDetails)
                     .illnesses(savedIllnesses)
                     .medicalProcedures(savedMedicalProcedures)
                     .medications(savedMedications)
@@ -86,4 +89,15 @@ public class MedicalFormService {
         });
     }
 
+    private <T extends BaseModel> CompletableFuture<T> create(String username, T model, MedicalInfoService<T> service) {
+        return model == null
+                ? completedFuture(null)
+                : service.create(username, model);
+    }
+
+    private <T extends BaseModel> CompletableFuture<List<T>> create(String username, List<T> model, MedicalInfoService<T> service) {
+        return model == null
+                ? completedFuture(emptyList())
+                : service.create(username, model);
+    }
 }

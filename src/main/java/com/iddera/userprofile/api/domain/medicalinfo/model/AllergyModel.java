@@ -7,8 +7,6 @@ import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -17,10 +15,8 @@ import java.util.Set;
 @Data
 public class AllergyModel extends BaseModel {
     @NotBlank
-    private String category; //TODO: this should be clarified
+    private String category;
     @NotEmpty
     private Set<String> reactions;
-    @NotEmpty(message = "You need to specify at least the last occurrence")
-    private List<LocalDate> previousOccurrenceDates;
     private String comment;
 }

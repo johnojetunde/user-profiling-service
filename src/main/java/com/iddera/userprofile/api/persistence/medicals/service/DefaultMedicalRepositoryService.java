@@ -2,6 +2,7 @@ package com.iddera.userprofile.api.persistence.medicals.service;
 
 import com.iddera.userprofile.api.domain.medicalinfo.service.RepositoryService;
 import com.iddera.userprofile.api.persistence.medicals.mapper.EntityToDomainMapper;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -20,8 +21,9 @@ public abstract class DefaultMedicalRepositoryService<T, V> implements Repositor
     private final JpaRepository<V, Long> repository;
 
     @Override
-    public CompletableFuture<T> save(T model) {
+    public CompletableFuture<T> save(@NonNull T model) {
         return supplyAsync(() -> {
+
             var entity = mapper.toEntity(model);
             entity = repository.save(entity);
             return mapper.toModel(entity);
@@ -29,13 +31,13 @@ public abstract class DefaultMedicalRepositoryService<T, V> implements Repositor
     }
 
     @Override
-    public CompletableFuture<Optional<T>> findById(Long id) {
+    public CompletableFuture<Optional<T>> findById(@NonNull Long id) {
         return supplyAsync(() -> repository.findById(id)
                 .map(mapper::toModel));
     }
 
     @Override
-    public CompletableFuture<T> update(Long id, T model) {
+    public CompletableFuture<T> update(Long id, @NonNull T model) {
         return supplyAsync(() -> {
             var entity = mapper.toEntity(model, id);
             entity = repository.save(entity);
@@ -44,7 +46,7 @@ public abstract class DefaultMedicalRepositoryService<T, V> implements Repositor
     }
 
     @Override
-    public CompletableFuture<Optional<T>> findByUsername(String username) {
+    public CompletableFuture<Optional<T>> findByUsername(@NonNull String username) {
         return supplyAsync(() -> getByUsername(username)
                 .map(mapper::toModel));
     }

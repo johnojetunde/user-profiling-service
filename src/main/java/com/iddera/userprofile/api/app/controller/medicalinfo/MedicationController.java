@@ -6,6 +6,8 @@ import com.iddera.userprofile.api.domain.medicalinfo.service.MedicalInfoService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,21 +24,21 @@ public class MedicationController extends AbstractMedicalInfoController<Medicati
     @ApiOperation(value = "Create a medication", response = MedicationModel.class)
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = MedicationModel.class)})
     @Override
-    public CompletableFuture<ResponseModel> create(@Valid MedicationModel body) {
+    public CompletableFuture<ResponseModel> create(@Valid @RequestBody MedicationModel body) {
         return super.create(body);
     }
 
     @ApiOperation(value = "Update a medication", response = MedicationModel.class)
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = MedicationModel.class)})
     @Override
-    public CompletableFuture<ResponseModel> update(Long id, @Valid MedicationModel body) {
+    public CompletableFuture<ResponseModel> update(@PathVariable("id") Long id, @Valid @RequestBody MedicationModel body) {
         return super.update(id, body);
     }
 
     @ApiOperation(value = "get a medication by id", response = MedicationModel.class)
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = MedicationModel.class)})
     @Override
-    public CompletableFuture<ResponseModel> getById(Long id) {
+    public CompletableFuture<ResponseModel> getById(@PathVariable("id") Long id) {
         return super.getById(id);
     }
 

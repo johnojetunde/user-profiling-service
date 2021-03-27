@@ -15,11 +15,8 @@ public class DietaryPlanMapper implements EntityToDomainMapper<DietaryPlanModel,
     public DietaryPlan toEntity(DietaryPlanModel model, Long id) {
         var entity = new DietaryPlan()
                 .setComment(model.getComment())
-                .setDuration(model.getDuration())
-                .setCaloriesEffect(model.getCaloriesEffect())
-                .setStatus(model.getStatus())
-                .setType(model.getType())
-                .setStartDate(model.getStartDate());
+                .setPhysicalActiveRate(model.getPhysicalActiveRate())
+                .setType(model.getType());
 
         entity.setId(id);
         entity.setUsername(model.getUsername());

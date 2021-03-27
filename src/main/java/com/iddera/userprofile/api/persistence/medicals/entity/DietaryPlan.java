@@ -1,16 +1,14 @@
 package com.iddera.userprofile.api.persistence.medicals.entity;
 
 import com.iddera.userprofile.api.domain.medicalinfo.model.DietaryPlanModel;
-import com.iddera.userprofile.api.domain.medicalinfo.model.enums.ActiveStatus;
 import com.iddera.userprofile.api.domain.medicalinfo.model.enums.DietaryType;
+import com.iddera.userprofile.api.domain.medicalinfo.model.enums.FitnessRate;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
-import java.time.Duration;
-import java.time.LocalDate;
 
 import static javax.persistence.EnumType.STRING;
 
@@ -21,11 +19,8 @@ import static javax.persistence.EnumType.STRING;
 public class DietaryPlan extends BaseMedicalEntity {
     @Enumerated(STRING)
     private DietaryType type;
-    private String caloriesEffect;
-    private LocalDate startDate;
-    private Duration duration; //TODO: This is not clear, clarify what this mean
     @Enumerated(STRING)
-    private ActiveStatus status;
+    private FitnessRate physicalActiveRate;
     private String comment;
 
     public DietaryPlanModel toModel() {
@@ -33,10 +28,7 @@ public class DietaryPlan extends BaseMedicalEntity {
                 .id(id)
                 .username(username)
                 .type(type)
-                .caloriesEffect(caloriesEffect)
-                .startDate(startDate)
-                .duration(duration)
-                .status(status)
+                .physicalActiveRate(physicalActiveRate)
                 .comment(comment)
                 .build();
     }

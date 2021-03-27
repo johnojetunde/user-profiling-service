@@ -19,6 +19,7 @@ public class MedicalProcedureRepositoryService extends DefaultMedicalRepositoryS
     }
 
     @Override
+
     public Optional<MedicalProcedure> getByUsername(String username) {
         return repository.findByUsername(username);
     }

@@ -20,7 +20,7 @@ public class MedicalForm {
     private AlcoholHabitModel alcoholInfo;
     @NotNull
     @Valid
-    private ExerciseInfoModel exerciseInfo;
+    private BloodDetailsModel bloodDetails;
     @Valid
     private List<DietaryPlanModel> dietaryPlans;
     @Valid

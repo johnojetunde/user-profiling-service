@@ -13,7 +13,8 @@ import java.util.Optional;
 public class DietaryPlanRepositoryService extends DefaultMedicalRepositoryService<DietaryPlanModel, DietaryPlan> {
     private final DietaryPlanRepository repository;
 
-    public DietaryPlanRepositoryService(EntityToDomainMapper<DietaryPlanModel, DietaryPlan> mapper, DietaryPlanRepository repository) {
+    public DietaryPlanRepositoryService(EntityToDomainMapper<DietaryPlanModel, DietaryPlan> mapper,
+                                        DietaryPlanRepository repository) {
         super(mapper, repository);
         this.repository = repository;
     }

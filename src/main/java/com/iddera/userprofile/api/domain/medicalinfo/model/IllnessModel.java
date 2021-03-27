@@ -9,7 +9,6 @@ import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.Duration;
 import java.time.LocalDate;
 
 @AllArgsConstructor
@@ -19,11 +18,9 @@ import java.time.LocalDate;
 public class IllnessModel extends BaseModel {
     @NotBlank
     private String name;
+    private CustomFrequency duration;
     @NotNull
-    private boolean ongoing;
-    private Duration duration; //TODO: what does duration mean
-    @NotNull
-    private LocalDate date;
+    private LocalDate dateAdmitted;
     @NotNull
     @ValidEnum(message = "Invalid recovery status")
     private RecoveryStatus recoveryStatus;

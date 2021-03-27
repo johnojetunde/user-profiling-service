@@ -1,5 +1,7 @@
 package com.iddera.userprofile.api.domain.medicalinfo.model;
 
+import com.iddera.commons.annotation.ValidEnum;
+import com.iddera.userprofile.api.domain.medicalinfo.model.enums.RecoveryStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,10 +19,10 @@ public class MedicalProcedureModel extends BaseModel {
     @NotBlank
     private String name;
     @NotNull
-    private LocalDate date;
+    private LocalDate dateAdmitted;
     @NotNull
-    private boolean hospitalized;
+    @ValidEnum(message = "Invalid recovery status")
+    private RecoveryStatus recoveryStatus;
     @NotNull
-    private CustomFrequency recoveryPeriod;
     private String comment;
 }

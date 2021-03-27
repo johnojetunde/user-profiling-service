@@ -13,8 +13,8 @@ import java.util.Optional;
 public class AlcoholRepositoryService extends DefaultMedicalRepositoryService<AlcoholHabitModel, AlcoholHabit> {
     private final AlcoholHabitRepository repository;
 
-    public AlcoholRepositoryService(AlcoholHabitRepository repository,
-                                    EntityToDomainMapper<AlcoholHabitModel, AlcoholHabit> mapper) {
+    public AlcoholRepositoryService(EntityToDomainMapper<AlcoholHabitModel, AlcoholHabit> mapper,
+                                    AlcoholHabitRepository repository) {
         super(mapper, repository);
         this.repository = repository;
     }

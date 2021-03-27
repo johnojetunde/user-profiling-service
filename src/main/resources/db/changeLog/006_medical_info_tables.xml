@@ -43,7 +43,6 @@
             </column>
             <column name="category" type="VARCHAR(100)"/>
             <column name="reactions" type="${text}"/>
-            <column name="previous_occurrence_dates" type="${text}"/>
             <column name="comment" type="${text}"/>
 
             <column name="username" type="VARCHAR(100)">
@@ -71,10 +70,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="type" type="VARCHAR(100)"/>
-            <column name="calories_effect" type="VARCHAR(100)"/>
-            <column name="start_Date" type="DATE"/>
-            <column name="duration" type="VARCHAR(100)"/>
-            <column name="status" type="VARCHAR(20)"/>
+            <column name="physical_active_rate" type="VARCHAR(100)"/>
             <column name="comment" type="${text}"/>
 
             <column name="username" type="VARCHAR(100)">
@@ -93,16 +89,16 @@
     <changeSet author="johnojetunde" id="202103231919-04">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="exercise_info"/>
+                <tableExists tableName="blood_details"/>
             </not>
         </preConditions>
 
-        <createTable tableName="exercise_info">
+        <createTable tableName="blood_details">
             <column autoIncrement="true" name="id" type="BIGSERIAL">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="rate" type="VARCHAR(100)"/>
-            <column name="activities" type="${text}"/>
+            <column name="genotype" type="VARCHAR(10)"/>
+            <column name="blood_group" type="VARCHAR(10)"/>
 
             <column name="username" type="VARCHAR(100)">
                 <constraints unique="true" nullable="false"/>
@@ -129,9 +125,9 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="VARCHAR(255)"/>
-            <column name="ongoing" defaultValue="false" type="${boolean}"/>
-            <column name="duration" type="VARCHAR(100)"/>
-            <column name="date" type="DATE"/>
+            <column name="duration_type" type="VARCHAR(100)"/>
+            <column name="duration_value" type="BIGINT"/>
+            <column name="date_admitted" type="DATE"/>
             <column name="recovery_status" type="VARCHAR(30)"/>
             <column name="comment" type="${text}"/>
 
@@ -160,10 +156,8 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="VARCHAR(255)"/>
-            <column name="date" type="DATE"/>
-            <column name="hospitalized" defaultValue="false" type="${boolean}"/>
-            <column name="recovery_period" type="BIGINT"/>
-            <column name="recovery_period_type" type="VARCHAR(30)"/>
+            <column name="date_admitted" type="DATE"/>
+            <column name="recovery_status" type="VARCHAR(20)"/>
             <column name="comment" type="${text}"/>
 
             <column name="username" type="VARCHAR(100)">
@@ -194,9 +188,7 @@
             <column name="description" type="${text}"/>
             <column name="category" type="VARCHAR(35)"/>
             <column name="duration" type="VARCHAR(35)"/>
-            <column name="start_date" type="DATE"/>
-            <column name="prescription_status" type="VARCHAR(35)"/>
-            <column name="status" type="VARCHAR(35)"/>
+            <column name="herbal_medication" type="VARCHAR(35)"/>
             <column name="comment" type="${text}"/>
 
             <column name="username" type="VARCHAR(100)">

@@ -1,12 +1,12 @@
 package com.iddera.userprofile.api.domain.medicalinfo.service;
 
 import com.iddera.userprofile.api.domain.exception.UserProfilingExceptionService;
-import com.iddera.userprofile.api.domain.medicalinfo.model.ExerciseInfoModel;
+import com.iddera.userprofile.api.domain.medicalinfo.model.BloodDetailsModel;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ExerciseInfoService extends MedicalInfoService<ExerciseInfoModel> {
-    public ExerciseInfoService(RepositoryService<ExerciseInfoModel> repositoryService, UserProfilingExceptionService exceptions) {
+public class BloodDetailsService extends MedicalInfoService<BloodDetailsModel> {
+    public BloodDetailsService(RepositoryService<BloodDetailsModel> repositoryService, UserProfilingExceptionService exceptions) {
         super(repositoryService, exceptions);
     }
 
@@ -17,6 +17,6 @@ public class ExerciseInfoService extends MedicalInfoService<ExerciseInfoModel> {
 
     @Override
     public String modelType() {
-        return "ExerciseInfo";
+        return "BloodDetails";
     }
 }

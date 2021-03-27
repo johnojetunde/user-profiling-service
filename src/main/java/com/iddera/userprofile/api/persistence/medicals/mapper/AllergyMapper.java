@@ -16,8 +16,7 @@ public class AllergyMapper implements EntityToDomainMapper<AllergyModel, Allergy
         var entity = new Allergy()
                 .setCategory(model.getCategory())
                 .setComment(model.getComment())
-                .setReactions(model.getReactions())
-                .setPreviousOccurrenceDates(model.getPreviousOccurrenceDates());
+                .setReactions(model.getReactions());
 
         entity.setId(id);
         entity.setUsername(model.getUsername());

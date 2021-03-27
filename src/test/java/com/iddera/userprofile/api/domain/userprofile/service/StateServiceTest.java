@@ -1,4 +1,4 @@
-package com.iderra.userprofile.api.domain.userprofile.service;
+package com.iddera.userprofile.api.domain.userprofile.service;
 
 import com.iddera.userprofile.api.domain.exception.UserProfilingException;
 import com.iddera.userprofile.api.domain.exception.UserProfilingExceptionService;
