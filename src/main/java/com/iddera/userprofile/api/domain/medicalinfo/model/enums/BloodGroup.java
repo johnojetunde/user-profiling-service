@@ -24,7 +24,7 @@ public enum BloodGroup {
     @JsonProperty("AB+")
     AB_POSITIVE("AB+"),
     @JsonProperty("AB-")
-    AB_NEGAT("AB-"),
+    AB_NEGATIVE("AB-"),
     @JsonProperty("unknown")
     UNKNOWN("UNKNOWN");
 

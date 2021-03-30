@@ -3,6 +3,7 @@ package com.iddera.userprofile.api.domain.medicalinfo.model;
 import java.util.Set;
 
 public class Constant {
+    //TODO: create an endpoint that sends these categories to the user
     public static final Set<String> MEDICATION_CATEGORY = Set.of(
             "Analgesics/Pain Killers",
             "Anti-pyretic (for fevers)",
