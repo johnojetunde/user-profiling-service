@@ -1,6 +1,7 @@
 package com.iddera.userprofile.api.domain.medicalinfo.service;
 
 import com.iddera.userprofile.api.domain.medicalinfo.model.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import static java.util.Collections.emptyList;
 import static java.util.concurrent.CompletableFuture.completedFuture;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 
+@RequiredArgsConstructor
 @Service
 public class MedicalFormService {
     private final MedicalInfoService<AlcoholHabitModel> alcoholService;
@@ -20,25 +22,6 @@ public class MedicalFormService {
     private final MedicalInfoService<MedicalProcedureModel> medicalProcedureService;
     private final MedicalInfoService<MedicationModel> medicationService;
     private final MedicalInfoService<SmokingHabitModel> smokingHabitService;
-
-    public MedicalFormService(MedicalInfoService<AlcoholHabitModel> alcoholService,
-                              MedicalInfoService<AllergyModel> allergyService,
-                              MedicalInfoService<DietaryPlanModel> dietaryPlanService,
-                              MedicalInfoService<BloodDetailsModel> bloodDetailsService,
-                              MedicalInfoService<IllnessModel> illnessService,
-                              MedicalInfoService<MedicalProcedureModel> medicalProcedureService,
-                              MedicalInfoService<MedicationModel> medicationService,
-                              MedicalInfoService<SmokingHabitModel> smokingHabitService) {
-        this.alcoholService = alcoholService;
-        this.allergyService = allergyService;
-        this.dietaryPlanService = dietaryPlanService;
-        this.bloodDetailsService = bloodDetailsService;
-        this.illnessService = illnessService;
-        this.medicalProcedureService = medicalProcedureService;
-        this.medicationService = medicationService;
-        this.smokingHabitService = smokingHabitService;
-    }
-
 
     public CompletableFuture<MedicalForm> create(String username, MedicalForm model) {
         return supplyAsync(() -> {
