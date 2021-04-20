@@ -1,7 +1,8 @@
 package com.iddera.userprofile.api.persistence.medicals.service;
 
-import com.iddera.userprofile.api.persistence.medicals.mapper.IllnessMapper;
-import com.iddera.userprofile.api.persistence.medicals.repository.IllnessRepository;
+import com.iddera.userprofile.api.persistence.medicals.mapper.MedicationMapper;
+import com.iddera.userprofile.api.persistence.medicals.repository.MedicationRepository;
+import com.iddera.userprofile.api.stubs.TestDataFixtures;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -9,30 +10,29 @@ import org.mockito.Spy;
 
 import java.util.List;
 
-import static com.iddera.userprofile.api.stubs.TestDataFixtures.illness;
 import static java.util.Optional.ofNullable;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
 
-class IllnessRepositoryServiceTest {
+class MedicationRepositoryServiceTest {
     @Mock
-    private IllnessRepository repository;
+    private MedicationRepository repository;
     @Spy
-    private IllnessMapper mapper;
-    private IllnessRepositoryService repositoryService;
+    private MedicationMapper mapper;
+    private MedicationRepositoryService repositoryService;
 
     @BeforeEach
     void setUp() {
         openMocks(this);
-        repositoryService = new IllnessRepositoryService(mapper, repository);
+        repositoryService = new MedicationRepositoryService(mapper, repository);
     }
 
     @Test
     void getByUsername() {
         when(repository.findByUsername("username"))
-                .thenReturn(ofNullable(illness()));
+                .thenReturn(ofNullable(TestDataFixtures.medication()));
 
         var result = repositoryService.getByUsername("username");
 
@@ -43,7 +43,7 @@ class IllnessRepositoryServiceTest {
     @Test
     void getAllByUsername() {
         when(repository.findAllByUsername("username"))
-                .thenReturn(List.of(illness()));
+                .thenReturn(List.of(TestDataFixtures.medication()));
 
         var result = repositoryService.getAllByUsername("username");
 

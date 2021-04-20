@@ -1,6 +1,7 @@
 package com.iddera.userprofile.api.app.config;
 
 import com.iddera.commons.exception.ApiException;
+import com.iddera.userprofile.api.app.model.ErrorFormatter;
 import com.iddera.userprofile.api.app.model.ResponseModel;
 import com.iddera.userprofile.api.domain.exception.UserProfilingException;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +23,6 @@ import javax.validation.ConstraintViolationException;
 import java.util.NoSuchElementException;
 import java.util.concurrent.CompletionException;
 
-import static com.iddera.userprofile.api.app.model.ErrorFormatter.format;
 import static java.util.Collections.singletonList;
 import static org.springframework.http.HttpStatus.*;
 
@@ -55,7 +55,7 @@ public class RestControllerAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = {ConstraintViolationException.class})
     public ResponseEntity<ResponseModel> handleConstraintViolation(ConstraintViolationException ex) {
         log.error("Unhandled exception encountered: {}", ex.getMessage(), ex);
-        return new ResponseEntity<>(new ResponseModel(null, "", format(ex.getConstraintViolations()), BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ResponseModel(null, "", ErrorFormatter.format(ex.getConstraintViolations()), BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value = {MultipartException.class})
@@ -99,7 +99,7 @@ public class RestControllerAdvice extends ResponseEntityExceptionHandler {
                                                                   HttpStatus status,
                                                                   WebRequest request) {
         BindingResult bindingResult = ex.getBindingResult();
-        return new ResponseEntity<>(new ResponseModel(null, "", format(bindingResult), BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ResponseModel(null, "", ErrorFormatter.format(bindingResult), BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
     }
 
     @Override

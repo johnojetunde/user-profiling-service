@@ -1,38 +1,38 @@
 package com.iddera.userprofile.api.persistence.medicals.service;
 
-import com.iddera.userprofile.api.persistence.medicals.mapper.AlcoholHabitMapper;
-import com.iddera.userprofile.api.persistence.medicals.repository.AlcoholHabitRepository;
+import com.iddera.userprofile.api.persistence.medicals.mapper.DietaryPlanMapper;
+import com.iddera.userprofile.api.persistence.medicals.repository.DietaryPlanRepository;
+import com.iddera.userprofile.api.stubs.TestDataFixtures;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Spy;
 
 import java.util.List;
-import java.util.Optional;
 
-import static com.iddera.userprofile.api.stubs.TestDataFixtures.alcohol;
+import static java.util.Optional.ofNullable;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
 
-class AlcoholRepositoryServiceTest {
+class DietaryPlanRepositoryServiceTest {
     @Mock
-    private AlcoholHabitRepository repository;
+    private DietaryPlanRepository repository;
     @Spy
-    private AlcoholHabitMapper mapper;
-    private AlcoholRepositoryService repositoryService;
+    private DietaryPlanMapper mapper;
+    private DietaryPlanRepositoryService repositoryService;
 
     @BeforeEach
     void setUp() {
         openMocks(this);
-        repositoryService = new AlcoholRepositoryService(mapper, repository);
+        repositoryService = new DietaryPlanRepositoryService(mapper, repository);
     }
 
     @Test
     void getByUsername() {
         when(repository.findByUsername("username"))
-                .thenReturn(Optional.ofNullable(alcohol()));
+                .thenReturn(ofNullable(TestDataFixtures.dietaryPlan()));
 
         var result = repositoryService.getByUsername("username");
 
@@ -43,7 +43,7 @@ class AlcoholRepositoryServiceTest {
     @Test
     void getAllByUsername() {
         when(repository.findAllByUsername("username"))
-                .thenReturn(List.of(alcohol()));
+                .thenReturn(List.of(TestDataFixtures.dietaryPlan()));
 
         var result = repositoryService.getAllByUsername("username");
 

@@ -1,6 +1,7 @@
 package com.iddera.userprofile.api.domain.medicalinfo.service;
 
 import com.iddera.userprofile.api.domain.medicalinfo.model.*;
+import com.iddera.userprofile.api.stubs.TestDataFixtures;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -9,8 +10,6 @@ import org.mockito.Mock;
 import java.util.List;
 
 import static com.iddera.userprofile.api.domain.medicalinfo.model.enums.Consumption.MODERATE;
-import static com.iddera.userprofile.api.stubs.TestDataFixtures.medicalForm;
-import static com.iddera.userprofile.api.stubs.TestDataFixtures.smoking;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 import static java.util.concurrent.CompletableFuture.completedFuture;
@@ -59,7 +58,7 @@ class MedicalFormServiceTest {
         when(alcoholService.create(eq("username"), isA(AlcoholHabitModel.class)))
                 .then(i -> completedFuture(i.getArgument(1)));
 
-        var result = medicalFormService.create("username", medicalForm()).join();
+        var result = medicalFormService.create("username", TestDataFixtures.medicalForm()).join();
 
         assertThat(result).isNotNull();
 
@@ -76,7 +75,7 @@ class MedicalFormServiceTest {
     @Test
     void createMedicalForm_withNullFields() {
         mockCalls();
-        var medicalForm = medicalForm();
+        var medicalForm = TestDataFixtures.medicalForm();
         medicalForm.setAlcoholInfo(null);
 
         var result = medicalFormService.create("username", medicalForm).join();
@@ -148,6 +147,6 @@ class MedicalFormServiceTest {
         when(medicationService.getByUsername("username"))
                 .thenReturn(completedFuture(empty()));
         when(smokingHabitService.getByUsername("username"))
-                .thenReturn(completedFuture(of(smoking().toModel())));
+                .thenReturn(completedFuture(of(TestDataFixtures.smoking().toModel())));
     }
 }
