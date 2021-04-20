@@ -3,8 +3,8 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://${RDS_HOSTNAME:localhost}:${RDS_PORT:3306}/${RDS_DB_NAME:user_profiling_db}
-    username: ${RDS_USERNAME:root}
+    url: jdbc:postgresql://${RDS_HOSTNAME:localhost}:${RDS_PORT:5432}/${RDS_DB_NAME:user_profiling_db}
+    username: ${RDS_USERNAME:postgres}
     password: ${RDS_PASSWORD:password}
     maxConnections: 10
     hikari:
@@ -16,7 +16,7 @@ spring:
       ddl-auto: none
   liquibase:
     enabled: true
-    change-log: classpath:db/db.changeLog-master.xml
+    change-log: classpath:db/changeLog-master.xml
 logging:
   level:
     root: INFO
