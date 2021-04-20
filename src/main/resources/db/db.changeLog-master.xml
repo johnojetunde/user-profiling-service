@@ -6,12 +6,13 @@
 
     <property dbms="h2" name="blob" value="VARBINARY"/>
     <property dbms="postgresql" name="blob" value="BYTEA"/>
+    <property dbms="mysql" name="blob" value="VARBINARY"/>
 
     <property dbms="h2" name="boolean" value="BOOLEAN"/>
-    <property dbms="postgresql" name="boolean" value="BOOLEAN"/>
+    <property dbms="postgresql,mysql" name="boolean" value="BOOLEAN"/>
 
     <property dbms="h2" name="text" value="VARCHAR(255)"/>
-    <property dbms="postgresql" name="text" value="TEXT"/>
+    <property dbms="postgresql,mysql" name="text" value="TEXT"/>
 
     <include file="db/changelog/001_country_state_lga_migration.xml"/>
     <include file="db/changelog/002_user_profile_migration.xml"/>
