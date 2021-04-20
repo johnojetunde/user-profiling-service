@@ -166,7 +166,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.iddera.userprofile.api.UserManagementServiceApplication</mainClass>
+                    <mainClass>com.iddera.userprofile.api.UserProfilingServiceApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
