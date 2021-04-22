@@ -1,6 +1,7 @@
 package com.iddera.userprofile.api.app.config;
 
 import com.iddera.client.provider.RetrofitProvider;
+import com.iddera.commons.utils.BearerTokenExtractor;
 import com.iddera.usermanagement.client.UserManagementClient;
 import com.iddera.usermanagement.client.endpoints.Users;
 import lombok.RequiredArgsConstructor;
@@ -23,4 +24,7 @@ public class Clients {
     public Users users() {
         return userManagementClient().users();
     }
+
+    @Bean
+    public BearerTokenExtractor tokenExtractor(){return new BearerTokenExtractor();}
 }
