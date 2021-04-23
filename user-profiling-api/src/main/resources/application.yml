@@ -1,0 +1,36 @@
+server:
+  port: ${SERVER_PORT:9000}
+
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DATABASE_URL:localhost:3306/user_profiling_db?createDatabaseIfNotExist=true&serverTimezone=UTC}
+    username: ${DATABASE_USERNAME:root}
+    password: ${DATABASE_PASSWORD:password}
+    maxConnections: 10
+    hikari:
+      connection-test-query: SELECT 1
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changeLog-master.xml
+logging:
+  level:
+    root: INFO
+  file:
+    name: iddera-user-profiling-service.log
+  logback:
+    rollingpolicy:
+      max-file-size: 50MB
+iddera:
+  client:
+    read-time-out: ${CLIENT_READ_TIMEOUT:40}
+    connection-time-out: ${CLIENT_CONNECTION_TIMEOUT:40}
+    write-time-out: ${CLIENT_WRITE_TIMEOUT:40}
+    user-management-url: ${USER_MANAGEMENT_URL:https://iddera-user-management-api.herokuapp.com}
+
+swagger-auth-link: ${SWAGGER_AUTH_LINK:http://127.0.0.1:8080}
