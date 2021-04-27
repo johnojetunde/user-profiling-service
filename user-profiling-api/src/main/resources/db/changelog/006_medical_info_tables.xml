@@ -282,7 +282,7 @@
             <column name="able_to_get_prescription_delivery" type="VARCHAR(100)"/>
             <column name="taking_steps_to_improve_health" type="VARCHAR(100)"/>
             <column name="mental_stress_therapist" type="VARCHAR(100)"/>
-            <column name="hospital_id" type="BIGSERIAL">
+            <column name="hospital_id" type="BIGINT">
                 <constraints nullable="false" foreignKeyName="fk_medical_assessment_hospital"
                              references="hospital(id)"/>
             </column>

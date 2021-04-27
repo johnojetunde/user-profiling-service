@@ -31,6 +31,12 @@ iddera:
     read-time-out: ${CLIENT_READ_TIMEOUT:40}
     connection-time-out: ${CLIENT_CONNECTION_TIMEOUT:40}
     write-time-out: ${CLIENT_WRITE_TIMEOUT:40}
-    user-management-url: ${USER_MANAGEMENT_URL:https://iddera-user-management-api.herokuapp.com}
+    user-management-url: ${USER_MANAGEMENT_URL:http://127.0.0.1:8080}
 
 swagger-auth-link: ${SWAGGER_AUTH_LINK:http://127.0.0.1:8080}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
