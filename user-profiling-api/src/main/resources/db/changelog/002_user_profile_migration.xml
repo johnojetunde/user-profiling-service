@@ -68,6 +68,17 @@
                                  referencedColumnNames="id" referencedTableName="local_government_area"
                                  validate="true"/>
     </changeSet>
+
+    <changeSet  author="tajia"  id="202104281935-01">
+        <preConditions onFail="WARN">
+            <dbms type="mysql"/>
+            <foreignKeyConstraintExists foreignKeyName="FK_user_profiles_country_id" />
+            <foreignKeyConstraintExists foreignKeyName="FK_user_profiles_state_id" />
+        </preConditions>
+        <dropForeignKeyConstraint constraintName="FK_user_profiles_country_id" baseTableName="user_profile"/>
+        <dropForeignKeyConstraint constraintName="FK_user_profiles_state_id" baseTableName="user_profile"/>
+    </changeSet>
+
     <changeSet author="johnojetunde" id="202104227035-01">
         <preConditions onFail="MARK_RAN">
             <columnExists tableName="user_profile" columnName="country_id"/>
