@@ -1,8 +1,11 @@
 package com.iddera.userprofile.api.persistence.userprofile.entity;
 
+import com.iddera.userprofile.api.domain.location.model.StateModel;
 import lombok.Data;
 
 import javax.persistence.*;
+
+import static java.util.Optional.ofNullable;
 
 @Data
 @Entity
@@ -18,4 +21,15 @@ public class State extends BaseEntity {
     @ManyToOne(targetEntity = Country.class)
     @JoinColumn(name = "country_id", referencedColumnName = "id", nullable = false)
     private Country country;
+
+    public StateModel toModel() {
+        return StateModel.builder()
+                .id(getId())
+                .name(getName())
+                .code(getCode())
+                .country(ofNullable(getCountry())
+                        .map(Country::toModel)
+                        .orElse(null))
+                .build();
+    }
 }

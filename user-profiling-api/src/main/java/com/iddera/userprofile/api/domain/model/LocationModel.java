@@ -12,10 +12,8 @@ import javax.validation.constraints.NotNull;
 public class LocationModel {
     @NotNull(message = "Country Id can not be null.")
     private Long countryId;
-
     @NotNull(message = "State Id can not be null.")
     private Long stateId;
-
     @NotNull(message = "Lga Id can not be null.")
     private Long lgaId;
 }

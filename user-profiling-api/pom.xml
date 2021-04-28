@@ -121,7 +121,7 @@
         <dependency>
             <groupId>com.iddera</groupId>
             <artifactId>user-management-client</artifactId>
-            <version>1.0</version>
+            <version>1.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>

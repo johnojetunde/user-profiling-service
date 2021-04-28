@@ -1,15 +1,25 @@
 package com.iddera.userprofile.api.app.config;
 
-import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import com.iddera.client.provider.RetrofitProvider;
+import com.iddera.usermanagement.client.UserManagementClient;
+import com.iddera.usermanagement.client.endpoints.Users;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Data
+@RequiredArgsConstructor
 @Configuration
-@ConfigurationProperties(prefix = "iddera.client")
 public class ClientConfig {
-    private Integer readTimeOut = 40;
-    private Integer connectionTimeOut = 40;
-    private Integer writeTimeOut = 40;
-    private String userManagementUrl;
+    private final ClientProperties config;
+
+    @Bean
+    public UserManagementClient userManagementClient() {
+        RetrofitProvider retrofitProvider = new RetrofitProvider(config.getConnectionTimeOut(), config.getReadTimeOut(), config.getWriteTimeOut());
+        return new UserManagementClient(retrofitProvider, config.getUserManagementUrl());
+    }
+
+    @Bean
+    public Users users() {
+        return userManagementClient().users();
+    }
 }
