@@ -93,16 +93,40 @@ class MedicalInfoServiceTest {
 
     @Test
     void update() {
-        when(repositoryService.findById(1L))
-                .thenReturn(completedFuture(Optional.of(new SimpleModel())));
-        when(repositoryService.update(1L, new SimpleModel()))
-                .thenReturn(completedFuture(new SimpleModel()));
+        var simpleModel = new SimpleModel();
+        simpleModel.setUsername("username");
 
-        var result = medicalInfoService.update(1L, new SimpleModel()).join();
+        when(repositoryService.findById(1L))
+                .thenReturn(completedFuture(Optional.of(simpleModel)));
+        when(repositoryService.update(1L, simpleModel))
+                .thenReturn(completedFuture(simpleModel));
+
+
+        var result = medicalInfoService.update("username", 1L, simpleModel).join();
 
         assertThat(result).isNotNull();
         verify(repositoryService).findById(1L);
-        verify(repositoryService).update(1L, new SimpleModel());
+        verify(repositoryService).update(1L, simpleModel);
+    }
+
+    @Test
+    void update_unAuthorizedUser() {
+        var simpleModel = new SimpleModel();
+        simpleModel.setUsername("username");
+
+        when(repositoryService.findById(1L))
+                .thenReturn(completedFuture(Optional.of(new SimpleModel())));
+        when(repositoryService.update(1L, simpleModel))
+                .thenReturn(completedFuture(simpleModel));
+
+
+        var result = medicalInfoService.update("username", 1L, simpleModel);
+
+        assertThatThrownBy(result::join)
+                .isInstanceOf(CompletionException.class)
+                .hasCause(new UserProfilingException("You do not have the rights to update Object"))
+                .extracting(Throwable::getCause)
+                .hasFieldOrPropertyWithValue("code", 403);
     }
 
     @Test
@@ -110,7 +134,7 @@ class MedicalInfoServiceTest {
         when(repositoryService.findById(1L))
                 .thenReturn(completedFuture(Optional.empty()));
 
-        var result = medicalInfoService.update(1L, new SimpleModel());
+        var result = medicalInfoService.update("", 1L, new SimpleModel());
 
         assertThatThrownBy(result::join)
                 .isInstanceOf(CompletionException.class)

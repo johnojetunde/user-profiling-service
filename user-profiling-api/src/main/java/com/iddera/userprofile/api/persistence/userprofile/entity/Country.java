@@ -1,5 +1,6 @@
 package com.iddera.userprofile.api.persistence.userprofile.entity;
 
+import com.iddera.userprofile.api.domain.location.model.CountryModel;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -14,4 +15,12 @@ public class Country extends BaseEntity {
     private String code;
     @Column(nullable = false, unique = true)
     private String name;
+
+    public CountryModel toModel() {
+        return CountryModel.builder()
+                .id(getId())
+                .name(getName())
+                .code(getCode())
+                .build();
+    }
 }

@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 import static com.iddera.commons.utils.FunctionUtil.emptyIfNullStream;
+import static java.lang.String.format;
 import static java.util.Optional.empty;
 import static java.util.concurrent.CompletableFuture.completedFuture;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
@@ -22,11 +23,11 @@ public abstract class MedicalInfoService<T extends BaseModel> {
     private final UserProfilingExceptionService exceptions;
 
     public CompletableFuture<T> create(@NonNull String username, @NonNull T model) {
-        CompletableFuture<Optional<T>> checker = completedFuture(empty());
+        CompletableFuture<Optional<T>> existingEntity = completedFuture(empty());
         if (!allowMultiple())
-            checker = repositoryService.findByUsername(username);
+            existingEntity = repositoryService.findByUsername(username);
 
-        return checker.thenCompose(s -> {
+        return existingEntity.thenCompose(s -> {
             if (s.isPresent())
                 throw exceptions.handleCreateBadRequest("User %s has %s details previously exist", username, modelType());
 
@@ -41,13 +42,21 @@ public abstract class MedicalInfoService<T extends BaseModel> {
                 .collect(toList()));
     }
 
-    public CompletableFuture<T> update(@NonNull Long id, @NonNull T model) {
+    public CompletableFuture<T> update(@NonNull String username, @NonNull Long id, @NonNull T model) {
         return repositoryService.findById(id)
                 .thenCompose(data -> {
-                    data.orElseThrow(() ->
+                    var result = data.orElseThrow(() ->
                             exceptions.handleCreateBadRequest("%s with %d id does not exist", modelType(), id));
+
+                    ensureModelBelongsToUser(username, result);
                     return repositoryService.update(id, model);
                 });
+    }
+
+    private void ensureModelBelongsToUser(@NonNull String username, T result) {
+        if (!username.equalsIgnoreCase(result.getUsername())) {
+            throw exceptions.handleCreateForbidden(format("You do not have the rights to update %s", modelType()));
+        }
     }
 
     public CompletableFuture<Optional<T>> getByUsername(@NonNull String username) {

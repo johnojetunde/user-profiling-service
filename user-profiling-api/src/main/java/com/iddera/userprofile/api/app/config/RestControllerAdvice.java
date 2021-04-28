@@ -1,5 +1,6 @@
 package com.iddera.userprofile.api.app.config;
 
+import com.iddera.client.exception.ClientApiException;
 import com.iddera.commons.exception.ApiException;
 import com.iddera.userprofile.api.app.model.ErrorFormatter;
 import com.iddera.userprofile.api.app.model.ResponseModel;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -40,8 +42,16 @@ public class RestControllerAdvice extends ResponseEntityExceptionHandler {
     public ResponseEntity<ResponseModel> handleCompletionException(CompletionException ex) {
         if (ex.getCause() instanceof UserProfilingException) {
             return handleDomainException((UserProfilingException) ex.getCause());
+        } else if (ex.getCause() instanceof ClientApiException) {
+            return handleApiException((ClientApiException) ex.getCause());
         }
         return handleException(ex);
+    }
+
+    @ExceptionHandler(value = {AccessDeniedException.class})
+    public ResponseEntity<ResponseModel> handleAccessDeniedException(AccessDeniedException ex, WebRequest request) {
+        log.error("Unhandled exception encountered: {}", ex.getMessage(), ex);
+        return new ResponseEntity<>(new ResponseModel(null, ex.getMessage(), singletonList(ex.getMessage()), FORBIDDEN.value()), FORBIDDEN);
     }
 
     @ExceptionHandler(value = {UserProfilingException.class})
@@ -50,6 +60,14 @@ public class RestControllerAdvice extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(
                 new ResponseModel(null, "", singletonList(ex.getMessage()), ex.getCode()),
                 valueOf(ex.getCode()));
+    }
+
+    @ExceptionHandler(value = {ClientApiException.class})
+    public ResponseEntity<ResponseModel> handleApiException(ClientApiException ex) {
+        log.error("Unhandled exception encountered: {}", ex.getMessage(), ex);
+        return new ResponseEntity<>(
+                new ResponseModel(null, ex.getMessage(), ex.getErrors(), ex.getStatus()),
+                valueOf(ex.getStatus()));
     }
 
     @ExceptionHandler(value = {ConstraintViolationException.class})
@@ -68,7 +86,7 @@ public class RestControllerAdvice extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = {ApiException.class})
-    public ResponseEntity<ResponseModel> handleApiException(ApiException ex){
+    public ResponseEntity<ResponseModel> handleApiException(ApiException ex) {
         String msg = String.format("Exception message [%s]", ex.getMessage());
         return new ResponseEntity<>(new ResponseModel(null, "", singletonList(msg), BAD_REQUEST.value()), BAD_REQUEST);
     }
@@ -95,18 +113,18 @@ public class RestControllerAdvice extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-                                                                  HttpHeaders headers,
-                                                                  HttpStatus status,
-                                                                  WebRequest request) {
+                                                          HttpHeaders headers,
+                                                          HttpStatus status,
+                                                          WebRequest request) {
         BindingResult bindingResult = ex.getBindingResult();
         return new ResponseEntity<>(new ResponseModel(null, "", ErrorFormatter.format(bindingResult), BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
     }
 
     @Override
     protected ResponseEntity handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
-                                                                  HttpHeaders headers,
-                                                                  HttpStatus status,
-                                                                  WebRequest request) {
+                                                          HttpHeaders headers,
+                                                          HttpStatus status,
+                                                          WebRequest request) {
         return new ResponseEntity<>(
                 new ResponseModel(null, "", singletonList(ex.getMessage()), BAD_REQUEST.value()),
                 HttpStatus.BAD_REQUEST);

@@ -26,12 +26,17 @@ logging:
   logback:
     rollingpolicy:
       max-file-size: 50MB
+
+resource:
+  id: iddera-service
 iddera:
   client:
     read-time-out: ${CLIENT_READ_TIMEOUT:40}
     connection-time-out: ${CLIENT_CONNECTION_TIMEOUT:40}
     write-time-out: ${CLIENT_WRITE_TIMEOUT:40}
-    user-management-url: ${USER_MANAGEMENT_URL:http://127.0.0.1:8080}
+    user-management-url: ${USER_MANAGEMENT_URL:http://localhost:8080}
+    client-id: ${CLIENT_ID:}
+    client-secret: ${CLIENT_SECRET:}
 
 swagger-auth-link: ${SWAGGER_AUTH_LINK:http://127.0.0.1:8080}
 
