@@ -1,10 +1,12 @@
 package com.iddera.userprofile.api.stubs;
 
+import com.iddera.userprofile.api.domain.medicalinfo.model.Hospital;
 import com.iddera.userprofile.api.domain.medicalinfo.model.MedicalForm;
 import com.iddera.userprofile.api.domain.medicalinfo.model.enums.*;
 import com.iddera.userprofile.api.persistence.medicals.entity.*;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -69,6 +71,26 @@ public class TestDataFixtures {
         return new SmokingHabit()
                 .setFrequency(Frequency.OCCASIONALLY)
                 .setConsumption(Consumption.MODERATE);
+    }
+
+    public static MedicalAssessment medicalAssessment() {
+        return new MedicalAssessment().
+                setCurrentHealthFeel(HealthStatus.OKAY)
+                .setLastCheckUp(DateRange.ZERO_SIX_MONTHS)
+                .setLastTimeFeltGood(DateRange.OVER_THREE_YEARS)
+                .setGoodHealthMotivation(HealthMotivation.CONFIDENCE)
+                .setAverageBusyDay(PersonalTime.NOT_TOO_BUSY)
+                .setWellnessGoals(Collections.singleton("MONEY"))
+                .setConditionsOrConcerns(Collections.singleton("MONEY"))
+                .setFamilyHeartDisease(true)
+                .setFamilyCancer(false)
+                .setHadHeartOrCancerGenTest(true)
+                .setHomePhysician(true)
+                .setHaveFitnessPressureSensor(true)
+                .setAbleToGetPrescriptionDelivery(false)
+                .setTakingStepsToImproveHealth(false)
+                .setMentalStressTherapist(true)
+                .setHospital(new Hospital().setAddress("AMUWO-ODOFIN").setName("LINDERSON"));
     }
 
     public static MedicalForm medicalForm() {
