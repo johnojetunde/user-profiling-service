@@ -1,6 +1,5 @@
 package com.iddera.userprofile.api.persistence.medicals.entity;
 
-import com.iddera.userprofile.api.domain.medicalinfo.model.Hospital;
 import com.iddera.userprofile.api.domain.medicalinfo.model.MedicalAssessmentModel;
 import com.iddera.userprofile.api.domain.medicalinfo.model.enums.DateRange;
 import com.iddera.userprofile.api.domain.medicalinfo.model.enums.HealthMotivation;
@@ -11,7 +10,6 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Accessors(chain = true)

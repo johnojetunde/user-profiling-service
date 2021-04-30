@@ -36,7 +36,7 @@ public class MedicalAssessmentMapper implements EntityToDomainMapper<MedicalAsse
                 .setAbleToGetPrescriptionDelivery(model.getAbleToGetPrescriptionDelivery())
                 .setTakingStepsToImproveHealth(model.getTakingStepsToImproveHealth())
                 .setMentalStressTherapist(model.getMentalStressTherapist())
-                .setHospital(hospitalService.findById(model.getHospitalId()).join());
+                .setHospital(hospitalService.findById(model.getHospitalId()).join().toEntity());
 
 
         entity.setId(id);

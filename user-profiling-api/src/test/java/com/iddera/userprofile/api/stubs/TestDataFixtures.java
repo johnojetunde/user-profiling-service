@@ -1,6 +1,5 @@
 package com.iddera.userprofile.api.stubs;
 
-import com.iddera.userprofile.api.domain.medicalinfo.model.Hospital;
 import com.iddera.userprofile.api.domain.medicalinfo.model.MedicalForm;
 import com.iddera.userprofile.api.domain.medicalinfo.model.enums.*;
 import com.iddera.userprofile.api.persistence.medicals.entity.*;

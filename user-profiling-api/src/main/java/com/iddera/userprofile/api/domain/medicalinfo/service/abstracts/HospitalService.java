@@ -1,13 +1,15 @@
 package com.iddera.userprofile.api.domain.medicalinfo.service.abstracts;
 
-import com.iddera.userprofile.api.domain.location.model.CountryModel;
-import com.iddera.userprofile.api.domain.medicalinfo.model.Hospital;
+import com.iddera.userprofile.api.domain.model.HospitalModel;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public interface HospitalService {
-    CompletableFuture<List<Hospital>> findAll();
+    CompletableFuture<List<HospitalModel>> findAll();
 
-    CompletableFuture<Hospital> findById(Long id);
+    CompletableFuture<HospitalModel> findById(Long id);
+
+    CompletableFuture<HospitalModel> update(HospitalModel request);
+
 }
