@@ -1,11 +1,15 @@
 package com.iddera.userprofile.api.persistence.medicals.mapper;
 
 import com.iddera.userprofile.api.domain.medicalinfo.model.MedicalAssessmentModel;
+import com.iddera.userprofile.api.domain.medicalinfo.service.abstracts.HospitalService;
 import com.iddera.userprofile.api.persistence.medicals.entity.MedicalAssessment;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class MedicalAssessmentMapper implements EntityToDomainMapper<MedicalAssessmentModel, MedicalAssessment> {
+    private final HospitalService hospitalService;
     @Override
     public MedicalAssessment toEntity(MedicalAssessmentModel model) {
         return toEntity(model, model.getId());
@@ -29,7 +33,7 @@ public class MedicalAssessmentMapper implements EntityToDomainMapper<MedicalAsse
                 .setAbleToGetPrescriptionDelivery(model.getAbleToGetPrescriptionDelivery())
                 .setTakingStepsToImproveHealth(model.getTakingStepsToImproveHealth())
                 .setMentalStressTherapist(model.getMentalStressTherapist())
-                .setHospital(model.getHospital());
+                .setHospital(hospitalService.findById(model.getHospitalId()).join());
 
 
         entity.setId(id);

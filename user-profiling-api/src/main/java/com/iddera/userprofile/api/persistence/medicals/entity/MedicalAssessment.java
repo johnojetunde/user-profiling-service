@@ -12,6 +12,7 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Accessors(chain = true)
 @Data
@@ -34,10 +35,10 @@ public class MedicalAssessment extends BaseMedicalEntity {
     private PersonalTime averageBusyDay;
 
     @Convert(converter = SetOfStringToStringConverter.class)
-    private List<String> wellnessGoals;
+    private Set<String> wellnessGoals;
 
     @Convert(converter = SetOfStringToStringConverter.class)
-    private List<String> conditionsOrConcerns;
+    private Set<String> conditionsOrConcerns;
 
     private Boolean familyHeartDisease;
 
@@ -78,7 +79,7 @@ public class MedicalAssessment extends BaseMedicalEntity {
                 .ableToGetPrescriptionDelivery(ableToGetPrescriptionDelivery)
                 .takingStepsToImproveHealth(takingStepsToImproveHealth)
                 .mentalStressTherapist(mentalStressTherapist)
-                .hospital(hospital)
+                .hospitalId(hospital.getId())
                 .build();
     }
 }

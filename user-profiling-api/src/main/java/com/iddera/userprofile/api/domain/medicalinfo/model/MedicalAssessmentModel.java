@@ -14,6 +14,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,9 +36,9 @@ public class MedicalAssessmentModel extends BaseModel {
     @Enumerated(EnumType.STRING)
     private PersonalTime averageBusyDay;
 
-    private List<String> wellnessGoals;
+    private Set<String> wellnessGoals;
 
-    private List<String> conditionsOrConcerns;
+    private Set<String> conditionsOrConcerns;
 
     private Boolean familyHeartDisease;
 
@@ -55,8 +56,7 @@ public class MedicalAssessmentModel extends BaseModel {
 
     private Boolean mentalStressTherapist;
 
-    @ManyToOne
-    @JoinColumn(name = "hospital_id", referencedColumnName = "id")
-    private Hospital hospital;
+
+    private Long hospitalId;
 
 }
