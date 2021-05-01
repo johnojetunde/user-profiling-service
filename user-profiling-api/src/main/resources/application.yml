@@ -33,7 +33,7 @@ iddera:
     connection-time-out: ${CLIENT_CONNECTION_TIMEOUT:40}
     write-time-out: ${CLIENT_WRITE_TIMEOUT:40}
     user-management-url: ${USER_MANAGEMENT_URL:http://localhost:8080}
-    client-id: ${CLIENT_ID:}
-    client-secret: ${CLIENT_SECRET:}
+    client-id: ${CLIENT_ID:iddera-client}
+    client-secret: ${CLIENT_SECRET:password}
 
 swagger-auth-link: ${SWAGGER_AUTH_LINK:http://127.0.0.1:8080}

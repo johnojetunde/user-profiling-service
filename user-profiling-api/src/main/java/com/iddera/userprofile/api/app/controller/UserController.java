@@ -6,6 +6,8 @@ import com.iddera.userprofile.api.app.model.NewUserModel;
 import com.iddera.userprofile.api.app.model.ResponseModel;
 import com.iddera.userprofile.api.domain.model.User;
 import com.iddera.userprofile.api.domain.user.service.UserService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +37,19 @@ public class UserController {
                 .thenApply(ResponseModel::new);
     }
 
+    @GetMapping(value = "/clients")
+    @ApiResponses({@ApiResponse(code = 200, message = "Success", response = UserModel.class)})
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", value = "page number", example = "0", dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "size", value = "page size", example = "10", dataType = "int", paramType = "query")
+    })
+    public CompletableFuture<ResponseModel> getAllClients(@RequestParam(value = "page", required = false) Long pageNumber,
+                                                          @RequestParam(value = "size", required = false) Long pageSize,
+                                                          @AuthenticationPrincipal UserDetails authentication) {
+        return userService.getAll(pageNumber, pageSize, CLIENT, authentication.getPassword())
+                .thenApply(ResponseModel::new);
+    }
+
     @PostMapping(consumes = APPLICATION_JSON_VALUE, value = "/doctors")
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = UserModel.class)})
     public CompletableFuture<ResponseModel> createDoctor(@Valid @RequestBody NewUserModel request) {
@@ -42,7 +57,20 @@ public class UserController {
                 .thenApply(ResponseModel::new);
     }
 
-    @PreAuthorize("hasAuthority('CLIENT')")
+    @GetMapping(value = "/doctors")
+    @ApiResponses({@ApiResponse(code = 200, message = "Success", response = UserModel.class)})
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", value = "page number", example = "0", dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "size", value = "page size", example = "10", dataType = "int", paramType = "query")
+    })
+    public CompletableFuture<ResponseModel> getAllDoctors(@RequestParam(value = "page", required = false) Long pageNumber,
+                                                          @RequestParam(value = "size", required = false) Long pageSize,
+                                                          @AuthenticationPrincipal UserDetails authentication) {
+        return userService.getAll(pageNumber, pageSize, DOCTOR, authentication.getPassword())
+                .thenApply(ResponseModel::new);
+    }
+
+    @PreAuthorize("hasAnyAuthority('CLIENT','DOCTOR','ADMIN')")
     @PostMapping(consumes = APPLICATION_JSON_VALUE, value = "/change-password")
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = UserModel.class)})
     public CompletableFuture<ResponseModel> changePassword(@AuthenticationPrincipal User user,
@@ -51,7 +79,7 @@ public class UserController {
                 .thenApply(ResponseModel::new);
     }
 
-    @PreAuthorize("hasAuthority('CLIENT')")
+    @PreAuthorize("hasAnyAuthority('CLIENT','DOCTOR','ADMIN')")
     @GetMapping(value = "/current")
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = UserModel.class)})
     public CompletableFuture<ResponseModel> get(@AuthenticationPrincipal UserDetails authentication) {
