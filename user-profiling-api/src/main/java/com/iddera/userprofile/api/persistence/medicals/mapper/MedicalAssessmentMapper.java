@@ -10,6 +10,11 @@ import org.springframework.stereotype.Component;
 public class MedicalAssessmentMapper implements EntityToDomainMapper<MedicalAssessmentModel, MedicalAssessment> {
     private HospitalService hospitalService;
 
+    @Autowired
+    public MedicalAssessmentMapper(HospitalService hospitalService) {
+        this.hospitalService = hospitalService;
+    }
+
     public MedicalAssessmentMapper() {
     }
 
@@ -47,10 +52,6 @@ public class MedicalAssessmentMapper implements EntityToDomainMapper<MedicalAsse
     @Override
     public MedicalAssessmentModel toModel(MedicalAssessment entity) {
         return entity.toModel();
-    }
 
-    @Autowired
-    public void setHospitalService(HospitalService hospitalService) {
-        this.hospitalService = hospitalService;
     }
 }

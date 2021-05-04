@@ -33,7 +33,7 @@ public class HospitalController {
 
     @PostMapping
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = HospitalModel.class)})
-    public CompletableFuture<ResponseModel> createHospitals(@Validated @RequestBody HospitalModel hospitalModel) {
+    public CompletableFuture<ResponseModel> createHospital(@Validated @RequestBody HospitalModel hospitalModel) {
         return hospitalService.update(hospitalModel)
                 .thenApply(ResponseModel::new);
     }

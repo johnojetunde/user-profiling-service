@@ -9,11 +9,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -21,19 +16,14 @@ import java.util.Set;
 @SuperBuilder
 @Data
 public class MedicalAssessmentModel extends BaseModel {
-    @Enumerated(EnumType.STRING)
     private HealthStatus currentHealthFeel;
 
-    @Enumerated(EnumType.STRING)
     private DateRange lastCheckUp;
 
-    @Enumerated(EnumType.STRING)
     private DateRange lastTimeFeltGood;
 
-    @Enumerated(EnumType.STRING)
     private HealthMotivation goodHealthMotivation;
 
-    @Enumerated(EnumType.STRING)
     private PersonalTime averageBusyDay;
 
     private Set<String> wellnessGoals;
@@ -55,7 +45,6 @@ public class MedicalAssessmentModel extends BaseModel {
     private Boolean takingStepsToImproveHealth;
 
     private Boolean mentalStressTherapist;
-
 
     private Long hospitalId;
 
