@@ -20,7 +20,7 @@ import static springfox.documentation.builders.RequestHandlerSelectors.basePacka
 @EnableSwagger2
 public class Swagger {
 
-    @Value("${swagger-auth-link: http://127.0.0.1:8080}")
+    @Value("${swagger-auth-link: http://127.0.0.1:9000/v1/auth/login}")
     private String authLink;
 
     @Bean
@@ -42,7 +42,7 @@ public class Swagger {
         authorizationScopeList.add(new AuthorizationScope("write", "access all"));
 
         List<GrantType> grantTypes = new ArrayList<>();
-        GrantType creGrant = new ResourceOwnerPasswordCredentialsGrant(authLink + "/oauth/token");
+        GrantType creGrant = new ResourceOwnerPasswordCredentialsGrant(authLink);
 
         grantTypes.add(creGrant);
 
@@ -56,5 +56,4 @@ public class Swagger {
                 .description("Iddera User Profiling Service")
                 .build();
     }
-
 }

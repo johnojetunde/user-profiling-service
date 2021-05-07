@@ -69,11 +69,10 @@
                                  validate="true"/>
     </changeSet>
 
-    <changeSet  author="tajia"  id="202104281935-01">
+    <changeSet author="tajia" id="202104281935-01" dbms="mysql">
         <preConditions onFail="WARN">
-            <dbms type="mysql"/>
-            <foreignKeyConstraintExists foreignKeyName="FK_user_profiles_country_id" />
-            <foreignKeyConstraintExists foreignKeyName="FK_user_profiles_state_id" />
+            <foreignKeyConstraintExists foreignKeyName="FK_user_profiles_country_id"/>
+            <foreignKeyConstraintExists foreignKeyName="FK_user_profiles_state_id"/>
         </preConditions>
         <dropForeignKeyConstraint constraintName="FK_user_profiles_country_id" baseTableName="user_profile"/>
         <dropForeignKeyConstraint constraintName="FK_user_profiles_state_id" baseTableName="user_profile"/>

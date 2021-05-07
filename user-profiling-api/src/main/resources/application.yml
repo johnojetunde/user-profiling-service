@@ -3,10 +3,9 @@ server:
 
 spring:
   datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${DATABASE_URL:localhost:3306/user_profiling_db?createDatabaseIfNotExist=true&serverTimezone=UTC}
-    username: ${DATABASE_USERNAME:root}
-    password: ${DATABASE_PASSWORD:password}
+    url: jdbc:postgresql://${RDS_HOSTNAME:localhost}:${RDS_PORT:5432}/${RDS_DB_NAME:user_profiling_db}
+    username: ${RDS_USERNAME:postgres}
+    password: ${RDS_PASSWORD:password}
     maxConnections: 10
     hikari:
       connection-test-query: SELECT 1
