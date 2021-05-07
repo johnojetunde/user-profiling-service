@@ -230,4 +230,72 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet author="tajia" id="202104231920-01">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="hospital"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="hospital">
+            <column autoIncrement="true" name="id" type="BIGSERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="address" type="VARCHAR(256)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" type="VARCHAR(100)" defaultValue="system"/>
+            <column name="updated_by" type="VARCHAR(100)" defaultValue="system"/>
+            <column name="is_deleted" defaultValue="false" type="${boolean}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="tajia" id="202104231920-02">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="medical_assessment"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="medical_assessment">
+            <column autoIncrement="true" name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="current_health_feel" type="VARCHAR(100)"/>
+            <column name="last_check_up" type="VARCHAR(100)"/>
+            <column name="last_time_felt_good" type="VARCHAR(100)"/>
+            <column name="good_health_motivation" type="VARCHAR(100)"/>
+            <column name="average_busy_day" type="VARCHAR(100)"/>
+            <column name="wellness_goals" type="VARCHAR(100)"/>
+            <column name="conditions_or_concerns" type="VARCHAR(100)"/>
+            <column name="family_heart_disease" type="VARCHAR(100)"/>
+            <column name="family_cancer" type="VARCHAR(100)"/>
+            <column name="had_heart_or_cancer_gen_test" type="VARCHAR(100)"/>
+            <column name="home_physician" type="VARCHAR(100)"/>
+            <column name="have_fitness_pressure_sensor" type="VARCHAR(100)"/>
+            <column name="able_to_get_prescription_delivery" type="VARCHAR(100)"/>
+            <column name="taking_steps_to_improve_health" type="VARCHAR(100)"/>
+            <column name="mental_stress_therapist" type="VARCHAR(100)"/>
+            <column name="hospital_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_medical_assessment_hospital"
+                             references="hospital(id)"/>
+            </column>
+            <column name="username" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" type="VARCHAR(100)" defaultValue="system"/>
+            <column name="updated_by" type="VARCHAR(100)" defaultValue="system"/>
+            <column name="is_deleted" defaultValue="false" type="${boolean}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>

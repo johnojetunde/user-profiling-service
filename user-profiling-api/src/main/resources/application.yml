@@ -9,6 +9,7 @@ spring:
     maxConnections: 10
     hikari:
       connection-test-query: SELECT 1
+
   jpa:
     show-sql: true
     hibernate:
@@ -32,8 +33,14 @@ iddera:
     read-time-out: ${CLIENT_READ_TIMEOUT:40}
     connection-time-out: ${CLIENT_CONNECTION_TIMEOUT:40}
     write-time-out: ${CLIENT_WRITE_TIMEOUT:40}
-    user-management-url: ${USER_MANAGEMENT_URL:http://localhost:8080}
-    client-id: ${CLIENT_ID:iddera-client}
-    client-secret: ${CLIENT_SECRET:password}
+    user-management-url: ${USER_MANAGEMENT_URL:https://iddera-user-management-api.herokuapp.com}
+    client-id: ${CLIENT_ID:}
+    client-secret: ${CLIENT_SECRET:}
 
-swagger-auth-link: ${SWAGGER_AUTH_LINK:http://127.0.0.1:8080}
+swagger-auth-link: ${SWAGGER_AUTH_LINK:https://iddera-user-management-api.herokuapp.com}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
