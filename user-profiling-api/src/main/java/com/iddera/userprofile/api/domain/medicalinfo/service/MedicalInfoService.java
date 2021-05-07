@@ -38,7 +38,8 @@ public abstract class MedicalInfoService<T extends BaseModel> {
 
     public CompletableFuture<List<T>> create(@NonNull String username, @NonNull List<T> models) {
         return supplyAsync(() -> emptyIfNullStream(models)
-                .map(m -> create(username, m).join())
+                .map(m -> create(username, m))
+                .map(CompletableFuture::join)
                 .collect(toList()));
     }
 

@@ -25,7 +25,7 @@ class SmokingHabitServiceTest {
 
     @Test
     void allowMultiple() {
-        assertThat(smokingHabitService.allowMultiple()).isTrue();
+        assertThat(smokingHabitService.allowMultiple()).isFalse();
     }
 
     @Test

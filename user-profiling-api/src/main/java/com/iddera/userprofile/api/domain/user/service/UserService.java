@@ -1,5 +1,6 @@
 package com.iddera.userprofile.api.domain.user.service;
 
+import com.iddera.client.model.Page;
 import com.iddera.client.util.ErrorHandler;
 import com.iddera.usermanagement.client.endpoints.Users;
 import com.iddera.usermanagement.lib.app.request.*;
@@ -29,6 +30,14 @@ public class UserService {
     public CompletableFuture<UserModel> createUser(NewUserModel request, UserType userType) {
         var userRequest = toUserRequest(request, userType);
         return users.create(userRequest)
+                .thenApply(ErrorHandler::handleExceptionally);
+    }
+
+    public CompletableFuture<Page<UserModel>> getAll(Long pageNumber,
+                                                     Long pageSize,
+                                                     UserType userType,
+                                                     String token) {
+        return users.getAll(pageNumber, pageSize, userType, token)
                 .thenApply(ErrorHandler::handleExceptionally);
     }
 

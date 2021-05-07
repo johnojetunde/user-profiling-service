@@ -12,7 +12,7 @@ public class SmokingHabitService extends MedicalInfoService<SmokingHabitModel> {
 
     @Override
     public boolean allowMultiple() {
-        return true;
+        return false;
     }
 
     @Override
