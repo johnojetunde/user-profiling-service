@@ -11,7 +11,6 @@ import com.iddera.userprofile.api.persistence.medicals.entity.Laboratory;
 import com.iddera.userprofile.api.persistence.medicals.repository.LaboratoryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import java.time.LocalTime;
@@ -44,7 +43,7 @@ public class DefaultLaboratoryServiceTest {
     @Test
     void findById() {
         when(repository.findById(1L))
-                .thenReturn(Optional.of(updateLaboratory()));
+                .thenReturn(Optional.of(buildUpdateLaboratory()));
 
         var result = laboratoryService.findById(1L).join();
 
@@ -55,7 +54,7 @@ public class DefaultLaboratoryServiceTest {
     @Test
     void findAll() {
         when(repository.findAll())
-                .thenReturn(List.of(createLaboratory()));
+                .thenReturn(List.of(buildLaboratory()));
 
         var result = laboratoryService.findAll().join();
 
@@ -68,9 +67,9 @@ public class DefaultLaboratoryServiceTest {
         when(repository.existsByContactInfo_Email(eq("sanmi@iddera.com")))
                 .thenReturn(true);
         when(repository.save(any(Laboratory.class)))
-                .thenReturn(createLaboratory());
+                .thenReturn(buildLaboratory());
 
-        var result = laboratoryService.update(toModel(createLaboratory()));
+        var result = laboratoryService.update(toModel(buildLaboratory()));
 
         assertThatThrownBy(result::join)
                 .isInstanceOf(CompletionException.class)
@@ -84,13 +83,13 @@ public class DefaultLaboratoryServiceTest {
         when(repository.existsByContactInfo_Email(eq("sanmi@iddera.com")))
                 .thenReturn(false);
         when(repository.save(any(Laboratory.class)))
-                .thenReturn(updateLaboratory());
+                .thenReturn(buildUpdateLaboratory());
 
-        var result = laboratoryService.update(toModel(createLaboratory())).join();
+        var result = laboratoryService.update(toModel(buildLaboratory())).join();
         assertLaboratoryValues(result);
     }
 
-    private Laboratory createLaboratory(){
+    private Laboratory buildLaboratory(){
         Laboratory laboratory = new Laboratory();
         laboratory.setSpecialisation("Medical center");
         laboratory.setWorkingHour(workingHour());
@@ -102,7 +101,7 @@ public class DefaultLaboratoryServiceTest {
         return laboratory;
     }
 
-    private Laboratory updateLaboratory(){
+    private Laboratory buildUpdateLaboratory(){
         Laboratory laboratory = new Laboratory();
         laboratory.setId(1L);
         laboratory.setSpecialisation("Medical center");
