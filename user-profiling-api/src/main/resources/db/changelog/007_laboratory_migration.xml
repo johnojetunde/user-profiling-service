@@ -1,0 +1,50 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="oakinrele" id="202105201255-01">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="laboratory"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="laboratory">
+            <column autoIncrement="true" name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="specialisation" type="VARCHAR(50)"/>
+            <column name="additional_info" type="VARCHAR(100)"/>
+            <column name="line_one" type="VARCHAR(25)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="line_two" type="VARCHAR(25)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="start_at" type="TIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_at" type="TIME">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" type="VARCHAR(100)" defaultValue="system"/>
+            <column name="updated_by" type="VARCHAR(100)" defaultValue="system"/>
+            <column name="is_deleted" defaultValue="false" type="${boolean}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

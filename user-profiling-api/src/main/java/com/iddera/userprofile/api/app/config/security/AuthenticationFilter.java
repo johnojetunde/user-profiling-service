@@ -9,6 +9,7 @@ import com.iddera.userprofile.api.domain.model.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -46,7 +47,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
                 }
 
                 UserDetails userDetails = User.build(user.getData(), token);
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                Authentication authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, token, userDetails.getAuthorities());
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);

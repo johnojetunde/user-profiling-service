@@ -39,7 +39,7 @@ public class DefaultUserProfileService implements UserProfileService {
             profile.setUserId(user.getId())
                     .setMaritalStatus(request.getMaritalStatus())
                     .setGender(request.getGender())
-                    .setLga(getLgaExists(request.getLgaId()))
+                    .setLga(getLga(request.getLgaId()))
                     .setDateOfBirth(request.getDateOfBirth());
 
             return userProfileRepository.save(profile).toModel();
@@ -56,7 +56,7 @@ public class DefaultUserProfileService implements UserProfileService {
         return getById(userId);
     }
 
-    private LocalGovernmentArea getLgaExists(Long lgaId) {
+    private LocalGovernmentArea getLga(Long lgaId) {
         return lgaRepository.findById(lgaId)
                 .orElseThrow(() -> exceptions.handleCreateBadRequest(format("Local government area with id:%d does not exist.", lgaId)));
     }

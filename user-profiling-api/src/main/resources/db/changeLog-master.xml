@@ -20,4 +20,5 @@
     <include file="/db/changelog/004_state_data_migration.xml"/>
     <include file="/db/changelog/005_lga_data_migration.xml"/>
     <include file="/db/changelog/006_medical_info_tables.xml"/>
+    <include file="/db/changelog/007_laboratory_migration.xml"/>
 </databaseChangeLog>
