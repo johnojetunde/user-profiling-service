@@ -80,12 +80,25 @@ public class DefaultLaboratoryServiceTest {
 
     @Test
     void create_Successfully() {
+        Laboratory laboratory = buildLaboratory();
+        laboratory.setId(1L);
         when(repository.existsByContactInfo_Email(eq("sanmi@iddera.com")))
                 .thenReturn(false);
         when(repository.save(any(Laboratory.class)))
-                .thenReturn(buildUpdateLaboratory());
+                .thenReturn(laboratory);
 
         var result = laboratoryService.update(toModel(buildLaboratory())).join();
+        assertLaboratoryValues(result);
+    }
+
+    @Test
+    void update_Successfully() {
+        when(repository.findById(any(Long.class)))
+                .thenReturn(Optional.of(buildUpdateLaboratory()));
+        when(repository.save(any(Laboratory.class)))
+                .thenReturn(buildUpdateLaboratory());
+
+        var result = laboratoryService.update(toModel(buildUpdateLaboratory())).join();
         assertLaboratoryValues(result);
     }
 
