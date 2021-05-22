@@ -26,9 +26,9 @@ public class StateController {
                 .thenApply(ResponseModel::new);
     }
 
-    @GetMapping("/{countryId}/new")
+    @GetMapping("/{countryId}")
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = StateModel.class)})
-    public CompletableFuture<ResponseModel> getStatesByCountryNew(@PathVariable long countryId) {
+    public CompletableFuture<ResponseModel> getStatesByCountry(@PathVariable long countryId) {
         return stateService.findAllByCountry(countryId)
                 .thenApply(ResponseModel::new);
     }
