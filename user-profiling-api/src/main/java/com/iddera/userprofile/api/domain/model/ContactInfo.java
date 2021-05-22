@@ -8,10 +8,10 @@ import javax.validation.constraints.NotBlank;
 @Data
 @Embeddable
 public class ContactInfo {
-    @NotBlank(message = "can not be null or empty")
+    @NotBlank
     private String lineOne;
-    @NotBlank(message = "can not be null or empty")
+    @NotBlank
     private String lineTwo;
-    @NotBlank(message = "can not be null or empty")
+    @NotBlank
     private String email;
 }

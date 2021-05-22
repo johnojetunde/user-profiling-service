@@ -20,8 +20,8 @@
             <column name="address" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="specialisation" type="VARCHAR(50)"/>
-            <column name="additional_info" type="VARCHAR(100)"/>
+            <column name="specialisation" type="${text}"/>
+            <column name="additional_info" type="${text}"/>
             <column name="line_one" type="VARCHAR(25)">
                 <constraints nullable="false"/>
             </column>
