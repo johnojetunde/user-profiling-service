@@ -111,7 +111,7 @@ public class DefaultDoctorProfileServiceTest {
         var result = defaultDoctorProfileService.get(user);
         assertThatThrownBy(result::join)
                 .isInstanceOf(CompletionException.class)
-                .hasCause(new UserProfilingException("User profile does not exist for 1"))
+                .hasCause(new UserProfilingException("Doctor profile does not exist for 1"))
                 .extracting(Throwable::getCause)
                 .hasFieldOrPropertyWithValue("code", NOT_FOUND.value());
     }
