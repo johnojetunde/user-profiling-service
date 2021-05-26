@@ -98,4 +98,44 @@
             <column name="date_of_birth" type="date"/>
         </addColumn>
     </changeSet>
+
+    <changeSet author="tajia" id="202105251912-01">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="doctor_profile"/>
+            </not>
+        </preConditions>
+        <createTable tableName="doctor_profile">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
+            </column>
+
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <column name="designation" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="education_info" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bio" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="interest" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+
+            <column name="created_at" type="datetime"/>
+            <column name="created_by" type="VARCHAR(150)"/>
+            <column name="updated_at" type="datetime"/>
+            <column name="updated_by" type="VARCHAR(150)"/>
+            <column name="is_deleted" defaultValue="false" type="${boolean}">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
