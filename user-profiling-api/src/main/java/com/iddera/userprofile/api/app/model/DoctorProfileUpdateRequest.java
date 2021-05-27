@@ -5,19 +5,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 @Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class DoctorProfileUpdateRequest {
-    @NotNull
+    @NotBlank
     private String designation;
-    @NotNull
+    @NotBlank
     private String educationInfo;
-    @NotNull
+    @NotBlank
     private String bio;
-    @NotNull
+    @NotBlank
     private String interest;
 }

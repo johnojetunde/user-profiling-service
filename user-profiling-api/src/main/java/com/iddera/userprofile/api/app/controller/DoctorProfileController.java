@@ -8,6 +8,8 @@ import com.iddera.userprofile.api.domain.model.User;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +26,7 @@ public class DoctorProfileController {
 
     private final DoctorProfileService userProfileService;
 
-    @PreAuthorize("hasAuthority('CLIENT')")
+    @PreAuthorize("hasAuthority('DOCTOR')")
     @PutMapping(consumes = APPLICATION_JSON_VALUE, value = "/{userId}/profile")
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = DoctorProfileModel.class)})
     public CompletableFuture<ResponseModel> createProfile(@PathVariable("userId") Long userId,
@@ -34,7 +36,7 @@ public class DoctorProfileController {
                 .thenApply(ResponseModel::new);
     }
 
-    @PreAuthorize("hasAuthority('CLIENT')")
+    @PreAuthorize("hasAuthority('DOCTOR')")
     @GetMapping(value = "/current/profile")
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = DoctorProfileModel.class)})
     public CompletableFuture<ResponseModel> getProfile(@AuthenticationPrincipal User user) {
@@ -42,11 +44,18 @@ public class DoctorProfileController {
                 .thenApply(ResponseModel::new);
     }
 
-    @PreAuthorize("hasAnyAuthority('DOCTOR','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('DOCTOR','ADMIN','CLIENT')")
     @GetMapping(value = "/{userId}/profile")
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = DoctorProfileModel.class)})
     public CompletableFuture<ResponseModel> getProfileById(@PathVariable("userId") Long userId) {
         return userProfileService.get(userId)
+                .thenApply(ResponseModel::new);
+    }
+
+    @GetMapping(value = "/doctors")
+    @ApiResponses({@ApiResponse(code = 200, message = "Success", response = DoctorProfileModel.class)})
+    public CompletableFuture<ResponseModel> getAllDoctors(@PageableDefault Pageable pageable) {
+        return userProfileService.getAll(pageable)
                 .thenApply(ResponseModel::new);
     }
 }

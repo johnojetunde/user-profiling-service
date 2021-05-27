@@ -8,6 +8,8 @@ import com.iddera.userprofile.api.persistence.doctorprofile.entity.DoctorProfile
 import com.iddera.userprofile.api.persistence.doctorprofile.repository.DoctorProfileRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,6 +42,13 @@ public class DefaultDoctorProfileService implements DoctorProfileService {
 
             return doctorProfileRepository.save(profile).toModel();
         });
+    }
+
+    @Override
+    public CompletableFuture<Page<DoctorProfileModel>> getAll(Pageable pageable) {
+        return supplyAsync(() ->
+                doctorProfileRepository.findAll(pageable)
+                        .map(DoctorProfile::toModel));
     }
 
     @Override

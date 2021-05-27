@@ -117,17 +117,15 @@
             <column name="designation" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="education_info" type="VARCHAR(255)">
+            <column name="education_info" type="${text}">
                 <constraints nullable="false"/>
             </column>
-            <column name="bio" type="VARCHAR(255)">
+            <column name="bio" type="${text}">
                 <constraints nullable="false"/>
             </column>
-            <column name="interest" type="VARCHAR(255)">
+            <column name="interest" type="${text}">
                 <constraints nullable="false"/>
             </column>
-
-
             <column name="created_at" type="datetime"/>
             <column name="created_by" type="VARCHAR(150)"/>
             <column name="updated_at" type="datetime"/>

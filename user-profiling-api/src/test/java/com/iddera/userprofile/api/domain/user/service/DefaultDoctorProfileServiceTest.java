@@ -29,7 +29,6 @@ public class DefaultDoctorProfileServiceTest {
     @Mock
     private DoctorProfileRepository doctorProfileRepository;
 
-
     @InjectMocks
     private DefaultDoctorProfileService defaultDoctorProfileService;
 
@@ -41,7 +40,6 @@ public class DefaultDoctorProfileServiceTest {
                 doctorProfileRepository,
                 exception);
     }
-
 
     @Test
     void updateProfile_Successfully() {
@@ -74,7 +72,6 @@ public class DefaultDoctorProfileServiceTest {
                 .extracting(Throwable::getCause)
                 .hasFieldOrPropertyWithValue("code", FORBIDDEN.value());
     }
-
 
     @Test
     void createNewProfile_Successfully() {
@@ -135,6 +132,14 @@ public class DefaultDoctorProfileServiceTest {
         assertUserProfileValues(result);
     }
 
+    private void assertUserProfileValues(DoctorProfileModel doctorProfileModel) {
+        assertThat(doctorProfileModel.getBio()).isEqualTo("I love food");
+        assertThat(doctorProfileModel.getUserId()).isEqualTo(1L);
+        assertThat(doctorProfileModel.getDesignation()).isEqualTo("Child Care");
+        assertThat(doctorProfileModel.getInterest()).isEqualTo("BBH");
+        assertThat(doctorProfileModel.getEducationInfo()).isEqualTo("General Practitioner");
+    }
+
     private DoctorProfile buildDoctorProfile() {
         DoctorProfile doctorProfile = new DoctorProfile();
         doctorProfile.setBio("I love food");
@@ -161,14 +166,5 @@ public class DefaultDoctorProfileServiceTest {
         doctorProfileUpdateRequest.setDesignation("Child Care");
 
         return doctorProfileUpdateRequest;
-    }
-
-
-    private void assertUserProfileValues(DoctorProfileModel doctorProfileModel) {
-        assertThat(doctorProfileModel.getBio()).isEqualTo("I love food");
-        assertThat(doctorProfileModel.getUserId()).isEqualTo(1L);
-        assertThat(doctorProfileModel.getDesignation()).isEqualTo("Child Care");
-        assertThat(doctorProfileModel.getInterest()).isEqualTo("BBH");
-        assertThat(doctorProfileModel.getEducationInfo()).isEqualTo("General Practitioner");
     }
 }
