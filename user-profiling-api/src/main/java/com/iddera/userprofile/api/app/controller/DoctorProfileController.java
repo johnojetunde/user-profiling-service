@@ -52,6 +52,7 @@ public class DoctorProfileController {
                 .thenApply(ResponseModel::new);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping(value = "/doctors")
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = DoctorProfileModel.class)})
     public CompletableFuture<ResponseModel> getAllDoctors(@PageableDefault Pageable pageable) {
