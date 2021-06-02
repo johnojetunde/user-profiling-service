@@ -1,4 +1,4 @@
-package com.iddera.userprofile.api.domain.model;
+package com.iddera.userprofile.api.domain.lab.model;
 
 import lombok.Data;
 

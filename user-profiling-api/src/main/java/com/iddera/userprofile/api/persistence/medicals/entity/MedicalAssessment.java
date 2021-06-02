@@ -1,7 +1,7 @@
 package com.iddera.userprofile.api.persistence.medicals.entity;
 
 import com.iddera.userprofile.api.domain.medicalinfo.model.MedicalAssessmentModel;
-import com.iddera.userprofile.api.domain.medicalinfo.model.enums.DateRange;
+import com.iddera.userprofile.api.domain.medicalinfo.model.enums.DatePeriod;
 import com.iddera.userprofile.api.domain.medicalinfo.model.enums.HealthMotivation;
 import com.iddera.userprofile.api.domain.medicalinfo.model.enums.HealthStatus;
 import com.iddera.userprofile.api.domain.medicalinfo.model.enums.PersonalTime;
@@ -21,10 +21,10 @@ public class MedicalAssessment extends BaseMedicalEntity {
     private HealthStatus currentHealthFeel;
 
     @Enumerated(EnumType.STRING)
-    private DateRange lastCheckUp;
+    private DatePeriod lastCheckUp;
 
     @Enumerated(EnumType.STRING)
-    private DateRange lastTimeFeltGood;
+    private DatePeriod lastTimeFeltGood;
 
     @Enumerated(EnumType.STRING)
     private HealthMotivation goodHealthMotivation;

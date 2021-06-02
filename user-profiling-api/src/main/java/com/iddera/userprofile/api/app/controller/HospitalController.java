@@ -1,8 +1,8 @@
 package com.iddera.userprofile.api.app.controller;
 
 import com.iddera.userprofile.api.app.model.ResponseModel;
+import com.iddera.userprofile.api.domain.lab.model.HospitalModel;
 import com.iddera.userprofile.api.domain.medicalinfo.service.abstracts.HospitalService;
-import com.iddera.userprofile.api.domain.model.HospitalModel;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;

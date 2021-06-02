@@ -75,8 +75,8 @@ public class TestDataFixtures {
     public static MedicalAssessment medicalAssessment() {
         return new MedicalAssessment().
                 setCurrentHealthFeel(HealthStatus.OKAY)
-                .setLastCheckUp(DateRange.ZERO_SIX_MONTHS)
-                .setLastTimeFeltGood(DateRange.OVER_THREE_YEARS)
+                .setLastCheckUp(DatePeriod.ZERO_SIX_MONTHS)
+                .setLastTimeFeltGood(DatePeriod.OVER_THREE_YEARS)
                 .setGoodHealthMotivation(HealthMotivation.CONFIDENCE)
                 .setAverageBusyDay(PersonalTime.NOT_TOO_BUSY)
                 .setWellnessGoals(Collections.singleton("MONEY"))

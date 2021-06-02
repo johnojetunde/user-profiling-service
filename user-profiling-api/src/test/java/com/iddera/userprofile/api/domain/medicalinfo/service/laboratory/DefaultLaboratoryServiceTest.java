@@ -2,11 +2,11 @@ package com.iddera.userprofile.api.domain.medicalinfo.service.laboratory;
 
 import com.iddera.userprofile.api.domain.exception.UserProfilingException;
 import com.iddera.userprofile.api.domain.exception.UserProfilingExceptionService;
+import com.iddera.userprofile.api.domain.lab.model.ContactInfo;
+import com.iddera.userprofile.api.domain.lab.model.LaboratoryModel;
+import com.iddera.userprofile.api.domain.lab.model.WorkingHour;
 import com.iddera.userprofile.api.domain.medicalinfo.service.abstracts.LaboratoryService;
 import com.iddera.userprofile.api.domain.medicalinfo.service.concretes.DefaultLaboratoryService;
-import com.iddera.userprofile.api.domain.model.ContactInfo;
-import com.iddera.userprofile.api.domain.model.LaboratoryModel;
-import com.iddera.userprofile.api.domain.model.WorkingHour;
 import com.iddera.userprofile.api.persistence.medicals.entity.Laboratory;
 import com.iddera.userprofile.api.persistence.medicals.repository.LaboratoryRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,8 +20,8 @@ import java.util.concurrent.CompletionException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
