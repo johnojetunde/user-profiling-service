@@ -15,7 +15,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.Clock;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -24,6 +26,7 @@ import java.util.concurrent.CompletableFuture;
 import static com.iddera.userprofile.api.domain.consultation.model.TimeslotStatus.FREE;
 import static com.iddera.userprofile.api.domain.utils.Constants.CONSULTATION_PERIOD;
 import static java.lang.String.format;
+import static java.util.concurrent.CompletableFuture.runAsync;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 import static java.util.stream.Collectors.toSet;
 
@@ -34,6 +37,7 @@ public class DoctorTimeslotService {
     private final DoctorProfileRepository doctorProfileRepository;
     private final UserProfilingExceptionService exceptionService;
     private final DoctorTimeslotRepository repository;
+    private final Clock clock;
 
     public CompletableFuture<Set<DoctorTimeslotModel>> create(Timeslot timeslot, User user) {
         return supplyAsync(() -> {
@@ -105,6 +109,17 @@ public class DoctorTimeslotService {
                 repository.findAllByDateIsAndDoctor_UserId(date, user.getId(), pageable)
                         .map(DoctorTimeslot::toModel)
         );
+    }
+
+    public CompletableFuture<Void> deleteExpiredAndUnusedSlots() {
+        return runAsync(() -> {
+            var currentDate = LocalDate.now(clock);
+            var now = LocalTime.now(clock);
+
+            var expiredSlots = repository.findAllExpiredSlots(currentDate, now);
+
+            repository.deleteAll(expiredSlots);
+        });
     }
 
     DateRange getRange(Timeslot timeslot) {

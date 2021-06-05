@@ -30,8 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.anySet;
 import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.openMocks;
 
 class DoctorTimeslotServiceTest {
@@ -49,7 +48,7 @@ class DoctorTimeslotServiceTest {
     @BeforeEach
     void setUp() {
         openMocks(this);
-        timeslotService = new DoctorTimeslotService(doctorProfileRepository, exceptionService, repository);
+        timeslotService = new DoctorTimeslotService(doctorProfileRepository, exceptionService, repository, clock);
     }
 
     @Test
@@ -454,6 +453,27 @@ class DoctorTimeslotServiceTest {
                 .hasCause(new UserProfilingException("Timeslot status is the same as NO_SHOW"))
                 .extracting(Throwable::getCause)
                 .hasFieldOrPropertyWithValue("code", 400);
+    }
+
+    @Test
+    void deleteExpiredSlots() {
+        var now = LocalDate.now(clock);
+        var time = LocalTime.now(clock);
+        var doctor = new DoctorProfile()
+                .setUserId(2L);
+        doctor.setId(1L);
+
+        var expiredSlots = Set.of(timeslot(LocalDate.now(clock), doctor));
+
+        when(repository.findAllExpiredSlots(now, time))
+                .thenReturn(expiredSlots);
+        doNothing()
+                .when(repository).deleteAll(expiredSlots);
+
+        timeslotService.deleteExpiredAndUnusedSlots().join();
+
+        verify(repository).findAllExpiredSlots(now, time);
+        verify(repository).deleteAll(expiredSlots);
     }
 
     @Test

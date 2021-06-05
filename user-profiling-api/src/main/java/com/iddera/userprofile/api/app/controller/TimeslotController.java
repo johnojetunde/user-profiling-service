@@ -44,7 +44,7 @@ public class TimeslotController {
     @PreAuthorize("hasAnyAuthority('DOCTOR','CLIENT','ADMIN')")
     @GetMapping(consumes = APPLICATION_JSON_VALUE, value = "/{timeslotId}")
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = DoctorTimeslotModel.class)})
-    public CompletableFuture<ResponseModel> updateStatus(@PathVariable("timeslotId") Long timeslotId) {
+    public CompletableFuture<ResponseModel> getStatusById(@PathVariable("timeslotId") Long timeslotId) {
         return timeslotService.getById(timeslotId)
                 .thenApply(ResponseModel::new);
     }
