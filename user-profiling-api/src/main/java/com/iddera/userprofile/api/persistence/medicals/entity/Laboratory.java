@@ -1,7 +1,7 @@
 package com.iddera.userprofile.api.persistence.medicals.entity;
-import com.iddera.userprofile.api.domain.model.ContactInfo;
-import com.iddera.userprofile.api.domain.model.LaboratoryModel;
-import com.iddera.userprofile.api.domain.model.WorkingHour;
+import com.iddera.userprofile.api.domain.lab.model.ContactInfo;
+import com.iddera.userprofile.api.domain.lab.model.LaboratoryModel;
+import com.iddera.userprofile.api.domain.lab.model.WorkingHour;
 import com.iddera.userprofile.api.persistence.userprofile.entity.BaseEntity;
 import lombok.Data;
 import lombok.experimental.Accessors;

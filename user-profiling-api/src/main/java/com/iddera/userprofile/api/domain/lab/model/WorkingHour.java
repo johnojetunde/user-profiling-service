@@ -1,4 +1,4 @@
-package com.iddera.userprofile.api.domain.model;
+package com.iddera.userprofile.api.domain.lab.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -13,9 +13,7 @@ public class WorkingHour {
     @NotNull
     @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime startAt;
-
     @NotNull
     @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime endAt;
-
 }

@@ -1,4 +1,4 @@
-package com.iddera.userprofile.api.domain.model;
+package com.iddera.userprofile.api.domain.doctor.model;
 
 import com.iddera.userprofile.api.persistence.doctorprofile.entity.DoctorProfile;
 import lombok.Data;

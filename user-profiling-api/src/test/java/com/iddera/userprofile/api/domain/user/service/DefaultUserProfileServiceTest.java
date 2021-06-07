@@ -175,7 +175,6 @@ public class DefaultUserProfileServiceTest {
                 .setId(1L);
     }
 
-
     private UserProfileUpdateRequest buildUserProfileUpdateRequest() {
         UserProfileUpdateRequest userProfileUpdateRequest = new UserProfileUpdateRequest();
         userProfileUpdateRequest.setGender(Gender.FEMALE);

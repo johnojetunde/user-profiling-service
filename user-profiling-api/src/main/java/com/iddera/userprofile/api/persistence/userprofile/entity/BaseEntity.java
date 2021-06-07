@@ -10,6 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
@@ -29,4 +30,19 @@ public class BaseEntity implements Serializable {
 
     @Column(nullable = false, length = 31)
     protected boolean isDeleted;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BaseEntity that = (BaseEntity) o;
+        return Objects.nonNull(id)
+                ? id.equals(that.id)
+                : id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

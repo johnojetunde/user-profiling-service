@@ -1,6 +1,6 @@
 package com.iddera.userprofile.api.domain.medicalinfo.model;
 
-import com.iddera.userprofile.api.domain.medicalinfo.model.enums.DateRange;
+import com.iddera.userprofile.api.domain.medicalinfo.model.enums.DatePeriod;
 import com.iddera.userprofile.api.domain.medicalinfo.model.enums.HealthMotivation;
 import com.iddera.userprofile.api.domain.medicalinfo.model.enums.HealthStatus;
 import com.iddera.userprofile.api.domain.medicalinfo.model.enums.PersonalTime;
@@ -18,9 +18,9 @@ import java.util.Set;
 public class MedicalAssessmentModel extends BaseModel {
     private HealthStatus currentHealthFeel;
 
-    private DateRange lastCheckUp;
+    private DatePeriod lastCheckUp;
 
-    private DateRange lastTimeFeltGood;
+    private DatePeriod lastTimeFeltGood;
 
     private HealthMotivation goodHealthMotivation;
 

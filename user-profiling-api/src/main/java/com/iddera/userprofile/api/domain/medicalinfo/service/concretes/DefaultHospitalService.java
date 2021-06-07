@@ -1,8 +1,8 @@
 package com.iddera.userprofile.api.domain.medicalinfo.service.concretes;
 
 import com.iddera.userprofile.api.domain.exception.UserProfilingExceptionService;
+import com.iddera.userprofile.api.domain.lab.model.HospitalModel;
 import com.iddera.userprofile.api.domain.medicalinfo.service.abstracts.HospitalService;
-import com.iddera.userprofile.api.domain.model.HospitalModel;
 import com.iddera.userprofile.api.persistence.medicals.entity.Hospital;
 import com.iddera.userprofile.api.persistence.medicals.repository.HospitalRepository;
 import lombok.RequiredArgsConstructor;

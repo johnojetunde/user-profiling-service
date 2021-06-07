@@ -1,6 +1,6 @@
 package com.iddera.userprofile.api.persistence.medicals.entity;
 
-import com.iddera.userprofile.api.domain.model.HospitalModel;
+import com.iddera.userprofile.api.domain.lab.model.HospitalModel;
 import com.iddera.userprofile.api.persistence.userprofile.entity.BaseEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,7 @@
 package com.iddera.userprofile.api.app.model;
 
 import lombok.experimental.UtilityClass;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.validation.BindingResult;
 
 import javax.validation.ConstraintViolation;
@@ -14,12 +15,12 @@ public class ErrorFormatter {
 
     public static List<String> format(BindingResult bindingResult) {
         List<String> errors = bindingResult.getFieldErrors().stream()
-                .map(s -> s.getField() + ": " + s.getDefaultMessage())
+                .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .distinct()
                 .collect(toList());
 
         bindingResult.getGlobalErrors().stream()
-                .map(s -> s.getObjectName() + ": " + s.getDefaultMessage())
+                .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .distinct()
                 .forEach(errors::add);
 

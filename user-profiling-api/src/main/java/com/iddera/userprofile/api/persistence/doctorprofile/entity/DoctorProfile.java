@@ -1,6 +1,6 @@
 package com.iddera.userprofile.api.persistence.doctorprofile.entity;
 
-import com.iddera.userprofile.api.domain.model.DoctorProfileModel;
+import com.iddera.userprofile.api.domain.doctor.model.DoctorProfileModel;
 import com.iddera.userprofile.api.persistence.userprofile.entity.BaseEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +9,7 @@ import lombok.experimental.Accessors;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.Objects;
 
 
 @Accessors(chain = true)
@@ -24,6 +25,19 @@ public class DoctorProfile extends BaseEntity {
     private String bio;
     private String interest;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        DoctorProfile that = (DoctorProfile) o;
+        return userId.equals(that.userId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), userId);
+    }
 
     public DoctorProfileModel toModel() {
         return new DoctorProfileModel()
