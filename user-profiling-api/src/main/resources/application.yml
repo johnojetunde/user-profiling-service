@@ -39,6 +39,15 @@ iddera:
 
 swagger-auth-link: ${SWAGGER_AUTH_LINK:https://iddera-user-management-api.herokuapp.com}
 
+meet:
+  contact-name: ${MEET_CONTACT_NAME:IDDERA}
+  contact-email:${MEET_CONTACT_EMAIL:john@iddera.com}
+zoom:
+  api-key: ${ZOOM_API_KEY:}
+  api-secret: ${ZOOM_API_SECRET:}
+  token-expiry-duration: ${ZOOM_TOKEN_EXPIRY_DURATION:60}
+  base-url: ${ZOOM_BASE_URL:https://api.zoom.us/v2/}
+
 management:
   endpoints:
     web:
