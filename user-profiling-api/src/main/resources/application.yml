@@ -41,10 +41,10 @@ swagger-auth-link: ${SWAGGER_AUTH_LINK:https://iddera-user-management-api.heroku
 
 meet:
   contact-name: ${MEET_CONTACT_NAME:IDDERA}
-  contact-email:${MEET_CONTACT_EMAIL:john@iddera.com}
+  contact-email: ${MEET_CONTACT_EMAIL:john@iddera.com}
 zoom:
-  api-key: ${ZOOM_API_KEY:}
-  api-secret: ${ZOOM_API_SECRET:}
+  api-key: ${ZOOM_API_KEY:H5YGY21jQvGlUt5si_hYxA}
+  api-secret: ${ZOOM_API_SECRET:AQJHWQj8e3s2RPYlMO2peDME0quOwsjaL6N3}
   token-expiry-duration: ${ZOOM_TOKEN_EXPIRY_DURATION:60}
   base-url: ${ZOOM_BASE_URL:https://api.zoom.us/v2/}
 

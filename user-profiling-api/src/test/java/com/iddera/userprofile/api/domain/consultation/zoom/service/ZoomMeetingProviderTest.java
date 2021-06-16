@@ -77,7 +77,7 @@ class ZoomMeetingProviderTest {
 
     private MeetingParticipant buildMeetingParticipant() {
         return MeetingParticipant.builder()
-                .userId(1)
+                .userId(1L)
                 .email("john.ojetunde@telesoftas.com")
                 .firstname("Oluwayemisi")
                 .lastname("Ooreofeoluwa")

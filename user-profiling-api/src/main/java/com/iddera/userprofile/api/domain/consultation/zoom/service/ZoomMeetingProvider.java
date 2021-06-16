@@ -4,7 +4,7 @@ import com.iddera.userprofile.api.app.config.MeetingConfig;
 import com.iddera.userprofile.api.app.config.ZoomConfig;
 import com.iddera.userprofile.api.domain.consultation.model.MeetingParticipant;
 import com.iddera.userprofile.api.domain.consultation.model.MeetingProviderKey;
-import com.iddera.userprofile.api.domain.consultation.model.RegisteredParticipant;
+import com.iddera.userprofile.api.domain.consultation.model.MeetingRegistrant;
 import com.iddera.userprofile.api.domain.consultation.service.MeetingDetails;
 import com.iddera.userprofile.api.domain.consultation.service.MeetingProvider;
 import com.iddera.userprofile.api.domain.consultation.zoom.model.ZoomMeeting;
@@ -38,6 +38,7 @@ public class ZoomMeetingProvider implements MeetingProvider {
     private static final int NEEDS_TO_ALWAYS_REGISTER = 2;
     private static final int AUTO_APPROVAL = 0;
     private static final String WEST_AFRICA_TIMEZONE = "Africa/Bangui";
+    private static final String BEARER = "Bearer ";
 
     private final ZoomConfig config;
     private final MeetingConfig meetingConfig;
@@ -50,7 +51,7 @@ public class ZoomMeetingProvider implements MeetingProvider {
     }
 
     @Override
-    public CompletableFuture<List<RegisteredParticipant>> scheduleMeet(MeetingDetails meetingDetails) {
+    public CompletableFuture<List<MeetingRegistrant>> scheduleMeet(MeetingDetails meetingDetails) {
         var zoomSettings = buildSettings();
         var passcode = StringUtil.generatePasscode();
         var meeting = ZoomMeeting.builder()
@@ -72,14 +73,14 @@ public class ZoomMeetingProvider implements MeetingProvider {
                         .collect(toList()));
     }
 
-    private CompletableFuture<RegisteredParticipant> scheduleMeet(MeetingParticipant participant,
-                                                                  ZoomMeeting meeting,
-                                                                  String passcode) {
+    private CompletableFuture<MeetingRegistrant> scheduleMeet(MeetingParticipant participant,
+                                                              ZoomMeeting meeting,
+                                                              String passcode) {
         var registrant = toRegistrant(participant, meeting.getTopic(), meeting.getStartTime());
         var bearerToken = generateBearerToken();
 
         return zoomClient.addMeetingRegistrant(registrant, meeting.getId(), bearerToken)
-                .thenApply(reg -> RegisteredParticipant.builder()
+                .thenApply(reg -> MeetingRegistrant.builder()
                         .meetingId(meeting.getId())
                         .registrantId(reg.getRegistrantId())
                         .meetingUrl(reg.getJoinUrl())
@@ -105,7 +106,7 @@ public class ZoomMeetingProvider implements MeetingProvider {
                 .setExpiration(tokenExpiry)
                 .signWith(key, signatureAlgorithm)
                 .compact();
-        return "Bearer " + token;
+        return BEARER + token;
     }
 
     private ZoomSettings buildSettings() {

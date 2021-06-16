@@ -3,8 +3,8 @@ package com.iddera.userprofile.api.persistence.doctorprofile.entity;
 import com.iddera.userprofile.api.domain.doctor.model.DoctorProfileModel;
 import com.iddera.userprofile.api.persistence.userprofile.entity.BaseEntity;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,8 +12,8 @@ import javax.persistence.Table;
 import java.util.Objects;
 
 
+@SuperBuilder
 @Accessors(chain = true)
-@NoArgsConstructor
 @Data
 @Entity
 @Table(name = "doctor_profile")
@@ -24,6 +24,9 @@ public class DoctorProfile extends BaseEntity {
     private String educationInfo;
     private String bio;
     private String interest;
+
+    public DoctorProfile() {
+    }
 
     @Override
     public boolean equals(Object o) {

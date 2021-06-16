@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @Slf4j
@@ -43,6 +44,12 @@ public class UserService {
 
     public CompletableFuture<UserModel> getById(Long userId, String token) {
         return users.getById(userId, token)
+                .thenApply(ErrorHandler::handleExceptionally);
+    }
+
+    public CompletableFuture<List<UserModel>> getByIds(List<Long> userIds, String token) {
+        var search = new UserSearch().setIds(userIds);
+        return users.getByIds(search, token)
                 .thenApply(ErrorHandler::handleExceptionally);
     }
 

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Builder
 @Data
-public class RegisteredParticipant {
+public class MeetingRegistrant {
     private MeetingParticipant participantDetails;
     private String meetingId;
     private String registrantId;

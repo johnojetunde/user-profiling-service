@@ -2,13 +2,18 @@ package com.iddera.userprofile.api.stubs;
 
 import com.iddera.userprofile.api.domain.medicalinfo.model.MedicalForm;
 import com.iddera.userprofile.api.domain.medicalinfo.model.enums.*;
+import com.iddera.userprofile.api.persistence.consultation.entity.DoctorTimeslot;
+import com.iddera.userprofile.api.persistence.doctorprofile.entity.DoctorProfile;
 import com.iddera.userprofile.api.persistence.medicals.entity.*;
 
+import java.time.Clock;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import static com.iddera.userprofile.api.domain.consultation.model.TimeslotStatus.FREE;
 import static com.iddera.userprofile.api.domain.medicalinfo.model.enums.DietaryType.WEIGHT_GAIN;
 import static com.iddera.userprofile.api.domain.medicalinfo.model.enums.FitnessRate.ACTIVE;
 
@@ -102,6 +107,26 @@ public class TestDataFixtures {
                 .illnesses(List.of(illness().toModel()))
                 .dietaryPlans(List.of(dietaryPlan().toModel()))
                 .alcoholInfo(alcohol().toModel())
+                .build();
+    }
+
+    public static DoctorTimeslot timeslot(Clock clock) {
+        var existingTimeslot = new DoctorTimeslot()
+                .setDoctor(profile())
+                .setStatus(FREE)
+                .setStartTime(LocalTime.of(1, 30))
+                .setEndTime(LocalTime.of(2, 0))
+                .setDate(LocalDate.now(clock));
+        existingTimeslot.setId(1L);
+        return existingTimeslot;
+    }
+
+    public static DoctorProfile profile() {
+        return DoctorProfile.builder()
+                .id(1L)
+                .userId(2L)
+                .interest("interest")
+                .bio("bio")
                 .build();
     }
 }
