@@ -157,7 +157,6 @@ public class DefaultDoctorProfileServiceTest {
                 .setId(1L);
     }
 
-
     private DoctorProfileUpdateRequest buildDoctorProfileUpdateRequest() {
         DoctorProfileUpdateRequest doctorProfileUpdateRequest = new DoctorProfileUpdateRequest();
         doctorProfileUpdateRequest.setInterest("BBH");

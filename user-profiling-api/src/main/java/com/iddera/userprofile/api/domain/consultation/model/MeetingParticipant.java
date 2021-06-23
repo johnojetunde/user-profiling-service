@@ -7,7 +7,7 @@ import lombok.Getter;
 @Builder
 @Getter
 public class MeetingParticipant {
-    private final int userId;
+    private final Long userId;
     private final String email;
     private final String firstname;
     private final String lastname;

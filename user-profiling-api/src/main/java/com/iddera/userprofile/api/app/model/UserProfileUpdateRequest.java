@@ -18,7 +18,7 @@ import java.time.LocalDate;
 @Data
 public class UserProfileUpdateRequest {
     @NotNull
-    @ValidEnum(message = "Invalid martial status value")
+    @ValidEnum(message = "Invalid marital status value")
     private MaritalStatus maritalStatus;
     @NotNull
     @ValidEnum(message = "Invalid gender value")
