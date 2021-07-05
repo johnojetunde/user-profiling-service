@@ -62,20 +62,16 @@
                               uniqueColumns="date"/>
     </changeSet>
     <changeSet author="johnojetunde" id="20210100314-03" dbms="mysql">
-        <dropUniqueConstraint schemaName="public"
-                              tableName="doctor_timeslot"
+        <dropUniqueConstraint tableName="doctor_timeslot"
                               constraintName="status"
                               uniqueColumns="status"/>
-        <dropUniqueConstraint schemaName="public"
-                              tableName="doctor_timeslot"
+        <dropUniqueConstraint tableName="doctor_timeslot"
                               constraintName="end_time"
                               uniqueColumns="end_time"/>
-        <dropUniqueConstraint schemaName="public"
-                              tableName="doctor_timeslot"
+        <dropUniqueConstraint tableName="doctor_timeslot"
                               constraintName="start_time"
                               uniqueColumns="start_time"/>
-        <dropUniqueConstraint schemaName="public"
-                              tableName="doctor_timeslot"
+        <dropUniqueConstraint tableName="doctor_timeslot"
                               constraintName="date"
                               uniqueColumns="date"/>
     </changeSet>
