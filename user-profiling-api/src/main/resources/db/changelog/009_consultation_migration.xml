@@ -76,4 +76,43 @@
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="id" referencedTableName="consultation" validate="true"/>
     </changeSet>
+
+    <changeSet author="tajia" id="20210705000351-01">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="drug_prescription"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="drug_prescription">
+            <column autoIncrement="true" name="id" type="BIGSERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="consultation_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="number_of_days" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="integer"/>
+            <column name="drug_formulation" type="VARCHAR(150)"/>
+            <column name="use_instructions" type="${text}"/>
+            <column name="drug_strength" type="${text}"/>
+
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" type="VARCHAR(100)" defaultValue="system"/>
+            <column name="updated_by" type="VARCHAR(100)" defaultValue="system"/>
+            <column name="is_deleted" defaultValue="false" type="${boolean}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="consultation_id" baseTableName="drug_prescription"
+                                 constraintName="FK_drug_prescription_consultation_id" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="consultation" validate="true"/>
+    </changeSet>
 </databaseChangeLog>
