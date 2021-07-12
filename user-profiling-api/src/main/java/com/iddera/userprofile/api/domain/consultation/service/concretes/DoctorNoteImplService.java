@@ -47,7 +47,13 @@ public class DoctorNoteImplService implements DoctorNoteService {
     @Override
     public CompletableFuture<DoctorNoteModel> findById(Long id){
         return supplyAsync(() -> doctorNoteRepository.findById(id).orElseThrow(() ->
-                exceptions.handleCreateNotFoundException("Doctor's note does not exist for %d.", id)).toModel());
+                exceptions.handleCreateNotFoundException("Doctor's note with id :%d does not exist.", id)).toModel());
+    }
+
+    @Override
+    public CompletableFuture<DoctorNoteModel> findByConsultation(Long id){
+        return supplyAsync(() -> doctorNoteRepository.findByConsultation_Id(id).orElseThrow(() ->
+                exceptions.handleCreateNotFoundException("Doctor's note does not exist for consultation with id: %d.", id)).toModel());
     }
 
     private void ensureConsultationIdIsNotChanged(DoctorNoteModel originalModel,DoctorNoteModel updatedModel){

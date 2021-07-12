@@ -75,19 +75,44 @@ class DoctorNoteServiceTest {
         DoctorNoteModel request = buildRequest(1L);
         request.setId(null);
         var result = doctorNoteService.create(request).join();
-        assertLaboratoryValues(result);
+        assertNoteValues(result);
     }
 
-    private void assertLaboratoryValues(DoctorNoteModel doctorNoteModel){
-        assertThat(doctorNoteModel.getId()).isEqualTo(1L);
-        assertThat(doctorNoteModel.getDiagnosis()).isEqualTo("This is a test diagnosis.");
-        assertThat(doctorNoteModel.getConsultationId()).isEqualTo(1L);
-        assertThat(doctorNoteModel.getExamination()).isEqualTo("This is a test examination.");
-        assertThat(doctorNoteModel.getHistory()).isEqualTo("This is a test history.");
-        assertThat(doctorNoteModel.getInvestigation()).isEqualTo("This is a test investigation.");
-        assertThat(doctorNoteModel.getPlan()).isEqualTo("This is a test plan.");
+    @Test
+    void findNoteById_Fails(){
+        var result = doctorNoteService.findById(1L);
+        assertThatThrownBy(result::join)
+                .isInstanceOf(CompletionException.class)
+                .hasCause(new UserProfilingException("Doctor's note with id :1 does not exist."))
+                .extracting(Throwable::getCause)
+                .hasFieldOrPropertyWithValue("code", NOT_FOUND.value());
     }
 
+    @Test
+    void findNoteById_IsSuccessful(){
+        when(doctorNoteRepository.findById(any()))
+                .thenReturn(Optional.of(buildDoctorNote()));
+        var result = doctorNoteService.findById(1L).join();
+        assertNoteValues(result);
+    }
+
+    @Test
+    void findNoteByConsultationId_Fails(){
+        var result = doctorNoteService.findByConsultation(1L);
+        assertThatThrownBy(result::join)
+                .isInstanceOf(CompletionException.class)
+                .hasCause(new UserProfilingException("Doctor's note does not exist for consultation with id: 1."))
+                .extracting(Throwable::getCause)
+                .hasFieldOrPropertyWithValue("code", NOT_FOUND.value());
+    }
+
+    @Test
+    void findNoteByConsultationId_IsSuccessful(){
+        when(doctorNoteRepository.findByConsultation_Id(any()))
+                .thenReturn(Optional.of(buildDoctorNote()));
+        var result = doctorNoteService.findByConsultation(1L).join();
+        assertNoteValues(result);
+    }
 
    private DoctorNoteModel buildRequest(Long consultationId){
         if(consultationId == null){ consultationId = 2L;}
@@ -118,5 +143,16 @@ class DoctorNoteServiceTest {
         Consultation consultation = new Consultation();
         consultation.setId(1L);
         return consultation;
+    }
+
+
+    private void assertNoteValues(DoctorNoteModel doctorNoteModel){
+        assertThat(doctorNoteModel.getId()).isEqualTo(1L);
+        assertThat(doctorNoteModel.getDiagnosis()).isEqualTo("This is a test diagnosis.");
+        assertThat(doctorNoteModel.getConsultationId()).isEqualTo(1L);
+        assertThat(doctorNoteModel.getExamination()).isEqualTo("This is a test examination.");
+        assertThat(doctorNoteModel.getHistory()).isEqualTo("This is a test history.");
+        assertThat(doctorNoteModel.getInvestigation()).isEqualTo("This is a test investigation.");
+        assertThat(doctorNoteModel.getPlan()).isEqualTo("This is a test plan.");
     }
 }

@@ -28,7 +28,15 @@ public class DoctorNoteController {
                 .thenApply(ResponseModel::new);
     }
 
-    @PreAuthorize("hasAnyAuthority('CLIENT','DOCTOR','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('DOCTOR')")
+    @GetMapping("/{consultationId}")
+    @ApiResponses({@ApiResponse(code = 200, message = "Success", response = DoctorNoteModel.class)})
+    public CompletableFuture<ResponseModel> getNoteByConsultation(@PathVariable Long consultationId) {
+        return doctorNoteService.findByConsultation(consultationId)
+                .thenApply(ResponseModel::new);
+    }
+
+    @PreAuthorize("hasAnyAuthority('DOCTOR')")
     @GetMapping("/{noteId}")
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = DoctorNoteModel.class)})
     public CompletableFuture<ResponseModel> getNote(@PathVariable Long noteId) {
