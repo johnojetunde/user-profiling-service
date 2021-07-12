@@ -14,10 +14,10 @@
             <column autoIncrement="true" name="id" type="BIGSERIAL">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="user_id" type="BIGSERIAL">
+            <column name="user_id" type="BIGINT">
             <constraints nullable="false"/>
             </column>
-            <column name="doctors_time_slot_id" type="BIGSERIAL">
+            <column name="doctors_time_slot_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
 

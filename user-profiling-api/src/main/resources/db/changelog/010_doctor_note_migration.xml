@@ -20,7 +20,7 @@
             <column name="investigation" type="${text}"/>
             <column name="diagnosis" type="${text}"/>
             <column name="plan" type="${text}"/>
-            <column name="consultation_id" type="BIGSERIAL">
+            <column name="consultation_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
 
@@ -32,5 +32,12 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+    </changeSet>
+
+    <changeSet id="202112071748-01" author="oakinrele">
+        <addForeignKeyConstraint baseColumnNames="consultation_id" baseTableName="doctor_note"
+                                 constraintName="FK_doctor_note_consultation_id" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="consultation" validate="true"/>
     </changeSet>
 </databaseChangeLog>
