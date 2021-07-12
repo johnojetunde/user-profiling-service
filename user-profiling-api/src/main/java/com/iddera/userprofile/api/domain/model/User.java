@@ -42,7 +42,7 @@ public class User implements UserDetails {
         this.id = id;
         this.username = username;
         this.email = email;
-        this.password = password§;
+        this.password = password;
         this.authorities = authorities;
         this.userType = userType;
     }
