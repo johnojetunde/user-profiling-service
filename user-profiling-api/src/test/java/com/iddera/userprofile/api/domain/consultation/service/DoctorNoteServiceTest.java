@@ -145,7 +145,6 @@ class DoctorNoteServiceTest {
         return consultation;
     }
 
-
     private void assertNoteValues(DoctorNoteModel doctorNoteModel){
         assertThat(doctorNoteModel.getId()).isEqualTo(1L);
         assertThat(doctorNoteModel.getDiagnosis()).isEqualTo("This is a test diagnosis.");
