@@ -41,7 +41,7 @@ public class DefaultDrugPrescriptionService implements DrugPrescriptionService {
     }
 
     @Override
-    public CompletableFuture<DrugPrescriptionModel> update(DrugPrescriptionModel request) {
+    public CompletableFuture<DrugPrescriptionModel> create(DrugPrescriptionModel request) {
         return supplyAsync(() -> {
 
             DrugPrescription prescription = new DrugPrescription();

@@ -31,7 +31,7 @@ public class DrugPrescription extends BaseEntity {
 
     private String drugStrength;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "consultation_id")
     private Consultation consultation;
 

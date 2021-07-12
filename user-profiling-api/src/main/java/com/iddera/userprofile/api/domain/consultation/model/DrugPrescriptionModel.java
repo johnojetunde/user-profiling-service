@@ -29,7 +29,4 @@ public class DrugPrescriptionModel {
 
     private Long consultationId;
 
-//    private String prescriberName;
-//
-//    private String username;
 }

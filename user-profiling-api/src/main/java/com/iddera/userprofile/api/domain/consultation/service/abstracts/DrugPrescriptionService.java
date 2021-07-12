@@ -11,5 +11,5 @@ public interface DrugPrescriptionService {
 
     CompletableFuture<DrugPrescriptionModel> findById(Long prescriptionId);
 
-    CompletableFuture<DrugPrescriptionModel> update(DrugPrescriptionModel request);
+    CompletableFuture<DrugPrescriptionModel> create(DrugPrescriptionModel request);
 }

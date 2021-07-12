@@ -31,6 +31,8 @@ public class Consultation extends BaseEntity {
     private ConsultationMode mode;
     @OneToMany(mappedBy = "consultation", fetch = EAGER, cascade = CascadeType.ALL)
     private List<ConsultationParticipant> participants;
+    @OneToMany(mappedBy = "consultation", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<DrugPrescription> prescriptions;
 
     public ConsultationModel toModel() {
         var participantModels = emptyIfNullStream(participants)
