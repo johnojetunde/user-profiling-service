@@ -40,7 +40,6 @@ public class DoctorNoteImplService implements DoctorNoteService {
                     .setPlan(request.getPlan())
                     .setHistory(request.getHistory())
                     .setConsultation(consultation);
-
             return doctorNoteRepository.save(doctorNote).toModel();
         });
     }
