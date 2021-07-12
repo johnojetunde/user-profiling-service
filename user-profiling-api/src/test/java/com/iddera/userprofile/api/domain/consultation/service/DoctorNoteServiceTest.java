@@ -1,7 +1,7 @@
 package com.iddera.userprofile.api.domain.consultation.service;
 
 import com.iddera.userprofile.api.domain.consultation.model.DoctorNoteModel;
-import com.iddera.userprofile.api.domain.consultation.service.concretes.DoctorNoteImplService;
+import com.iddera.userprofile.api.domain.consultation.service.concretes.DoctorNoteServiceImpl;
 import com.iddera.userprofile.api.domain.exception.UserProfilingException;
 import com.iddera.userprofile.api.domain.exception.UserProfilingExceptionService;
 import com.iddera.userprofile.api.persistence.consultation.entity.Consultation;
@@ -33,11 +33,11 @@ class DoctorNoteServiceTest {
     @Mock
     private DoctorNoteRepository doctorNoteRepository;
     @InjectMocks
-    private DoctorNoteImplService doctorNoteService;
+    private DoctorNoteServiceImpl doctorNoteService;
 
     @BeforeEach
     void setUp() {
-        doctorNoteService = new DoctorNoteImplService(doctorNoteRepository,consultationRepository,exceptions);
+        doctorNoteService = new DoctorNoteServiceImpl(doctorNoteRepository,consultationRepository,exceptions);
     }
 
     @Test

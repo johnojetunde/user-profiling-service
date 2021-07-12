@@ -18,7 +18,7 @@ import static java.util.concurrent.CompletableFuture.supplyAsync;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class DoctorNoteImplService implements DoctorNoteService {
+public class DoctorNoteServiceImpl implements DoctorNoteService {
     private final DoctorNoteRepository doctorNoteRepository;
     private final ConsultationRepository consultationRepository;
     private final UserProfilingExceptionService exceptions;

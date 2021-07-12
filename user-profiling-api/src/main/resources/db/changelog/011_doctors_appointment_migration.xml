@@ -6,17 +6,20 @@
     <changeSet author="oakinrele" id="2021110721-02">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="doctor_report"/>
+                <tableExists tableName="doctor_appointment"/>
             </not>
         </preConditions>
 
-        <createTable tableName="doctor_report">
+        <createTable tableName="doctor_appointment">
             <column autoIncrement="true" name="id" type="BIGSERIAL">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="appointment_id" type="BIGSERIAL"/>
-            <column name="prescription_id" type="BIGSERIAL"/>
-            <column name="doctor_note_id" type="BIGSERIAL"/>
+            <column name="user_id" type="BIGSERIAL">
+            <constraints nullable="false"/>
+            </column>
+            <column name="doctors_time_slot_id" type="BIGSERIAL">
+                <constraints nullable="false"/>
+            </column>
 
             <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
             <column name="updated_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
@@ -26,9 +29,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addForeignKeyConstraint baseColumnNames="doctor_note_id" baseTableName="doctor_report"
-                                 constraintName="FK_doctor_report_doctor_note_id" deferrable="false"
+        <addForeignKeyConstraint baseColumnNames="doctors_time_slot_id" baseTableName="doctor_appointment"
+                                 constraintName="FK_doctor_appointment_doctors_time_slot_id" deferrable="false"
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="doctor_note" validate="true"/>
+                                 referencedColumnNames="id" referencedTableName="doctor_timeslot" validate="true"/>
     </changeSet>
 </databaseChangeLog>
