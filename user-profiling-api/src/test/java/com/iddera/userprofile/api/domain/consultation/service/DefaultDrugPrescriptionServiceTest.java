@@ -12,7 +12,6 @@ import com.iddera.userprofile.api.persistence.consultation.entity.Consultation;
 import com.iddera.userprofile.api.persistence.consultation.entity.DrugPrescription;
 import com.iddera.userprofile.api.persistence.consultation.persistence.ConsultationRepository;
 import com.iddera.userprofile.api.persistence.consultation.persistence.DrugPrescriptionRepository;
-import com.iddera.userprofile.api.persistence.medicals.entity.Laboratory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -66,7 +65,7 @@ public class DefaultDrugPrescriptionServiceTest {
 
         var result = drugPrescriptionService.findByConsultation(2L).join();
 
-        assertThat(result.isEmpty()).isFalse();
+        assertThat(result).isNotEmpty();
         verify(repository).findByConsultation_Id(2L);
     }
 
@@ -77,7 +76,7 @@ public class DefaultDrugPrescriptionServiceTest {
 
         var result = drugPrescriptionService.findByConsultation(2L).join();
 
-        assertThat(result.isEmpty()).isTrue();
+        assertThat(result).isEmpty();
         verify(repository).findByConsultation_Id(2L);
     }
 
@@ -94,7 +93,8 @@ public class DefaultDrugPrescriptionServiceTest {
         Consultation consultation = buildConsultation();
         consultation.setId(1L);
         updatedPrescription.setConsultation(consultation);
-        var result = drugPrescriptionService.update(toModel(updatedPrescription));
+
+        var result = drugPrescriptionService.create(toModel(updatedPrescription));
 
         assertThatThrownBy(result::join)
                 .isInstanceOf(CompletionException.class)
@@ -114,9 +114,7 @@ public class DefaultDrugPrescriptionServiceTest {
         when(consultationRepository.findById(eq(1L)))
                 .thenReturn(Optional.empty());
 
-
-
-        var result = drugPrescriptionService.update(toModel(updatedPrescription));
+        var result = drugPrescriptionService.create(toModel(updatedPrescription));
 
         assertThatThrownBy(result::join)
                 .isInstanceOf(CompletionException.class)
@@ -136,7 +134,7 @@ public class DefaultDrugPrescriptionServiceTest {
         when(consultationRepository.findById(eq(2L)))
                 .thenReturn(Optional.of(buildConsultation()));
 
-        var result = drugPrescriptionService.update(toModel(buildDrugPrescription())).join();
+        var result = drugPrescriptionService.create(toModel(buildDrugPrescription())).join();
         assertDrugPrescriptionValues(result);
     }
 
@@ -149,7 +147,7 @@ public class DefaultDrugPrescriptionServiceTest {
         when(consultationRepository.findById(eq(2L)))
                 .thenReturn(Optional.of(buildConsultation()));
 
-        var result = drugPrescriptionService.update(toModel(buildUpdatePrescription())).join();
+        var result = drugPrescriptionService.create(toModel(buildUpdatePrescription())).join();
         assertDrugPrescriptionValues(result);
     }
 
@@ -189,9 +187,6 @@ public class DefaultDrugPrescriptionServiceTest {
 
         return consultation;
     }
-
-
-
 
     private DrugPrescriptionModel toModel(DrugPrescription prescription){
         return prescription.toModel();
