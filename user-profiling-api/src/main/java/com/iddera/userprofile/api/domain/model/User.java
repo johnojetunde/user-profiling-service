@@ -3,6 +3,7 @@ package com.iddera.userprofile.api.domain.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.iddera.usermanagement.lib.domain.model.RoleModel;
 import com.iddera.usermanagement.lib.domain.model.UserModel;
+import com.iddera.usermanagement.lib.domain.model.UserType;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
@@ -26,24 +27,24 @@ public class User implements UserDetails {
     private String username;
     private String email;
     private Collection<? extends GrantedAuthority> authorities;
+    private UserType userType;
 
     @JsonIgnore
     @Transient
     private String password;
 
-    public User(Long id, String username, String email, Collection<? extends GrantedAuthority> authorities) {
+    public User(Long id,
+                String username,
+                String email,
+                String password,
+                Collection<? extends GrantedAuthority> authorities,
+                UserType userType) {
         this.id = id;
         this.username = username;
         this.email = email;
+        this.password = password§;
         this.authorities = authorities;
-    }
-
-    public User(Long id, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.authorities = authorities;
+        this.userType = userType;
     }
 
     public static User build(UserModel user, String token) {
@@ -53,7 +54,13 @@ public class User implements UserDetails {
                 .map(SimpleGrantedAuthority::new)
                 .collect(toList());
 
-        return new User(user.getId(), user.getUsername(), user.getEmail(), token, authorities);
+        return new User(
+                user.getId(),
+                user.getUsername(),
+                user.getEmail(),
+                token,
+                authorities,
+                user.getType());
     }
 
     @Override
