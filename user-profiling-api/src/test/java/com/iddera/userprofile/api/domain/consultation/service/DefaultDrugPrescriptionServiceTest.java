@@ -1,5 +1,6 @@
 package com.iddera.userprofile.api.domain.consultation.service;
 
+import com.iddera.usermanagement.lib.domain.model.UserType;
 import com.iddera.userprofile.api.domain.consultation.model.ConsultationMode;
 import com.iddera.userprofile.api.domain.consultation.model.ConsultationStatus;
 import com.iddera.userprofile.api.domain.consultation.model.DrugFormulation;
@@ -8,7 +9,9 @@ import com.iddera.userprofile.api.domain.consultation.service.abstracts.DrugPres
 import com.iddera.userprofile.api.domain.consultation.service.concretes.DefaultDrugPrescriptionService;
 import com.iddera.userprofile.api.domain.exception.UserProfilingException;
 import com.iddera.userprofile.api.domain.exception.UserProfilingExceptionService;
+import com.iddera.userprofile.api.domain.model.User;
 import com.iddera.userprofile.api.persistence.consultation.entity.Consultation;
+import com.iddera.userprofile.api.persistence.consultation.entity.ConsultationParticipant;
 import com.iddera.userprofile.api.persistence.consultation.entity.DrugPrescription;
 import com.iddera.userprofile.api.persistence.consultation.persistence.ConsultationRepository;
 import com.iddera.userprofile.api.persistence.consultation.persistence.DrugPrescriptionRepository;
@@ -48,22 +51,25 @@ public class DefaultDrugPrescriptionServiceTest {
     }
 
     @Test
-    void findById() {
+    void findByIdSuccessfully() {
         when(repository.findById(1L))
                 .thenReturn(Optional.of(buildUpdatePrescription()));
+        when(consultationRepository.findById(2L))
+                .thenReturn(Optional.of(buildConsultation()));
 
-        var result = drugPrescriptionService.findById(1L).join();
+        var result = drugPrescriptionService.findById(1L,buildUser()).join();
 
         assertDrugPrescriptionValues(result);
         verify(repository).findById(1L);
     }
 
     @Test
-    void findByConsultation() {
+    void findByConsultationSuccessfully() {
         when(repository.findByConsultation_Id(2L))
                 .thenReturn(List.of(buildDrugPrescription()));
-
-        var result = drugPrescriptionService.findByConsultation(2L).join();
+        when(consultationRepository.findById(2L))
+                .thenReturn(Optional.of(buildConsultation()));
+        var result = drugPrescriptionService.findByConsultation(2L,buildUser()).join();
 
         assertThat(result).isNotEmpty();
         verify(repository).findByConsultation_Id(2L);
@@ -73,11 +79,33 @@ public class DefaultDrugPrescriptionServiceTest {
     void findByConsultationFails_WhenConsultationNotFound() {
         when(repository.findByConsultation_Id(2L))
                 .thenReturn(List.of());
+        when(consultationRepository.findById(2L))
+                .thenReturn(Optional.of(buildConsultation()));
 
-        var result = drugPrescriptionService.findByConsultation(2L).join();
+        var result = drugPrescriptionService.findByConsultation(2L,buildUser()).join();
 
         assertThat(result).isEmpty();
         verify(repository).findByConsultation_Id(2L);
+    }
+
+    @Test
+    void findByConsultationFails_WhenUserNotAParticipantOfConsultation() {
+        Consultation consultation = buildConsultation();
+        List<ConsultationParticipant> participants = consultation.getParticipants();
+        participants.get(0).setUserType(UserType.CLIENT);
+        participants.get(0).setUserId(2L);
+        when(repository.findByConsultation_Id(2L))
+                .thenReturn(List.of(buildDrugPrescription()));
+        when(consultationRepository.findById(2L))
+                .thenReturn(Optional.of(consultation));
+
+        var result = drugPrescriptionService.findByConsultation(2L,buildUser());
+
+        assertThatThrownBy(result::join)
+                .isInstanceOf(CompletionException.class)
+                .hasCause(new UserProfilingException("Client cannot have access to prescriptions whose consultation they aren't a participant of."))
+                .extracting(Throwable::getCause)
+                .hasFieldOrPropertyWithValue("code", BAD_REQUEST.value());
     }
 
     @Test
@@ -184,8 +212,18 @@ public class DefaultDrugPrescriptionServiceTest {
         consultation.setMode(ConsultationMode.VIDEO);
         consultation.setStatus(ConsultationStatus.SCHEDULED);
         consultation.setMeetingId("OMOOOO");
+        ConsultationParticipant consultationParticipant =  new ConsultationParticipant();
+        consultationParticipant.setUserId(1L);
+        consultation.setParticipants(List.of(consultationParticipant));
 
         return consultation;
+    }
+
+    private User buildUser(){
+        User user = new User();
+        user.setId(1L);
+        user.setUserType(UserType.CLIENT);
+        return user;
     }
 
     private DrugPrescriptionModel toModel(DrugPrescription prescription){
