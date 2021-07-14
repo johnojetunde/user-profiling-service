@@ -3,10 +3,12 @@ package com.iddera.userprofile.api.app.controller;
 import com.iddera.userprofile.api.app.model.ResponseModel;
 import com.iddera.userprofile.api.domain.consultation.model.ConsultationNoteModel;
 import com.iddera.userprofile.api.domain.consultation.service.abstracts.ConsultationNoteService;
+import com.iddera.userprofile.api.domain.model.User;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,8 +25,9 @@ public class ConsultationNoteController {
     @PreAuthorize("hasAuthority('DOCTOR')")
     @PostMapping(consumes = APPLICATION_JSON_VALUE, value = "/")
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = ConsultationNoteModel.class)})
-    public CompletableFuture<ResponseModel> create(@Valid @RequestBody ConsultationNoteModel request) {
-        return consultationNoteService.create(request)
+    public CompletableFuture<ResponseModel> create(@Valid @RequestBody ConsultationNoteModel request
+                                                    ,@AuthenticationPrincipal User user) {
+        return consultationNoteService.create(request,user)
                 .thenApply(ResponseModel::new);
     }
 
