@@ -23,6 +23,5 @@
     <include file="/db/changelog/007_laboratory_migration.xml"/>
     <include file="/db/changelog/008_timeslot_migration.xml"/>
     <include file="/db/changelog/009_consultation_migration.xml"/>
-    <include file="/db/changelog/010_doctor_note_migration.xml"/>
-    <include file="/db/changelog/011_doctor_appointment_migration.xml"/>
+    <include file="/db/changelog/010_consultation_note_migration.xml"/>
 </databaseChangeLog>
