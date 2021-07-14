@@ -21,7 +21,7 @@ public class ConsultationNote extends BaseEntity {
     private String diagnosis;
     private String plan;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "consultation_id")
     private Consultation consultation;
 
