@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class DoctorNoteModel {
+public class ConsultationNoteModel {
     private Long id;
     private String history;
     private String examination;

@@ -40,4 +40,8 @@
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="id" referencedTableName="consultation" validate="true"/>
     </changeSet>
+
+    <changeSet id="202112071748-02" author="oakinrele">
+        <renameTable newTableName="consultation_note" oldTableName="doctor_note"/>
+    </changeSet>
 </databaseChangeLog>
