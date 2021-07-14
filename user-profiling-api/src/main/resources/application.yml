@@ -5,7 +5,7 @@ spring:
   datasource:
     url: jdbc:postgresql://${RDS_HOSTNAME:localhost}:${RDS_PORT:5432}/${RDS_DB_NAME:user_profiling_db}
     username: ${RDS_USERNAME:postgres}
-    password: ${RDS_PASSWORD:Pass2020!}
+    password: ${RDS_PASSWORD:password}
     maxConnections: 10
     hikari:
       connection-test-query: SELECT 1

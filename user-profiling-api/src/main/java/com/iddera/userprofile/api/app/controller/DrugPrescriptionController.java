@@ -29,14 +29,14 @@ public class DrugPrescriptionController {
     }
 
     @PreAuthorize("hasAnyAuthority('DOCTOR','CLIENT')")
-    @GetMapping("/consultation/{id}")
+    @GetMapping("/consultations/{id}")
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = DrugPrescriptionModel.class)})
     public CompletableFuture<ResponseModel> getPrescriptionsByConsultation(@PathVariable("id") Long consultationId,@AuthenticationPrincipal User user) {
         return drugPrescriptionService.findByConsultation(consultationId,user)
                 .thenApply(ResponseModel::new);
     }
 
-    @PreAuthorize("hasAnyAuthority('DOCTOR','CLIENT')")
+    @PreAuthorize("hasAnyAuthority('DOCTOR','CLIENT','ADMIN')")
     @GetMapping("/{id}")
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = DrugPrescriptionModel.class)})
     public CompletableFuture<ResponseModel> getPrescription(@PathVariable("id") Long prescriptionId,@AuthenticationPrincipal User user) {
