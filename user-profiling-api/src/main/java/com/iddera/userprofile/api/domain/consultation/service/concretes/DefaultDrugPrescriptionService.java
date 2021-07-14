@@ -63,11 +63,6 @@ public class DefaultDrugPrescriptionService implements DrugPrescriptionService {
     public CompletableFuture<DrugPrescriptionModel> create(DrugPrescriptionModel request) {
         return supplyAsync(() -> {
             DrugPrescription prescription = new DrugPrescription();
-            if (request.getId() != null) {
-                prescription = drugPrescriptionRepository.findById(request.getId())
-                        .orElseGet(DrugPrescription::new);
-                ensureConsultationIdIsNotChanged(prescription.toModel(), request);
-            }
             Consultation consultation = consultationRepository.findById(request.getConsultationId())
                     .orElseThrow(() ->
                             exceptions.handleCreateNotFoundException("Cannot find consultation with id %d", request.getConsultationId()));
