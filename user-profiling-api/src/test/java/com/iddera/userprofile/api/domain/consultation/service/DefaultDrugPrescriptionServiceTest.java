@@ -108,28 +108,6 @@ public class DefaultDrugPrescriptionServiceTest {
                 .hasFieldOrPropertyWithValue("code", BAD_REQUEST.value());
     }
 
-    @Test
-    void createFails_WhenConsultationIdDifferent() {
-        Consultation updatedConsultation = buildConsultation();
-        updatedConsultation.setId(3L);
-        when(repository.findById(eq(1L)))
-                .thenReturn(Optional.of(buildUpdatePrescription()));
-        when(consultationRepository.findById(eq(3L)))
-                .thenReturn(Optional.of(updatedConsultation));
-
-        DrugPrescription updatedPrescription = buildUpdatePrescription();
-        Consultation consultation = buildConsultation();
-        consultation.setId(1L);
-        updatedPrescription.setConsultation(consultation);
-
-        var result = drugPrescriptionService.create(toModel(updatedPrescription));
-
-        assertThatThrownBy(result::join)
-                .isInstanceOf(CompletionException.class)
-                .hasCause(new UserProfilingException("Cannot change consultation Id of a drug prescription"))
-                .extracting(Throwable::getCause)
-                .hasFieldOrPropertyWithValue("code", BAD_REQUEST.value());
-    }
 
     @Test
     void createFails_WhenConsultationIdNotFound() {
