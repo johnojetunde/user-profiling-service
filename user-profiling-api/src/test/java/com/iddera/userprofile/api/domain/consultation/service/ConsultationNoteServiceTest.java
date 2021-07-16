@@ -26,8 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.*;
 
 @ExtendWith({MockitoExtension.class})
 class ConsultationNoteServiceTest {
@@ -37,53 +36,44 @@ class ConsultationNoteServiceTest {
     @Mock
     private ConsultationNoteRepository consultationNoteRepository;
     @InjectMocks
-    private DefaultConsultationNoteService doctorNoteService;
+    private DefaultConsultationNoteService defaultConsultationNoteService;
 
     @BeforeEach
     void setUp() {
-        doctorNoteService = new DefaultConsultationNoteService(consultationNoteRepository,consultationRepository,exceptions);
+        defaultConsultationNoteService = new DefaultConsultationNoteService(consultationNoteRepository,consultationRepository,exceptions);
     }
 
     @Test
     void createFails_WhenUserIsNotAConsultationParticipant(){
         when(consultationRepository.findById(any()))
                 .thenReturn(Optional.of(buildConsultation()));
-        var result = doctorNoteService.create(buildRequest(1L),buildUser(3L));
+        var result = defaultConsultationNoteService.create(buildRequest(1L),buildUser(3L));
 
         assertThatThrownBy(result::join)
                 .isInstanceOf(CompletionException.class)
                 .hasCause(new UserProfilingException("User is not a participant of this consultation."))
                 .extracting(Throwable::getCause)
+                .hasFieldOrPropertyWithValue("code", UNAUTHORIZED.value());
+    }
+
+    @Test
+    void updateFails_WhenNoteDoesNotExist(){
+        var result = defaultConsultationNoteService.update(2L,buildRequest(1L),buildUser(2L));
+        assertThatThrownBy(result::join)
+                .isInstanceOf(CompletionException.class)
+                .hasCause(new UserProfilingException("Cannot find consultation note with id 2."))
+                .extracting(Throwable::getCause)
                 .hasFieldOrPropertyWithValue("code", BAD_REQUEST.value());
     }
 
     @Test
-    void createFails_WhenConsultationDoesNotMatch(){
-        when(consultationRepository.findById(any()))
-                .thenReturn(Optional.of(buildConsultation()));
+    void update_Successfully(){
         when(consultationNoteRepository.findById(any()))
                 .thenReturn(Optional.of(buildConsultationNote()));
-        var result = doctorNoteService.create(buildRequest(null),buildUser(2L));
-
-        assertThatThrownBy(result::join)
-                .isInstanceOf(CompletionException.class)
-                .hasCause(new UserProfilingException("Cannot change consultation Id of a consultation note."))
-                .extracting(Throwable::getCause)
-                .hasFieldOrPropertyWithValue("code", BAD_REQUEST.value());
-    }
-
-
-    @Test
-    void createFails_WhenConsultationDoesNotExists() {
-        ConsultationNoteModel request = buildRequest(1L);
-        request.setId(null);
-        var result = doctorNoteService.create(request,buildUser(1L));
-
-        assertThatThrownBy(result::join)
-                .isInstanceOf(CompletionException.class)
-                .hasCause(new UserProfilingException(String.format("Cannot find consultation with id %d.",request.getConsultationId())))
-                .extracting(Throwable::getCause)
-                .hasFieldOrPropertyWithValue("code", NOT_FOUND.value());
+        when(consultationNoteRepository.save(any(ConsultationNote.class)))
+                .thenReturn(buildConsultationNote());
+        var result = defaultConsultationNoteService.update(1L,buildRequest(1L),buildUser(2L)).join();
+        assertNoteValues(result);
     }
 
     @Test
@@ -94,16 +84,16 @@ class ConsultationNoteServiceTest {
                 .thenReturn(buildConsultationNote());
         ConsultationNoteModel request = buildRequest(1L);
         request.setId(null);
-        var result = doctorNoteService.create(request,buildUser(1L)).join();
+        var result = defaultConsultationNoteService.create(request,buildUser(1L)).join();
         assertNoteValues(result);
     }
 
     @Test
     void findNoteById_Fails(){
-        var result = doctorNoteService.findById(1L);
+        var result = defaultConsultationNoteService.findById(1L);
         assertThatThrownBy(result::join)
                 .isInstanceOf(CompletionException.class)
-                .hasCause(new UserProfilingException("Doctor's note with id :1 does not exist."))
+                .hasCause(new UserProfilingException("Consultation note with id :1 does not exist."))
                 .extracting(Throwable::getCause)
                 .hasFieldOrPropertyWithValue("code", NOT_FOUND.value());
     }
@@ -112,16 +102,16 @@ class ConsultationNoteServiceTest {
     void findNoteById_IsSuccessful(){
         when(consultationNoteRepository.findById(any()))
                 .thenReturn(Optional.of(buildConsultationNote()));
-        var result = doctorNoteService.findById(1L).join();
+        var result = defaultConsultationNoteService.findById(1L).join();
         assertNoteValues(result);
     }
 
     @Test
     void findNoteByConsultationId_Fails(){
-        var result = doctorNoteService.findByConsultation(1L);
+        var result = defaultConsultationNoteService.findByConsultation(1L);
         assertThatThrownBy(result::join)
                 .isInstanceOf(CompletionException.class)
-                .hasCause(new UserProfilingException("Doctor's note does not exist for consultation with id: 1."))
+                .hasCause(new UserProfilingException("Consultation note does not exist for consultation with id: 1."))
                 .extracting(Throwable::getCause)
                 .hasFieldOrPropertyWithValue("code", NOT_FOUND.value());
     }
@@ -130,7 +120,7 @@ class ConsultationNoteServiceTest {
     void findNoteByConsultationId_IsSuccessful(){
         when(consultationNoteRepository.findByConsultation_Id(any()))
                 .thenReturn(Optional.of(buildConsultationNote()));
-        var result = doctorNoteService.findByConsultation(1L).join();
+        var result = defaultConsultationNoteService.findByConsultation(1L).join();
         assertNoteValues(result);
     }
 

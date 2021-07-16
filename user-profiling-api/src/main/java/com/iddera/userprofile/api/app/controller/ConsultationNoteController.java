@@ -31,6 +31,15 @@ public class ConsultationNoteController {
                 .thenApply(ResponseModel::new);
     }
 
+    @PreAuthorize("hasAuthority('DOCTOR')")
+    @PutMapping( "/{id}")
+    @ApiResponses({@ApiResponse(code = 200, message = "Success", response = ConsultationNoteModel.class)})
+    public CompletableFuture<ResponseModel> update(@PathVariable("id") Long id, @Valid @RequestBody ConsultationNoteModel request
+            ,@AuthenticationPrincipal User user) {
+        return consultationNoteService.update(id,request,user)
+                .thenApply(ResponseModel::new);
+    }
+
     @PreAuthorize("hasAnyAuthority('DOCTOR','CLIENT')")
     @GetMapping("/{consultationId}")
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = ConsultationNoteModel.class)})

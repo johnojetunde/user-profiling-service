@@ -8,6 +8,7 @@ import java.util.concurrent.CompletableFuture;
 
 public interface ConsultationNoteService {
     CompletableFuture<ConsultationNoteModel> create(ConsultationNoteModel request, User user);
+    CompletableFuture<ConsultationNoteModel> update(Long id,ConsultationNoteModel request, User user);
     CompletableFuture<ConsultationNoteModel> findById(Long noteId);
     CompletableFuture<ConsultationNoteModel> findByConsultation(Long consultationId);
 }
