@@ -1,6 +1,7 @@
 package com.iddera.userprofile.api.domain.consultation.service.concretes;
 
 import com.iddera.userprofile.api.domain.consultation.model.ConsultationNoteModel;
+import com.iddera.userprofile.api.domain.consultation.model.ConsultationNoteUpdateModel;
 import com.iddera.userprofile.api.domain.consultation.service.abstracts.ConsultationNoteService;
 import com.iddera.userprofile.api.domain.exception.UserProfilingExceptionService;
 import com.iddera.userprofile.api.domain.model.User;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
+import static com.iddera.commons.utils.FunctionUtil.emptyIfNullStream;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 
 @Slf4j
@@ -45,7 +47,7 @@ public class DefaultConsultationNoteService implements ConsultationNoteService {
         });
     }
 
-    public CompletableFuture<ConsultationNoteModel> update(Long id, ConsultationNoteModel request, User user){
+    public CompletableFuture<ConsultationNoteModel> update(Long id, ConsultationNoteUpdateModel request, User user){
         return supplyAsync(() -> {
             ConsultationNote consultationNote = consultationNoteRepository.findById(id)
                     .orElseThrow(()-> exceptions.handleCreateBadRequest("Cannot find consultation note with id %d.",id));
@@ -59,10 +61,10 @@ public class DefaultConsultationNoteService implements ConsultationNoteService {
     }
 
     public void ensureUserIsAConsultationParticipant(Consultation consultation, User user){
-        List<Long> userIds = consultation.getParticipants().stream()
-                             .map(ConsultationParticipant::getUserId)
-                             .collect(Collectors.toList());
-        if(!userIds.contains(user.getId())){
+        boolean isUserAParticipant = emptyIfNullStream(consultation.getParticipants())
+                .map(ConsultationParticipant::getUserId)
+                .anyMatch(uId -> user.getId().equals(uId));
+        if(!isUserAParticipant){
             throw  exceptions.handleCreateUnAuthorized("User is not a participant of this consultation.");
         }
     }
@@ -74,8 +76,9 @@ public class DefaultConsultationNoteService implements ConsultationNoteService {
     }
 
     @Override
-    public CompletableFuture<ConsultationNoteModel> findByConsultation(Long id){
-        return supplyAsync(() -> consultationNoteRepository.findByConsultation_Id(id).orElseThrow(() ->
-                exceptions.handleCreateNotFoundException("Consultation note does not exist for consultation with id: %d.", id)).toModel());
+    public CompletableFuture<List<ConsultationNoteModel>> findNotesByConsultation(Long consultationId){
+        return supplyAsync(() -> consultationNoteRepository.findAllByConsultation_Id(consultationId).stream()
+                .map(ConsultationNote::toModel)
+                .collect(Collectors.toList()));
     }
 }

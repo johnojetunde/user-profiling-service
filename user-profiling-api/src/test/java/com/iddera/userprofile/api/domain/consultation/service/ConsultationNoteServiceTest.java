@@ -1,6 +1,7 @@
 package com.iddera.userprofile.api.domain.consultation.service;
 
 import com.iddera.userprofile.api.domain.consultation.model.ConsultationNoteModel;
+import com.iddera.userprofile.api.domain.consultation.model.ConsultationNoteUpdateModel;
 import com.iddera.userprofile.api.domain.consultation.service.concretes.DefaultConsultationNoteService;
 import com.iddera.userprofile.api.domain.exception.UserProfilingException;
 import com.iddera.userprofile.api.domain.exception.UserProfilingExceptionService;
@@ -18,6 +19,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletionException;
@@ -58,7 +60,7 @@ class ConsultationNoteServiceTest {
 
     @Test
     void updateFails_WhenNoteDoesNotExist(){
-        var result = defaultConsultationNoteService.update(2L,buildRequest(1L),buildUser(2L));
+        var result = defaultConsultationNoteService.update(2L,buildUpdateRequest(),buildUser(2L));
         assertThatThrownBy(result::join)
                 .isInstanceOf(CompletionException.class)
                 .hasCause(new UserProfilingException("Cannot find consultation note with id 2."))
@@ -72,7 +74,7 @@ class ConsultationNoteServiceTest {
                 .thenReturn(Optional.of(buildConsultationNote()));
         when(consultationNoteRepository.save(any(ConsultationNote.class)))
                 .thenReturn(buildConsultationNote());
-        var result = defaultConsultationNoteService.update(1L,buildRequest(1L),buildUser(2L)).join();
+        var result = defaultConsultationNoteService.update(1L,buildUpdateRequest(),buildUser(2L)).join();
         assertNoteValues(result);
     }
 
@@ -107,21 +109,11 @@ class ConsultationNoteServiceTest {
     }
 
     @Test
-    void findNoteByConsultationId_Fails(){
-        var result = defaultConsultationNoteService.findByConsultation(1L);
-        assertThatThrownBy(result::join)
-                .isInstanceOf(CompletionException.class)
-                .hasCause(new UserProfilingException("Consultation note does not exist for consultation with id: 1."))
-                .extracting(Throwable::getCause)
-                .hasFieldOrPropertyWithValue("code", NOT_FOUND.value());
-    }
-
-    @Test
-    void findNoteByConsultationId_IsSuccessful(){
-        when(consultationNoteRepository.findByConsultation_Id(any()))
-                .thenReturn(Optional.of(buildConsultationNote()));
-        var result = defaultConsultationNoteService.findByConsultation(1L).join();
-        assertNoteValues(result);
+    void findNotesByConsultationId_IsSuccessful(){
+        when(consultationNoteRepository.findAllByConsultation_Id(any()))
+                .thenReturn(Arrays.asList(buildConsultationNote()));
+        var result = defaultConsultationNoteService.findNotesByConsultation(1L).join();
+        assertNoteValues(result.get(0));
     }
 
    private ConsultationNoteModel buildRequest(Long consultationId){
@@ -136,6 +128,16 @@ class ConsultationNoteServiceTest {
                 .id(1L)
                 .build();
    }
+
+    private ConsultationNoteUpdateModel buildUpdateRequest(){
+        return ConsultationNoteUpdateModel.builder()
+                .plan("Request plan.")
+                .diagnosis("Request diagnosis.")
+                .examination("Request examination.")
+                .history("Request history.")
+                .investigation("Request investigation.")
+                .build();
+    }
 
     private ConsultationNote buildConsultationNote(){
         ConsultationNote consultationNote = new ConsultationNote();

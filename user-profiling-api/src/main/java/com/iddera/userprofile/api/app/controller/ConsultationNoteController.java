@@ -2,6 +2,7 @@ package com.iddera.userprofile.api.app.controller;
 
 import com.iddera.userprofile.api.app.model.ResponseModel;
 import com.iddera.userprofile.api.domain.consultation.model.ConsultationNoteModel;
+import com.iddera.userprofile.api.domain.consultation.model.ConsultationNoteUpdateModel;
 import com.iddera.userprofile.api.domain.consultation.service.abstracts.ConsultationNoteService;
 import com.iddera.userprofile.api.domain.model.User;
 import io.swagger.annotations.ApiResponse;
@@ -33,18 +34,18 @@ public class ConsultationNoteController {
 
     @PreAuthorize("hasAuthority('DOCTOR')")
     @PutMapping( "/{id}")
-    @ApiResponses({@ApiResponse(code = 200, message = "Success", response = ConsultationNoteModel.class)})
-    public CompletableFuture<ResponseModel> update(@PathVariable("id") Long id, @Valid @RequestBody ConsultationNoteModel request
+    @ApiResponses({@ApiResponse(code = 200, message = "Success", response = ConsultationNoteUpdateModel.class)})
+    public CompletableFuture<ResponseModel> update(@PathVariable("id") Long id, @Valid @RequestBody ConsultationNoteUpdateModel request
             ,@AuthenticationPrincipal User user) {
         return consultationNoteService.update(id,request,user)
                 .thenApply(ResponseModel::new);
     }
 
     @PreAuthorize("hasAnyAuthority('DOCTOR','CLIENT')")
-    @GetMapping("/{consultationId}")
+    @GetMapping("/consultation/{consultationId}")
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = ConsultationNoteModel.class)})
     public CompletableFuture<ResponseModel> getNotesByConsultation(@PathVariable Long consultationId) {
-        return consultationNoteService.findByConsultation(consultationId)
+        return consultationNoteService.findNotesByConsultation(consultationId)
                 .thenApply(ResponseModel::new);
     }
 
