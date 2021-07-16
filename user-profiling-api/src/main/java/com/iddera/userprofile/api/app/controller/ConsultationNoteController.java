@@ -42,7 +42,7 @@ public class ConsultationNoteController {
     }
 
     @PreAuthorize("hasAnyAuthority('DOCTOR','CLIENT')")
-    @GetMapping("/consultation/{consultationId}")
+    @GetMapping("/consultations/{consultationId}")
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = ConsultationNoteModel.class)})
     public CompletableFuture<ResponseModel> getNotesByConsultation(@PathVariable Long consultationId) {
         return consultationNoteService.findNotesByConsultation(consultationId)
