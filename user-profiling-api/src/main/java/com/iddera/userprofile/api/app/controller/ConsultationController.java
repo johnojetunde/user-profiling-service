@@ -21,7 +21,7 @@ import java.util.concurrent.CompletableFuture;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping("/v1/consulations")
+@RequestMapping("/v1/consultations")
 @RequiredArgsConstructor
 public class ConsultationController {
 

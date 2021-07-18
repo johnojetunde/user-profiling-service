@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @Accessors(chain = true)
 @Data
 public class ConsultationRequest {
-    @NotNull
+    @NotNull(message = "Timeslot id is required")
     private Long timeslotId;
     private String agenda;
     @ValidEnum(message = "Invalid Consultation mode")

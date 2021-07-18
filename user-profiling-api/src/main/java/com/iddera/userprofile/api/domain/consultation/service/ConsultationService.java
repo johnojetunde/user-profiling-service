@@ -13,6 +13,7 @@ import com.iddera.userprofile.api.persistence.consultation.persistence.DoctorTim
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -26,6 +27,7 @@ import static java.util.Optional.ofNullable;
 import static java.util.concurrent.CompletableFuture.runAsync;
 import static java.util.stream.Collectors.toList;
 
+@Transactional
 @RequiredArgsConstructor
 @Service
 public class ConsultationService {
@@ -53,15 +55,15 @@ public class ConsultationService {
 
                 return getParticipantsDetails(user, timeslot, clientUser)
                         .thenCompose(meetingParticipants -> scheduleMeeting(timeslot, meetingParticipants, request.getAgenda()))
-                        .thenApply(registeredParticipants -> persistConsultation(timeslot, registeredParticipants));
+                        .thenApply(registeredParticipants -> persistConsultation(timeslot, registeredParticipants, request.getMode()));
             }
         });
     }
 
-    private ConsultationModel persistConsultation(DoctorTimeslot timeslot, List<MeetingRegistrant> registeredParticipants) {
+    private ConsultationModel persistConsultation(DoctorTimeslot timeslot, List<MeetingRegistrant> registeredParticipants, ConsultationMode mode) {
         timeslot.setStatus(TimeslotStatus.SCHEDULED);
         var updatedTimeslot = timeslotRepository.save(timeslot);
-        var consultation = buildConsultation(registeredParticipants, updatedTimeslot);
+        var consultation = buildConsultation(registeredParticipants, updatedTimeslot, mode);
         var participants = emptyIfNullStream(registeredParticipants)
                 .map(ConsultationParticipant::from)
                 .collect(toList());
@@ -130,10 +132,13 @@ public class ConsultationService {
                 .build();
     }
 
-    private Consultation buildConsultation(List<MeetingRegistrant> registeredParticipants, DoctorTimeslot updatedTimeslot) {
+    private Consultation buildConsultation(List<MeetingRegistrant> registeredParticipants,
+                                           DoctorTimeslot updatedTimeslot,
+                                           ConsultationMode mode) {
         return new Consultation()
                 .setMeetingId(registeredParticipants.get(0).getMeetingId())
                 .setTimeslot(updatedTimeslot)
+                .setMode(mode)
                 .setStatus(ConsultationStatus.SCHEDULED);
     }
 }
