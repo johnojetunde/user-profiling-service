@@ -6,6 +6,7 @@ import com.iddera.userprofile.api.domain.consultation.model.MeetingRegistrant;
 import com.iddera.userprofile.api.persistence.userprofile.entity.BaseEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -27,6 +28,7 @@ public class ConsultationParticipant extends BaseEntity {
     private String meetingUrl;
     @ManyToOne
     @JoinColumn(name = "consultation_id")
+    @ToString.Exclude
     private Consultation consultation;
 
     public static ConsultationParticipant from(MeetingRegistrant reg, Consultation consultation) {

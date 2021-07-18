@@ -17,7 +17,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import java.time.Clock;
 import java.time.Instant;
@@ -27,15 +30,14 @@ import java.util.Optional;
 import java.util.concurrent.CompletionException;
 
 import static com.iddera.userprofile.api.domain.consultation.model.ConsultationStatus.SCHEDULED;
-import static com.iddera.userprofile.api.stubs.TestDataFixtures.timeslot;
+import static com.iddera.userprofile.api.stubs.TestDataFixtures.*;
 import static java.util.concurrent.CompletableFuture.completedFuture;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.NOT_IMPLEMENTED;
+import static org.springframework.http.HttpStatus.*;
 
 @ExtendWith({MockitoExtension.class})
 class ConsultationServiceTest {
@@ -203,6 +205,143 @@ class ConsultationServiceTest {
         verify(timeslotRepository).save(isA(DoctorTimeslot.class));
         verify(consultationRepository).save(isA(Consultation.class));
         verify(participantRepository).saveAll(anyList());
+    }
+
+    @Test
+    void getConsultationById_whenUserIdIsNotAParticipant() {
+        var userDetails = new User().setId(5L).setPassword("token");
+        var timeslot = timeslot(clock)
+                .setStatus(TimeslotStatus.FREE);
+
+        Consultation consultation = buildConsultationEntity(timeslot);
+
+        when(consultationRepository.findById(1L))
+                .thenReturn(Optional.of(consultation));
+
+        var result = consultationService.getById(1L, userDetails);
+
+        assertThatThrownBy(result::join)
+                .isInstanceOf(CompletionException.class)
+                .hasCause(new UserProfilingException("User is not a participant of this consultation"))
+                .extracting(Throwable::getCause)
+                .hasFieldOrPropertyWithValue("code", FORBIDDEN.value());
+
+        verify(consultationRepository).findById(1L);
+    }
+
+    @Test
+    void getConsultationById() {
+        var userDetails = new User().setId(1L).setPassword("token");
+        var timeslot = timeslot(clock)
+                .setStatus(TimeslotStatus.FREE);
+
+        Consultation consultation = buildConsultationEntity(timeslot);
+
+        when(consultationRepository.findById(1L))
+                .thenReturn(Optional.of(consultation));
+
+        var result = consultationService.getById(1L, userDetails).join();
+
+        assertThat(result.getId()).isEqualTo(1L);
+        assertThat(result.getParticipants()).hasSize(2);
+        assertThat(result.getStatus()).isEqualTo(SCHEDULED);
+
+        verify(consultationRepository).findById(1L);
+    }
+
+    @Test
+    void searchConsultation_whenBothTimeslotAndUserIdPresent() {
+        var timeslot = timeslot(clock)
+                .setStatus(TimeslotStatus.FREE);
+        var pageable = Mockito.mock(Pageable.class);
+
+
+        var request = new ConsultationSearchCriteria()
+                .addUserId(1L)
+                .setTimeslotId(1L);
+
+        Consultation consultation = buildConsultationEntity(timeslot);
+
+        when(consultationRepository.findAllByTimeslotAndParticipantsUserId(request.getParticipantUserIds(), request.getTimeslotId(), pageable))
+                .thenReturn(new PageImpl<>(List.of(consultation)));
+
+        var result = consultationService.search(request, pageable).join();
+
+        assertThat(result).hasSize(1);
+        verify(consultationRepository).findAllByTimeslotAndParticipantsUserId(request.getParticipantUserIds(), request.getTimeslotId(), pageable);
+    }
+
+    @Test
+    void searchConsultation_whenTimeslotIsPresent() {
+        var timeslot = timeslot(clock)
+                .setStatus(TimeslotStatus.FREE);
+        var pageable = Mockito.mock(Pageable.class);
+        var request = new ConsultationSearchCriteria()
+                .setTimeslotId(1L);
+
+        Consultation consultation = buildConsultationEntity(timeslot);
+
+        when(consultationRepository.findAllByTimeslot_Id(request.getTimeslotId(), pageable))
+                .thenReturn(new PageImpl<>(List.of(consultation)));
+
+        var result = consultationService.search(request, pageable).join();
+
+        assertThat(result).hasSize(1);
+        verify(consultationRepository).findAllByTimeslot_Id(request.getTimeslotId(), pageable);
+    }
+
+    @Test
+    void searchConsultation_findAll() {
+        var timeslot = timeslot(clock)
+                .setStatus(TimeslotStatus.FREE);
+        var pageable = Mockito.mock(Pageable.class);
+        var request = new ConsultationSearchCriteria()
+                .setTimeslotId(null)
+                .setParticipantUserIds(null);
+
+        Consultation consultation = buildConsultationEntity(timeslot);
+
+        when(consultationRepository.findAll(pageable))
+                .thenReturn(new PageImpl<>(List.of(consultation)));
+
+        var result = consultationService.search(request, pageable).join();
+
+        assertThat(result).hasSize(1);
+        verify(consultationRepository).findAll(pageable);
+    }
+
+    @Test
+    void searchConsultation_whenUserIdPresent() {
+        var timeslot = timeslot(clock)
+                .setStatus(TimeslotStatus.FREE);
+        var pageable = Mockito.mock(Pageable.class);
+        var request = new ConsultationSearchCriteria()
+                .addUserId(1L);
+
+        Consultation consultation = buildConsultationEntity(timeslot);
+
+        when(consultationRepository.findAllByParticipantsUserId(request.getParticipantUserIds(), pageable))
+                .thenReturn(new PageImpl<>(List.of(consultation)));
+
+        var result = consultationService.search(request, pageable).join();
+
+        assertThat(result).hasSize(1);
+        verify(consultationRepository).findAllByParticipantsUserId(request.getParticipantUserIds(), pageable);
+    }
+
+    private Consultation buildConsultationEntity(DoctorTimeslot timeslot) {
+        var clientUserModel = newUserModel(1L, "client@iddera.com", "Client", UserType.CLIENT);
+        var doctorUserModel = newUserModel(2L, "doctor@iddera.com", "Doctor", UserType.DOCTOR);
+
+        var consultation = consultation(timeslot);
+        consultation.setId(1L);
+
+        var participants = List.of(
+                consultationParticipant(clientUserModel),
+                consultationParticipant(doctorUserModel));
+
+        consultation.setParticipants(participants);
+        return consultation;
     }
 
     private MeetingRegistrant meetingRegistrant(MeetingParticipant clientParticipant, String registrantId) {

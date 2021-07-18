@@ -110,34 +110,6 @@ public class DoctorTimeslotService {
         return timeslot.getRange();
     }
 
-    private TimeslotSpecification buildSpecification(TimeslotFilter filter) {
-        TimeslotSpecification specification = new TimeslotSpecification();
-        if (filter.getDoctorId() != null) {
-            specification.add(new SearchCriteria<>("doctor", filter.getDoctorId(), SearchOperation.DOCTOR_ID));
-        }
-        if (filter.getStartTime() != null) {
-            specification.add(new SearchCriteria<>("startTime", filter.getStartTime(), SearchOperation.GREATER_THAN_EQUAL));
-        }
-        if (filter.getEndTime() != null) {
-            specification.add(new SearchCriteria<>("endTime", filter.getEndTime(), SearchOperation.LESS_THAN_EQUAL));
-        }
-        if (filter.getDoctorUserId() != null) {
-            specification.add(new SearchCriteria<>("doctor.userId", filter.getDoctorUserId(), SearchOperation.DOCTOR_USER_ID));
-        }
-
-        if (filter.getStatus() != null) {
-            specification.add(new SearchCriteria<>("status", filter.getStatus(), SearchOperation.EQUAL));
-        }
-        if (filter.getStartDate() != null) {
-            specification.add(new SearchCriteria<>("date", filter.getStartDate(), SearchOperation.GREATER_THAN_EQUAL));
-        }
-        if (filter.getEndDate() != null) {
-            specification.add(new SearchCriteria<>("date", filter.getEndDate(), SearchOperation.LESS_THAN_EQUAL));
-        }
-
-        return specification;
-    }
-
     private void ensureDateRangeIsValid(DateRange range) {
         if (range.getTo().isBefore(range.getFrom()))
             throw exceptionService.handleCreateBadRequest("EndDate cannot be before StartDate");
@@ -182,5 +154,33 @@ public class DoctorTimeslotService {
     private void ensureTimeIsInMultipleOf30Minutes(int timeInMinutes, String fieldName) {
         if (timeInMinutes % CONSULTATION_PERIOD != 0)
             throw exceptionService.handleCreateBadRequest(fieldName + " minutes should be multiples of 30");
+    }
+
+    private TimeslotSpecification buildSpecification(TimeslotFilter filter) {
+        TimeslotSpecification specification = new TimeslotSpecification();
+        if (filter.getDoctorId() != null) {
+            specification.add(new SearchCriteria<>("doctor", filter.getDoctorId(), SearchOperation.DOCTOR_ID));
+        }
+        if (filter.getStartTime() != null) {
+            specification.add(new SearchCriteria<>("startTime", filter.getStartTime(), SearchOperation.GREATER_THAN_EQUAL));
+        }
+        if (filter.getEndTime() != null) {
+            specification.add(new SearchCriteria<>("endTime", filter.getEndTime(), SearchOperation.LESS_THAN_EQUAL));
+        }
+        if (filter.getDoctorUserId() != null) {
+            specification.add(new SearchCriteria<>("doctor.userId", filter.getDoctorUserId(), SearchOperation.DOCTOR_USER_ID));
+        }
+
+        if (filter.getStatus() != null) {
+            specification.add(new SearchCriteria<>("status", filter.getStatus(), SearchOperation.EQUAL));
+        }
+        if (filter.getStartDate() != null) {
+            specification.add(new SearchCriteria<>("date", filter.getStartDate(), SearchOperation.GREATER_THAN_EQUAL));
+        }
+        if (filter.getEndDate() != null) {
+            specification.add(new SearchCriteria<>("date", filter.getEndDate(), SearchOperation.LESS_THAN_EQUAL));
+        }
+
+        return specification;
     }
 }

@@ -15,6 +15,7 @@ import java.util.List;
 import static com.iddera.usermanagement.lib.domain.utils.FunctionUtil.emptyIfNullStream;
 import static java.util.stream.Collectors.toList;
 import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.FetchType.LAZY;
 
 @EntityListeners(AuditingEntityListener.class)
 @Accessors(chain = true)
@@ -33,7 +34,7 @@ public class Consultation extends BaseEntity {
     private ConsultationMode mode;
     @OneToMany(mappedBy = "consultation", fetch = EAGER, cascade = CascadeType.ALL)
     private List<ConsultationParticipant> participants;
-    @OneToMany(mappedBy = "consultation", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "consultation", fetch = LAZY, cascade = CascadeType.ALL)
     private List<DrugPrescription> prescriptions;
 
     public ConsultationModel toModel() {

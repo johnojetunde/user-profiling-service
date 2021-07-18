@@ -13,5 +13,7 @@ public enum SearchOperation {
     IN,
     NOT_IN,
     DOCTOR_ID,
-    DOCTOR_USER_ID
+    DOCTOR_USER_ID,
+    TIMESLOT,
+    PARTICIPANT_USER_ID
 }

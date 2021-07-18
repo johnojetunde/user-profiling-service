@@ -12,20 +12,26 @@ import com.iddera.userprofile.api.persistence.consultation.persistence.Consultat
 import com.iddera.userprofile.api.persistence.consultation.persistence.ConsultationRepository;
 import com.iddera.userprofile.api.persistence.consultation.persistence.DoctorTimeslotRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
+import static com.iddera.commons.utils.FunctionUtil.emptyIfNull;
 import static com.iddera.commons.utils.FunctionUtil.emptyIfNullStream;
 import static com.iddera.userprofile.api.domain.consultation.model.ConsultationMode.AUDIO;
 import static com.iddera.userprofile.api.domain.consultation.model.ConsultationMode.VIDEO;
 import static com.iddera.userprofile.api.domain.consultation.model.TimeslotStatus.FREE;
+import static com.iddera.userprofile.api.domain.consultation.utils.ConsultationUtil.ensureUserIsAConsultationParticipant;
 import static java.util.Optional.ofNullable;
 import static java.util.concurrent.CompletableFuture.runAsync;
+import static java.util.concurrent.CompletableFuture.supplyAsync;
 import static java.util.stream.Collectors.toList;
 
 @Transactional
@@ -59,6 +65,37 @@ public class ConsultationService {
                         .thenCompose(meetingParticipants -> scheduleMeeting(timeslot, meetingParticipants, request.getAgenda()))
                         .thenApply(registeredParticipants -> persistConsultation(timeslot, registeredParticipants, request.getMode()));
             }
+        });
+    }
+
+    public CompletableFuture<ConsultationModel> getById(Long id, User user) {
+        return supplyAsync(() -> {
+            var consultation = consultationRepository.findById(id)
+                    .orElseThrow(() -> exceptions.handleCreateNotFoundException("Consultation with id %d not found", id));
+
+            ensureUserIsAConsultationParticipant(consultation, user, exceptions);
+
+            return consultation.toModel();
+        });
+    }
+
+    public CompletableFuture<Page<ConsultationModel>> search(ConsultationSearchCriteria request, Pageable pageable) {
+        return supplyAsync(() -> {
+            var userIds = emptyIfNull(request.getParticipantUserIds());
+            Page<Consultation> result;
+
+            //TODO: method to be clean up when specification issues resolved
+            if (!userIds.isEmpty() && Objects.nonNull(request.getTimeslotId())) {
+                result = consultationRepository.findAllByTimeslotAndParticipantsUserId(userIds, request.getTimeslotId(), pageable);
+            } else if (!userIds.isEmpty()) {
+                result = consultationRepository.findAllByParticipantsUserId(userIds, pageable);
+            } else if (Objects.nonNull(request.getTimeslotId())) {
+                result = consultationRepository.findAllByTimeslot_Id(request.getTimeslotId(), pageable);
+            } else {
+                result = consultationRepository.findAll(pageable);
+            }
+
+            return result.map(Consultation::toModel);
         });
     }
 
@@ -140,9 +177,9 @@ public class ConsultationService {
                 .build();
     }
 
-    private Consultation buildConsultation(List<MeetingRegistrant> registeredParticipants,
-                                           DoctorTimeslot updatedTimeslot,
-                                           ConsultationMode mode) {
+    Consultation buildConsultation(List<MeetingRegistrant> registeredParticipants,
+                                   DoctorTimeslot updatedTimeslot,
+                                   ConsultationMode mode) {
         return new Consultation()
                 .setMeetingId(registeredParticipants.get(0).getMeetingId())
                 .setTimeslot(updatedTimeslot)

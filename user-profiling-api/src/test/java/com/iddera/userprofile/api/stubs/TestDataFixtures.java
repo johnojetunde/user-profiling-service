@@ -1,7 +1,12 @@
 package com.iddera.userprofile.api.stubs;
 
+import com.iddera.usermanagement.lib.domain.model.UserModel;
+import com.iddera.userprofile.api.domain.consultation.model.ConsultationMode;
+import com.iddera.userprofile.api.domain.consultation.model.ConsultationStatus;
 import com.iddera.userprofile.api.domain.medicalinfo.model.MedicalForm;
 import com.iddera.userprofile.api.domain.medicalinfo.model.enums.*;
+import com.iddera.userprofile.api.persistence.consultation.entity.Consultation;
+import com.iddera.userprofile.api.persistence.consultation.entity.ConsultationParticipant;
 import com.iddera.userprofile.api.persistence.consultation.entity.DoctorTimeslot;
 import com.iddera.userprofile.api.persistence.doctorprofile.entity.DoctorProfile;
 import com.iddera.userprofile.api.persistence.medicals.entity.*;
@@ -127,5 +132,23 @@ public class TestDataFixtures {
                 .interest("interest")
                 .bio("bio")
                 .build();
+    }
+
+    public static ConsultationParticipant consultationParticipant(UserModel user) {
+        return new ConsultationParticipant()
+                .setUserId(user.getId())
+                .setEmail(user.getEmail())
+                .setUserType(user.getType())
+                .setRegistrantId(user.getEmail())
+                .setMeetingPasscode("code")
+                .setMeetingUrl("meeting url");
+    }
+
+    public static Consultation consultation(DoctorTimeslot timeslot) {
+        return new Consultation()
+                .setMeetingId("meetingID")
+                .setTimeslot(timeslot)
+                .setMode(ConsultationMode.AUDIO)
+                .setStatus(ConsultationStatus.SCHEDULED);
     }
 }
