@@ -50,6 +50,8 @@ public abstract class MedicalInfoService<T extends BaseModel> {
                             exceptions.handleCreateBadRequest("%s with %d id does not exist", modelType(), id));
 
                     ensureModelBelongsToUser(username, result);
+                    model.setUsername(username);
+                    model.setId(id);
                     return repositoryService.update(id, model);
                 });
     }
