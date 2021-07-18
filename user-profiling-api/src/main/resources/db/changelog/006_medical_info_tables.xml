@@ -298,4 +298,21 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet author="tajia" id="202107180320-01">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="allergy_reactions"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="allergy_reactions">
+            <column  name="allergy_id" type="BIGSERIAL">
+                <constraints foreignKeyName="fk_alergy_reactions" references="allergy(id)"/>
+            </column>
+            <column name="reaction" type="VARCHAR(256)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>

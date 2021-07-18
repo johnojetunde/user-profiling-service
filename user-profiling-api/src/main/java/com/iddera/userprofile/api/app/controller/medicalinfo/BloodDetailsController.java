@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,7 +34,7 @@ public class BloodDetailsController extends AbstractMedicalInfoController<BloodD
     @ApiOperation(value = "Update an blood-detail", response = BloodDetailsModel.class)
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = BloodDetailsModel.class)})
     @Override
-    public CompletableFuture<ResponseModel> update(Long id,
+    public CompletableFuture<ResponseModel> update(@PathVariable("id") Long id,
                                                    @Valid @RequestBody BloodDetailsModel body,
                                                    @AuthenticationPrincipal User user) {
         return super.update(id, body, user);
@@ -42,7 +43,7 @@ public class BloodDetailsController extends AbstractMedicalInfoController<BloodD
     @ApiOperation(value = "get an blood-detail by id", response = BloodDetailsModel.class)
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = BloodDetailsModel.class)})
     @Override
-    public CompletableFuture<ResponseModel> getById(Long id,
+    public CompletableFuture<ResponseModel> getById(@PathVariable("id")Long id,
                                                     @AuthenticationPrincipal User user) {
         return super.getById(id, user);
     }
