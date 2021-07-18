@@ -1,13 +1,13 @@
 package com.iddera.userprofile.api.domain.consultation.service;
 
-import com.iddera.userprofile.api.domain.consultation.model.DateRange;
-import com.iddera.userprofile.api.domain.consultation.model.DoctorTimeslotModel;
-import com.iddera.userprofile.api.domain.consultation.model.Timeslot;
-import com.iddera.userprofile.api.domain.consultation.model.TimeslotStatus;
+import com.iddera.userprofile.api.domain.consultation.model.*;
 import com.iddera.userprofile.api.domain.exception.UserProfilingExceptionService;
 import com.iddera.userprofile.api.domain.model.User;
 import com.iddera.userprofile.api.persistence.consultation.entity.DoctorTimeslot;
 import com.iddera.userprofile.api.persistence.consultation.persistence.DoctorTimeslotRepository;
+import com.iddera.userprofile.api.persistence.consultation.persistence.TimeslotSpecification;
+import com.iddera.userprofile.api.persistence.consultation.specs.SearchCriteria;
+import com.iddera.userprofile.api.persistence.consultation.specs.SearchOperation;
 import com.iddera.userprofile.api.persistence.doctorprofile.entity.DoctorProfile;
 import com.iddera.userprofile.api.persistence.doctorprofile.repository.DoctorProfileRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-import static com.iddera.userprofile.api.domain.consultation.model.TimeslotStatus.FREE;
 import static com.iddera.userprofile.api.domain.utils.Constants.CONSULTATION_PERIOD;
 import static java.lang.String.format;
 import static java.util.concurrent.CompletableFuture.runAsync;
@@ -83,31 +82,13 @@ public class DoctorTimeslotService {
         });
     }
 
-    public CompletableFuture<Page<DoctorTimeslotModel>> getAvailableSlots(LocalDate date, Pageable pageable) {
-        return supplyAsync(() ->
-                repository.findAllByDateIsAndStatus(date, FREE, pageable)
-                        .map(DoctorTimeslot::toModel)
-        );
-    }
+    public CompletableFuture<Page<DoctorTimeslotModel>> filterTimeslot(TimeslotFilter filter, Pageable pageable) {
+        return supplyAsync(() -> {
+                    var specs = buildSpecification(filter);
 
-    public CompletableFuture<Page<DoctorTimeslotModel>> getDoctorAvailableSlots(Long doctorId, LocalDate date, Pageable pageable) {
-        return supplyAsync(() ->
-                repository.findAllByDateIsAndStatusAndDoctor_Id(date, FREE, doctorId, pageable)
-                        .map(DoctorTimeslot::toModel)
-        );
-    }
-
-    public CompletableFuture<Page<DoctorTimeslotModel>> getMyAvailableSlots(LocalDate date, User user, Pageable pageable) {
-        return supplyAsync(() ->
-                repository.findAllByDateIsAndStatusAndDoctor_UserId(date, FREE, user.getId(), pageable)
-                        .map(DoctorTimeslot::toModel)
-        );
-    }
-
-    public CompletableFuture<Page<DoctorTimeslotModel>> getMySlots(LocalDate date, User user, Pageable pageable) {
-        return supplyAsync(() ->
-                repository.findAllByDateIsAndDoctor_UserId(date, user.getId(), pageable)
-                        .map(DoctorTimeslot::toModel)
+                    return repository.findAll(specs, pageable)
+                            .map(DoctorTimeslot::toModel);
+                }
         );
     }
 
@@ -127,6 +108,34 @@ public class DoctorTimeslotService {
             return new DateRange(timeslot.getDate(), timeslot.getDate());
 
         return timeslot.getRange();
+    }
+
+    private TimeslotSpecification buildSpecification(TimeslotFilter filter) {
+        TimeslotSpecification specification = new TimeslotSpecification();
+        if (filter.getDoctorId() != null) {
+            specification.add(new SearchCriteria<>("doctor", filter.getDoctorId(), SearchOperation.DOCTOR_ID));
+        }
+        if (filter.getStartTime() != null) {
+            specification.add(new SearchCriteria<>("startTime", filter.getStartTime(), SearchOperation.GREATER_THAN_EQUAL));
+        }
+        if (filter.getEndTime() != null) {
+            specification.add(new SearchCriteria<>("endTime", filter.getEndTime(), SearchOperation.LESS_THAN_EQUAL));
+        }
+        if (filter.getDoctorUserId() != null) {
+            specification.add(new SearchCriteria<>("doctor.userId", filter.getDoctorUserId(), SearchOperation.DOCTOR_USER_ID));
+        }
+
+        if (filter.getStatus() != null) {
+            specification.add(new SearchCriteria<>("status", filter.getStatus(), SearchOperation.EQUAL));
+        }
+        if (filter.getStartDate() != null) {
+            specification.add(new SearchCriteria<>("date", filter.getStartDate(), SearchOperation.GREATER_THAN_EQUAL));
+        }
+        if (filter.getEndDate() != null) {
+            specification.add(new SearchCriteria<>("date", filter.getEndDate(), SearchOperation.LESS_THAN_EQUAL));
+        }
+
+        return specification;
     }
 
     private void ensureDateRangeIsValid(DateRange range) {

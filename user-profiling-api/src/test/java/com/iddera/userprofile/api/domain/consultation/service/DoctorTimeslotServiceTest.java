@@ -3,11 +3,13 @@ package com.iddera.userprofile.api.domain.consultation.service;
 import com.iddera.userprofile.api.domain.consultation.model.DateRange;
 import com.iddera.userprofile.api.domain.consultation.model.DoctorTimeslotModel;
 import com.iddera.userprofile.api.domain.consultation.model.Timeslot;
+import com.iddera.userprofile.api.domain.consultation.model.TimeslotFilter;
 import com.iddera.userprofile.api.domain.exception.UserProfilingException;
 import com.iddera.userprofile.api.domain.exception.UserProfilingExceptionService;
 import com.iddera.userprofile.api.domain.model.User;
 import com.iddera.userprofile.api.persistence.consultation.entity.DoctorTimeslot;
 import com.iddera.userprofile.api.persistence.consultation.persistence.DoctorTimeslotRepository;
+import com.iddera.userprofile.api.persistence.consultation.persistence.TimeslotSpecification;
 import com.iddera.userprofile.api.persistence.doctorprofile.entity.DoctorProfile;
 import com.iddera.userprofile.api.persistence.doctorprofile.repository.DoctorProfileRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -273,73 +275,23 @@ class DoctorTimeslotServiceTest {
     }
 
     @Test
-    void getAvailableTimeslot() {
+    void filterTimeslot() {
+        var filter = new TimeslotFilter();
+        filter.setDoctorUserId(1L);
+        filter.setStatus(FREE);
+
         var now = LocalDate.now(clock);
         var pageable = Mockito.mock(Pageable.class);
         var existingTimeslot = timeslot(now, new DoctorProfile());
 
-        when(repository.findAllByDateIsAndStatus(now, FREE, pageable))
+
+        when(repository.findAll(any(TimeslotSpecification.class), eq(pageable)))
                 .thenReturn(new PageImpl<>(List.of(existingTimeslot)));
 
-        var result = timeslotService.getAvailableSlots(now, pageable)
-                .join();
+        var result = timeslotService.filterTimeslot(filter, pageable).join();
 
-        assertThat(result.getContent())
-                .extracting(DoctorTimeslotModel::getId)
-                .containsOnly(1L);
-    }
-
-    @Test
-    void getDoctorAvailableSlots() {
-        var now = LocalDate.now(clock);
-        var pageable = Mockito.mock(Pageable.class);
-        var existingTimeslot = timeslot(now, new DoctorProfile());
-
-        when(repository.findAllByDateIsAndStatusAndDoctor_Id(now, FREE, 2L, pageable))
-                .thenReturn(new PageImpl<>(List.of(existingTimeslot)));
-
-        var result = timeslotService.getDoctorAvailableSlots(2L, now, pageable)
-                .join();
-
-        assertThat(result.getContent())
-                .extracting(DoctorTimeslotModel::getId)
-                .containsOnly(1L);
-    }
-
-    @Test
-    void getMyAvailableSlots() {
-        var now = LocalDate.now(clock);
-        var pageable = Mockito.mock(Pageable.class);
-        var existingTimeslot = timeslot(now, new DoctorProfile());
-        var user = new User().setId(5L);
-
-        when(repository.findAllByDateIsAndStatusAndDoctor_UserId(now, FREE, 5L, pageable))
-                .thenReturn(new PageImpl<>(List.of(existingTimeslot)));
-
-        var result = timeslotService.getMyAvailableSlots(now, user, pageable)
-                .join();
-
-        assertThat(result.getContent())
-                .extracting(DoctorTimeslotModel::getId)
-                .containsOnly(1L);
-    }
-
-    @Test
-    void getMySlots() {
-        var now = LocalDate.now(clock);
-        var pageable = Mockito.mock(Pageable.class);
-        var existingTimeslot = timeslot(now, new DoctorProfile());
-        var user = new User().setId(5L);
-
-        when(repository.findAllByDateIsAndDoctor_UserId(now, 5L, pageable))
-                .thenReturn(new PageImpl<>(List.of(existingTimeslot)));
-
-        var result = timeslotService.getMySlots(now, user, pageable)
-                .join();
-
-        assertThat(result.getContent())
-                .extracting(DoctorTimeslotModel::getId)
-                .containsOnly(1L);
+        assertThat(result).hasSize(1);
+        verify(repository).findAll(any(TimeslotSpecification.class), eq(pageable));
     }
 
     @Test
