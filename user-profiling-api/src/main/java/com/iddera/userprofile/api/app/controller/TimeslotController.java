@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,6 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.concurrent.CompletableFuture;
 
-import static java.time.format.DateTimeFormatter.BASIC_ISO_DATE;
 import static org.springframework.data.domain.Sort.Direction.ASC;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -51,11 +51,10 @@ public class TimeslotController {
     @PreAuthorize("hasAuthority('DOCTOR')")
     @GetMapping(consumes = APPLICATION_JSON_VALUE, value = "/current/available")
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = TimeslotResult.class)})
-    public CompletableFuture<ResponseModel> getMyAvailableSlots(@RequestParam("date") String date,
+    public CompletableFuture<ResponseModel> getMyAvailableSlots(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd") LocalDate date,
                                                                 @AuthenticationPrincipal User user,
                                                                 @PageableDefault(sort = "id", direction = ASC) Pageable pageable) {
-        var slotDate = BASIC_ISO_DATE.parse(date, LocalDate::from);
-        return timeslotService.getMyAvailableSlots(slotDate, user, pageable)
+        return timeslotService.getMyAvailableSlots(date, user, pageable)
                 .thenApply(TimeslotResult::new)
                 .thenApply(ResponseModel::new);
     }
@@ -63,11 +62,10 @@ public class TimeslotController {
     @PreAuthorize("hasAuthority('DOCTOR')")
     @GetMapping(consumes = APPLICATION_JSON_VALUE, value = "/current")
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = TimeslotResult.class)})
-    public CompletableFuture<ResponseModel> getAllMySlots(@RequestParam("date") String date,
+    public CompletableFuture<ResponseModel> getAllMySlots(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd") LocalDate date,
                                                           @AuthenticationPrincipal User user,
                                                           @PageableDefault(sort = "id", direction = ASC) Pageable pageable) {
-        var slotDate = BASIC_ISO_DATE.parse(date, LocalDate::from);
-        return timeslotService.getMySlots(slotDate, user, pageable)
+        return timeslotService.getMySlots(date, user, pageable)
                 .thenApply(TimeslotResult::new)
                 .thenApply(ResponseModel::new);
     }
@@ -75,10 +73,9 @@ public class TimeslotController {
     @PreAuthorize("hasAnyAuthority('DOCTOR','CLIENT','ADMIN')")
     @GetMapping(consumes = APPLICATION_JSON_VALUE, value = "/available")
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = TimeslotResult.class)})
-    public CompletableFuture<ResponseModel> getAvailableSlots(@RequestParam("date") String date,
+    public CompletableFuture<ResponseModel> getAvailableSlots(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd") LocalDate date,
                                                               @PageableDefault(sort = "id", direction = ASC) Pageable pageable) {
-        var slotDate = BASIC_ISO_DATE.parse(date, LocalDate::from);
-        return timeslotService.getAvailableSlots(slotDate, pageable)
+        return timeslotService.getAvailableSlots(date, pageable)
                 .thenApply(TimeslotResult::new)
                 .thenApply(ResponseModel::new);
     }
@@ -87,10 +84,9 @@ public class TimeslotController {
     @GetMapping(consumes = APPLICATION_JSON_VALUE, value = "/doctors/{doctorId}/available")
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = TimeslotResult.class)})
     public CompletableFuture<ResponseModel> getDoctorAvailableSlots(@PathVariable("doctorId") Long doctorId,
-                                                                    @RequestParam("date") String date,
+                                                                    @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd") LocalDate date,
                                                                     @PageableDefault(sort = "id", direction = ASC) Pageable pageable) {
-        var slotDate = BASIC_ISO_DATE.parse(date, LocalDate::from);
-        return timeslotService.getDoctorAvailableSlots(doctorId, slotDate, pageable)
+        return timeslotService.getDoctorAvailableSlots(doctorId, date, pageable)
                 .thenApply(TimeslotResult::new)
                 .thenApply(ResponseModel::new);
     }
