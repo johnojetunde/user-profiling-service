@@ -1,5 +1,6 @@
 package com.iddera.userprofile.api.domain.medicalinfo.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.iddera.commons.annotation.ValidEnum;
 import com.iddera.userprofile.api.domain.medicalinfo.model.enums.RecoveryStatus;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,7 @@ public class MedicalProcedureModel extends BaseModel {
     @NotBlank
     private String name;
     @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateAdmitted;
     @NotNull
     @ValidEnum(message = "Invalid recovery status")

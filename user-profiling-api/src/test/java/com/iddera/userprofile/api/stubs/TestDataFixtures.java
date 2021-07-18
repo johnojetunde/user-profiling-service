@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import static com.iddera.userprofile.api.domain.consultation.model.TimeslotStatus.FREE;
 import static com.iddera.userprofile.api.domain.medicalinfo.model.enums.DietaryType.WEIGHT_GAIN;
@@ -36,7 +35,7 @@ public class TestDataFixtures {
     public static Allergy allergy() {
         return new Allergy()
                 .setCategory("category")
-                .setReactions(Set.of("reactions"));
+                .setReactions(List.of("reactions"));
     }
 
     public static BloodDetails bloodDetails() {

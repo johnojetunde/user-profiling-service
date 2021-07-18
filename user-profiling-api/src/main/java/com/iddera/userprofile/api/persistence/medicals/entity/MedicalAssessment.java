@@ -64,6 +64,7 @@ public class MedicalAssessment extends BaseMedicalEntity {
                 .currentHealthFeel(currentHealthFeel)
                 .lastCheckUp(lastCheckUp)
                 .id(id)
+                .username(username)
                 .lastTimeFeltGood(lastTimeFeltGood)
                 .goodHealthMotivation(goodHealthMotivation)
                 .averageBusyDay(averageBusyDay)

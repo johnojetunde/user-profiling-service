@@ -4,6 +4,8 @@ import com.iddera.userprofile.api.domain.medicalinfo.model.AllergyModel;
 import com.iddera.userprofile.api.persistence.medicals.entity.Allergy;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+
 @Component
 public class AllergyMapper implements EntityToDomainMapper<AllergyModel, Allergy> {
     @Override
@@ -16,7 +18,7 @@ public class AllergyMapper implements EntityToDomainMapper<AllergyModel, Allergy
         var entity = new Allergy()
                 .setCategory(model.getCategory())
                 .setComment(model.getComment())
-                .setReactions(model.getReactions());
+                .setReactions(new ArrayList<>(model.getReactions()));
 
         entity.setId(id);
         entity.setUsername(model.getUsername());
