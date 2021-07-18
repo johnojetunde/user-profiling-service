@@ -8,10 +8,12 @@ import com.iddera.userprofile.api.domain.medicalinfo.model.enums.PersonalTime;
 import com.iddera.userprofile.api.persistence.converter.SetOfStringToStringConverter;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Set;
 
+@EntityListeners(AuditingEntityListener.class)
 @Accessors(chain = true)
 @Data
 @Entity

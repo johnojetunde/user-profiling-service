@@ -13,10 +13,10 @@ import java.time.LocalTime;
 public class Timeslot {
     private LocalDate date;
     private DateRange range;
-    @NotNull
+    @NotNull(message = "Start time is required")
     @JsonFormat(pattern = "HH:mm")
     private LocalTime startTime;
-    @NotNull
+    @NotNull(message = "End time is required")
     @JsonFormat(pattern = "HH:mm")
     private LocalTime endTime;
 }

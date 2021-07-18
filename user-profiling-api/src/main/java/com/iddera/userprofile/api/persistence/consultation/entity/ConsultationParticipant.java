@@ -7,9 +7,11 @@ import com.iddera.userprofile.api.persistence.userprofile.entity.BaseEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 
+@EntityListeners(AuditingEntityListener.class)
 @Accessors(chain = true)
 @NoArgsConstructor
 @Data

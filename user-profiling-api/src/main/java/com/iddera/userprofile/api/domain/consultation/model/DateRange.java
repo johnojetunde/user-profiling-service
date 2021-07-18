@@ -11,8 +11,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Data
 public class DateRange {
-    @NotNull
+    @NotNull(message = "From date is required")
     private LocalDate from;
-    @NotNull
+    @NotNull(message = "End date is required")
     private LocalDate to;
 }

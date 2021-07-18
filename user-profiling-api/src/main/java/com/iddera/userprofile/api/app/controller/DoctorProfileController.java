@@ -21,7 +21,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/v1/doctor", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/v1/doctors", produces = APPLICATION_JSON_VALUE)
 public class DoctorProfileController {
 
     private final DoctorProfileService userProfileService;
@@ -37,7 +37,7 @@ public class DoctorProfileController {
     }
 
     @PreAuthorize("hasAuthority('DOCTOR')")
-    @GetMapping(value = "/current/profile")
+    @GetMapping(value = "/current")
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = DoctorProfileModel.class)})
     public CompletableFuture<ResponseModel> getProfile(@AuthenticationPrincipal User user) {
         return userProfileService.get(user)
@@ -45,7 +45,7 @@ public class DoctorProfileController {
     }
 
     @PreAuthorize("hasAnyAuthority('DOCTOR','ADMIN','CLIENT')")
-    @GetMapping(value = "/{userId}/profile")
+    @GetMapping(value = "/{userId}")
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = DoctorProfileModel.class)})
     public CompletableFuture<ResponseModel> getProfileById(@PathVariable("userId") Long userId) {
         return userProfileService.get(userId)
@@ -53,7 +53,7 @@ public class DoctorProfileController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping(value = "/doctors")
+    @GetMapping
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = DoctorProfileModel.class)})
     public CompletableFuture<ResponseModel> getAllDoctors(@PageableDefault Pageable pageable) {
         return userProfileService.getAll(pageable)

@@ -12,12 +12,12 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @Data
 public class DoctorProfileUpdateRequest {
-    @NotBlank
+    @NotBlank(message = "Designation is required")
     private String designation;
-    @NotBlank
+    @NotBlank(message = "Education Info is required")
     private String educationInfo;
-    @NotBlank
+    @NotBlank(message = "Bio is required")
     private String bio;
-    @NotBlank
+    @NotBlank(message = "Interest is required")
     private String interest;
 }

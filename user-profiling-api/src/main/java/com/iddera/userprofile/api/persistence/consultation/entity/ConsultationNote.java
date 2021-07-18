@@ -4,12 +4,11 @@ import com.iddera.userprofile.api.domain.consultation.model.ConsultationNoteMode
 import com.iddera.userprofile.api.persistence.userprofile.entity.BaseEntity;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+@EntityListeners(AuditingEntityListener.class)
 @Accessors(chain = true)
 @Data
 @Entity

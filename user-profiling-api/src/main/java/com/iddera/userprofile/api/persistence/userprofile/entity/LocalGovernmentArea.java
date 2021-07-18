@@ -2,11 +2,13 @@ package com.iddera.userprofile.api.persistence.userprofile.entity;
 
 import com.iddera.userprofile.api.domain.location.model.LocalGovernmentAreaModel;
 import lombok.Data;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 
 import static java.util.Optional.ofNullable;
 
+@EntityListeners(AuditingEntityListener.class)
 @Data
 @Entity
 @Table(name = "local_government_area")

@@ -6,13 +6,12 @@ import com.iddera.userprofile.api.domain.medicalinfo.model.enums.CustomFrequency
 import com.iddera.userprofile.api.domain.medicalinfo.model.enums.RecoveryStatus;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@EntityListeners(AuditingEntityListener.class)
 @Accessors(chain = true)
 @Entity
 @Table(name = "illness")

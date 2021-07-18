@@ -84,8 +84,8 @@ public class UserService {
 
     public CompletableFuture<LoginResponse> refreshToken(String refreshToken) {
         return users.refreshToken(clientProperties.getClientId(), clientProperties.getClientSecret(), refreshToken)
-                .thenApply(this::toLoginResponse
-                ).exceptionally(e -> {
+                .thenApply(this::toLoginResponse)
+                .exceptionally(e -> {
                     log.error("Error logging in user", e);
                     throw exceptions.handleCreateUnAuthorized("Invalid credentials");
                 });

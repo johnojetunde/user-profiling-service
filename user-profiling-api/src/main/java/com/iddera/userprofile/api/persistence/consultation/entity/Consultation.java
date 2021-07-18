@@ -7,6 +7,7 @@ import com.iddera.userprofile.api.persistence.userprofile.entity.BaseEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,6 +16,7 @@ import static com.iddera.usermanagement.lib.domain.utils.FunctionUtil.emptyIfNul
 import static java.util.stream.Collectors.toList;
 import static javax.persistence.FetchType.EAGER;
 
+@EntityListeners(AuditingEntityListener.class)
 @Accessors(chain = true)
 @NoArgsConstructor
 @Data

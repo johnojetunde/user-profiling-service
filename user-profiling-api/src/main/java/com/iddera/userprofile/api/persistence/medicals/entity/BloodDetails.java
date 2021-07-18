@@ -5,12 +5,11 @@ import com.iddera.userprofile.api.domain.medicalinfo.model.enums.BloodGroup;
 import com.iddera.userprofile.api.domain.medicalinfo.model.enums.Genotype;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+@EntityListeners(AuditingEntityListener.class)
 @Accessors(chain = true)
 @Data
 @Entity

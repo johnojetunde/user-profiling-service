@@ -1,17 +1,16 @@
 package com.iddera.userprofile.api.persistence.consultation.entity;
 
-import com.iddera.usermanagement.lib.domain.model.UserType;
-import com.iddera.userprofile.api.domain.consultation.model.ConsultationModel;
-import com.iddera.userprofile.api.domain.consultation.model.ConsultationParticipantModel;
 import com.iddera.userprofile.api.domain.consultation.model.DrugFormulation;
 import com.iddera.userprofile.api.domain.consultation.model.DrugPrescriptionModel;
 import com.iddera.userprofile.api.persistence.userprofile.entity.BaseEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 
+@EntityListeners(AuditingEntityListener.class)
 @Accessors(chain = true)
 @NoArgsConstructor
 @Data

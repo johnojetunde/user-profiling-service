@@ -5,13 +5,15 @@ import com.iddera.userprofile.api.persistence.userprofile.entity.BaseEntity;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.Table;
 import java.util.Objects;
 
-
+@EntityListeners(AuditingEntityListener.class)
 @SuperBuilder
 @Accessors(chain = true)
 @Data

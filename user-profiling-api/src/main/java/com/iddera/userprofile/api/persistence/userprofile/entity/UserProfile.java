@@ -6,12 +6,14 @@ import com.iddera.userprofile.api.domain.user.model.UserProfileModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 import static java.util.Optional.ofNullable;
 
+@EntityListeners(AuditingEntityListener.class)
 @Accessors(chain = true)
 @NoArgsConstructor
 @Data
