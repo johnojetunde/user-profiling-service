@@ -29,8 +29,9 @@ public class ConsultationParticipant extends BaseEntity {
     @JoinColumn(name = "consultation_id")
     private Consultation consultation;
 
-    public static ConsultationParticipant from(MeetingRegistrant reg) {
+    public static ConsultationParticipant from(MeetingRegistrant reg, Consultation consultation) {
         return new ConsultationParticipant()
+                .setConsultation(consultation)
                 .setUserId(reg.getParticipantDetails().getUserId())
                 .setEmail(reg.getParticipantDetails().getEmail())
                 .setUserType(reg.getParticipantDetails().getUserType())

@@ -9,6 +9,7 @@ import com.iddera.userprofile.api.domain.model.User;
 import com.iddera.userprofile.api.domain.user.service.UserService;
 import com.iddera.userprofile.api.persistence.consultation.entity.Consultation;
 import com.iddera.userprofile.api.persistence.consultation.entity.DoctorTimeslot;
+import com.iddera.userprofile.api.persistence.consultation.persistence.ConsultationParticipantRepository;
 import com.iddera.userprofile.api.persistence.consultation.persistence.ConsultationRepository;
 import com.iddera.userprofile.api.persistence.consultation.persistence.DoctorTimeslotRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,6 +48,8 @@ class ConsultationServiceTest {
     private UserService userService;
     @Mock
     private ConsultationRepository consultationRepository;
+    @Mock
+    private ConsultationParticipantRepository participantRepository;
     @InjectMocks
     private ConsultationService consultationService;
 
@@ -59,7 +62,8 @@ class ConsultationServiceTest {
                 exceptions,
                 meetingProvider,
                 userService,
-                consultationRepository);
+                consultationRepository,
+                participantRepository);
     }
 
     @Test
@@ -175,6 +179,9 @@ class ConsultationServiceTest {
                 .thenReturn(completedFuture(List.of(clientRegistrant, doctorRegistrant)));
         when(timeslotRepository.save(isA(DoctorTimeslot.class)))
                 .then(i -> i.getArgument(0, DoctorTimeslot.class));
+        when(participantRepository.saveAll(anyList()))
+                .then(i -> i.getArgument(0));
+
         when(consultationRepository.save(isA(Consultation.class)))
                 .then(i -> {
                     var cons = i.getArgument(0, Consultation.class);
@@ -195,6 +202,7 @@ class ConsultationServiceTest {
         verify(meetingProvider).scheduleMeet(isA(MeetingDetails.class));
         verify(timeslotRepository).save(isA(DoctorTimeslot.class));
         verify(consultationRepository).save(isA(Consultation.class));
+        verify(participantRepository).saveAll(anyList());
     }
 
     private MeetingRegistrant meetingRegistrant(MeetingParticipant clientParticipant, String registrantId) {

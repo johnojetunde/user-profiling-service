@@ -8,6 +8,7 @@ import com.iddera.userprofile.api.domain.user.service.UserService;
 import com.iddera.userprofile.api.persistence.consultation.entity.Consultation;
 import com.iddera.userprofile.api.persistence.consultation.entity.ConsultationParticipant;
 import com.iddera.userprofile.api.persistence.consultation.entity.DoctorTimeslot;
+import com.iddera.userprofile.api.persistence.consultation.persistence.ConsultationParticipantRepository;
 import com.iddera.userprofile.api.persistence.consultation.persistence.ConsultationRepository;
 import com.iddera.userprofile.api.persistence.consultation.persistence.DoctorTimeslotRepository;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +42,7 @@ public class ConsultationService {
     private final MeetingProvider meetingProvider;
     private final UserService userService;
     private final ConsultationRepository consultationRepository;
+    private final ConsultationParticipantRepository participantRepository;
 
     public CompletableFuture<ConsultationModel> book(ConsultationRequest request, UserDetails user) {
         return runAsync(() -> {
@@ -64,12 +66,18 @@ public class ConsultationService {
         timeslot.setStatus(TimeslotStatus.SCHEDULED);
         var updatedTimeslot = timeslotRepository.save(timeslot);
         var consultation = buildConsultation(registeredParticipants, updatedTimeslot, mode);
+
+        var savedConsultation = consultationRepository.save(consultation);
+
         var participants = emptyIfNullStream(registeredParticipants)
-                .map(ConsultationParticipant::from)
+                .map(p -> ConsultationParticipant.from(p, savedConsultation))
                 .collect(toList());
 
         consultation.setParticipants(participants);
-        return consultationRepository.save(consultation).toModel();
+
+        participantRepository.saveAll(participants);
+
+        return savedConsultation.toModel();
     }
 
     private synchronized DoctorTimeslot getDoctorTimeslot(ConsultationRequest request) {
