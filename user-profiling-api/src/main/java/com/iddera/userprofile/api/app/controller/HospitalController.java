@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
-@RequestMapping("/hospital")
+@RequestMapping("/v1/hospital")
 @RequiredArgsConstructor
 public class HospitalController {
     private final HospitalService hospitalService;

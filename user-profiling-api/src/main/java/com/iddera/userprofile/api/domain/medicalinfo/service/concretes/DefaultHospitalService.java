@@ -33,13 +33,13 @@ public class DefaultHospitalService implements HospitalService {
     @Override
     public CompletableFuture<HospitalModel> findById(Long id) {
         return supplyAsync(() -> hospitalRepository.findById(id).orElseThrow(() ->
-                exceptions.handleCreateNotFoundException("Hospital does not exist for %d", id)).toModel());
+                exceptions.handleCreateNotFoundException("Hospital with id:%d  does not exist.", id)).toModel());
     }
 
     @Override
     public CompletableFuture<HospitalModel> update(HospitalModel request) {
         return supplyAsync(() -> {
-
+            ensureHospitalWithNameAndAddressDoesNotExist(request.getName().trim(),request.getAddress().trim());
             Hospital hospital = new Hospital();
             if (request.getId() != null) {
                 hospital = hospitalRepository.findById(request.getId())
@@ -47,9 +47,13 @@ public class DefaultHospitalService implements HospitalService {
             }
             hospital.setName(request.getName())
                     .setAddress(request.getAddress());
-
-
             return hospitalRepository.save(hospital).toModel();
         });
+    }
+
+    private void ensureHospitalWithNameAndAddressDoesNotExist(String name, String address){
+        if(hospitalRepository.existsByNameAndAddress(name,address)){
+            throw exceptions.handleCreateBadRequest("Hospital with name and address already exists.");
+        }
     }
 }

@@ -8,10 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.concurrent.CompletableFuture;
@@ -23,6 +20,7 @@ public class MedicalProcedureController extends AbstractMedicalInfoController<Me
         super(service);
     }
 
+    @PostMapping
     @ApiOperation(value = "Create a medical-procedure", response = MedicalProcedureModel.class)
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = MedicalProcedureModel.class)})
     @Override
@@ -31,6 +29,7 @@ public class MedicalProcedureController extends AbstractMedicalInfoController<Me
         return super.create(body, user);
     }
 
+    @PutMapping("/{id}")
     @ApiOperation(value = "Update a medical-procedure", response = MedicalProcedureModel.class)
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = MedicalProcedureModel.class)})
     @Override
@@ -40,6 +39,7 @@ public class MedicalProcedureController extends AbstractMedicalInfoController<Me
         return super.update(id, body, user);
     }
 
+    @GetMapping("/{id}")
     @ApiOperation(value = "get a medical-procedure by id", response = MedicalProcedureModel.class)
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = MedicalProcedureModel.class)})
     @Override
@@ -48,6 +48,7 @@ public class MedicalProcedureController extends AbstractMedicalInfoController<Me
         return super.getById(id, user);
     }
 
+    @GetMapping
     @ApiOperation(value = "get all user's medical-procedures", response = MedicalProcedureModel.class)
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = MedicalProcedureModel.class, responseContainer = "List")})
     @Override

@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.concurrent.CompletableFuture;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-
 @RestController
 @RequestMapping("/v1/notes")
 @RequiredArgsConstructor
@@ -24,7 +22,7 @@ public class ConsultationNoteController {
     private final ConsultationNoteService consultationNoteService;
 
     @PreAuthorize("hasAuthority('DOCTOR')")
-    @PostMapping(consumes = APPLICATION_JSON_VALUE, value = "/")
+    @PostMapping
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = ConsultationNoteModel.class)})
     public CompletableFuture<ResponseModel> create(@Valid @RequestBody ConsultationNoteModel request
                                                     ,@AuthenticationPrincipal User user) {

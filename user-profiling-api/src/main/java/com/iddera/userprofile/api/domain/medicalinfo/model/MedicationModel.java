@@ -9,20 +9,23 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
 @Data
 public class MedicationModel extends BaseModel {
-    @NotBlank
+    @NotBlank(message = "Name cannot be empty or null")
     private String name;
-    @NotBlank
+    @NotBlank(message = "Description cannot be empty or null")
     private String description;
-    @NotBlank
+    @NotBlank(message = "Category cannot be empty or null")
     private String category;
+    @NotNull(message = "Duration cannot be null")
     @ValidEnum
     private MedicationDuration duration;
+    @NotNull(message = "HerbalMedication cannot be null")
     @ValidEnum
     private HerbalMedicationStatus herbalMedication;
     private String comment;
