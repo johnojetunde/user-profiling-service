@@ -320,4 +320,10 @@
         <dropUniqueConstraint tableName="hospital" uniqueColumns="address" constraintName="address"/>
     </changeSet>
 
+    <changeSet author="oakinrele" id="202107191245-02">
+        <addUniqueConstraint tableName="hospital"
+                       columnNames="name,address"
+                       constraintName="CK_hospital_name_address"/>
+    </changeSet>
+
 </databaseChangeLog>
