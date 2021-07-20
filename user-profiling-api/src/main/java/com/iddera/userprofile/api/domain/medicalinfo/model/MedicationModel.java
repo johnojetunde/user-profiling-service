@@ -9,20 +9,23 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
 @Data
 public class MedicationModel extends BaseModel {
-    @NotBlank
+    @NotBlank(message = "Medication name is required.")
     private String name;
-    @NotBlank
+    @NotBlank(message = "Medication description is required")
     private String description;
-    @NotBlank
+    @NotBlank(message = "Medication category is required.")
     private String category;
+    @NotNull(message = "Medication duration is required.")
     @ValidEnum
     private MedicationDuration duration;
+    @NotNull(message = "Herbal medication status is required.")
     @ValidEnum
     private HerbalMedicationStatus herbalMedication;
     private String comment;

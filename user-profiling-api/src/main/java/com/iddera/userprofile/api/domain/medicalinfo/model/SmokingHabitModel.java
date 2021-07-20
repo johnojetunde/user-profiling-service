@@ -16,10 +16,10 @@ import javax.validation.constraints.NotNull;
 @SuperBuilder
 @Data
 public class SmokingHabitModel extends BaseModel {
-    @NotNull
+    @NotNull(message = "Frequency cannot be null")
     @ValidEnum(message = "Invalid frequency")
     private Frequency frequency;
-    @NotNull
+    @NotNull(message = "Consumption cannot be null")
     @ValidEnum(message = "Invalid consumption")
     private Consumption consumption;
 }

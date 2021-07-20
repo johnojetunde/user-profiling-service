@@ -65,7 +65,7 @@ class MedicalInfoServiceTest {
     }
 
     @Test
-    void getByById() {
+    void getById() {
         when(repositoryService.findById(1L))
                 .thenReturn(completedFuture(Optional.of(new SimpleModel())));
 
@@ -76,7 +76,7 @@ class MedicalInfoServiceTest {
     }
 
     @Test
-    void getByById_notFound() {
+    void getById_notFound() {
         when(repositoryService.findById(1L))
                 .thenReturn(completedFuture(Optional.empty()));
 
@@ -84,7 +84,7 @@ class MedicalInfoServiceTest {
 
         assertThatThrownBy(result::join)
                 .isInstanceOf(CompletionException.class)
-                .hasCause(new UserProfilingException("Object with 1 id not found"))
+                .hasCause(new UserProfilingException("Object with id: 1 not found."))
                 .extracting(Throwable::getCause)
                 .hasFieldOrPropertyWithValue("code", 404);
 
@@ -138,7 +138,7 @@ class MedicalInfoServiceTest {
 
         assertThatThrownBy(result::join)
                 .isInstanceOf(CompletionException.class)
-                .hasCause(new UserProfilingException("Object with 1 id does not exist"))
+                .hasCause(new UserProfilingException("Object with id: 1 does not exist."))
                 .extracting(Throwable::getCause)
                 .hasFieldOrPropertyWithValue("code", 400);
 
@@ -185,7 +185,7 @@ class MedicalInfoServiceTest {
 
         assertThatThrownBy(result::join)
                 .isInstanceOf(CompletionException.class)
-                .hasCause(new UserProfilingException("User username has Object details previously exist"))
+                .hasCause(new UserProfilingException("User username has existing Object details."))
                 .extracting(Throwable::getCause)
                 .hasFieldOrPropertyWithValue("code", 400);
 

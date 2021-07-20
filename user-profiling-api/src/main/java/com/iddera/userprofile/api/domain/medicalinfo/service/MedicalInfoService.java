@@ -29,7 +29,7 @@ public abstract class MedicalInfoService<T extends BaseModel> {
 
         return existingEntity.thenCompose(s -> {
             if (s.isPresent())
-                throw exceptions.handleCreateBadRequest("User %s has %s details previously exist", username, modelType());
+                throw exceptions.handleCreateBadRequest("User %s has existing %s details.", username, modelType());
 
             model.setUsername(username);
             return repositoryService.save(model);
@@ -47,7 +47,7 @@ public abstract class MedicalInfoService<T extends BaseModel> {
         return repositoryService.findById(id)
                 .thenCompose(data -> {
                     var result = data.orElseThrow(() ->
-                            exceptions.handleCreateBadRequest("%s with %d id does not exist", modelType(), id));
+                            exceptions.handleCreateBadRequest("%s with id: %d does not exist.", modelType(), id));
 
                     ensureModelBelongsToUser(username, result);
                     model.setUsername(username);
@@ -69,7 +69,7 @@ public abstract class MedicalInfoService<T extends BaseModel> {
     public CompletableFuture<T> getById(@NonNull Long id) {
         return repositoryService.findById(id)
                 .thenApply(data -> data.orElseThrow(() ->
-                        exceptions.handleCreateNotFoundException("%s with %d id not found", modelType(), id)));
+                        exceptions.handleCreateNotFoundException("%s with id: %d not found.", modelType(), id)));
     }
 
     public CompletableFuture<List<T>> getByAll(String username) {

@@ -17,14 +17,14 @@ import java.time.LocalDate;
 @SuperBuilder
 @Data
 public class MedicalProcedureModel extends BaseModel {
-    @NotBlank
+    @NotBlank(message = "Name is required.")
     private String name;
-    @NotNull
+    @NotNull(message = "Date admitted cannot be null")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateAdmitted;
     @NotNull
     @ValidEnum(message = "Invalid recovery status")
     private RecoveryStatus recoveryStatus;
-    @NotNull
+    @NotBlank(message = "Comment is required.")
     private String comment;
 }
