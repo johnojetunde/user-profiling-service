@@ -16,16 +16,16 @@ import javax.validation.constraints.NotNull;
 @SuperBuilder
 @Data
 public class MedicationModel extends BaseModel {
-    @NotBlank(message = "Name cannot be empty or null")
+    @NotBlank(message = "Medication name is required.")
     private String name;
-    @NotBlank(message = "Description cannot be empty or null")
+    @NotBlank(message = "Medication description is required")
     private String description;
-    @NotBlank(message = "Category cannot be empty or null")
+    @NotBlank(message = "Medication category is required.")
     private String category;
-    @NotNull(message = "Duration cannot be null")
+    @NotNull(message = "Medication duration is required.")
     @ValidEnum
     private MedicationDuration duration;
-    @NotNull(message = "HerbalMedication cannot be null")
+    @NotNull(message = "Herbal medication status is required.")
     @ValidEnum
     private HerbalMedicationStatus herbalMedication;
     private String comment;
