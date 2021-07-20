@@ -10,16 +10,16 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class ConsultationNoteModel {
     private Long id;
-    @NotBlank(message = "History can not be null or empty.")
+    @NotBlank(message = "History is required.")
     private String history;
-    @NotBlank(message = "Examination can not be null or empty.")
+    @NotBlank(message = "Examination is required.")
     private String examination;
-    @NotBlank(message = "Investigation can not be null or empty.")
+    @NotBlank(message = "Investigation is required.")
     private String investigation;
-    @NotBlank(message = "Diagnosis can not be null or empty.")
+    @NotBlank(message = "Diagnosis is required.")
     private String diagnosis;
-    @NotBlank(message = "Plan can not be null or empty.")
+    @NotBlank(message = "Plan is required.")
     private String plan;
-    @NotNull(message = "Consultation Id can not be null")
+    @NotNull(message = "Consultation Id is required.")
     private Long consultationId;
 }

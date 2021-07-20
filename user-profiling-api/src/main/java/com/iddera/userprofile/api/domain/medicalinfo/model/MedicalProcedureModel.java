@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @SuperBuilder
 @Data
 public class MedicalProcedureModel extends BaseModel {
-    @NotBlank(message = "Name cannot be empty or null")
+    @NotBlank(message = "Name is required.")
     private String name;
     @NotNull(message = "Date admitted cannot be null")
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -25,6 +25,6 @@ public class MedicalProcedureModel extends BaseModel {
     @NotNull
     @ValidEnum(message = "Invalid recovery status")
     private RecoveryStatus recoveryStatus;
-    @NotBlank(message = "Comment cannot be empty or null")
+    @NotBlank(message = "Comment is required.")
     private String comment;
 }

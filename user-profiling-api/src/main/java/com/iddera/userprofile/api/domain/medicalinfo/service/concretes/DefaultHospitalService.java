@@ -39,7 +39,7 @@ public class DefaultHospitalService implements HospitalService {
     @Override
     public CompletableFuture<HospitalModel> update(HospitalModel request) {
         return supplyAsync(() -> {
-            ensureHospitalWithNameAndAddressDoesNotExist(request.getName().trim(),request.getAddress().trim());
+            ensureHospitalWithNameAndAddressDoesNotExist(request.getName().strip(),request.getAddress().strip());
             Hospital hospital = new Hospital();
             if (request.getId() != null) {
                 hospital = hospitalRepository.findById(request.getId())
@@ -52,7 +52,7 @@ public class DefaultHospitalService implements HospitalService {
     }
 
     private void ensureHospitalWithNameAndAddressDoesNotExist(String name, String address){
-        if(hospitalRepository.existsByNameAndAddress(name,address)){
+        if(hospitalRepository.existsByNameAndAddressIgnoreCase(name,address)){
             throw exceptions.handleCreateBadRequest("Hospital with name and address already exists.");
         }
     }
