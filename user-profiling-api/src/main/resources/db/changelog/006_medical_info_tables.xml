@@ -315,7 +315,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="oakinrele" id="202107191245-01">
+    <changeSet author="oakinrele" id="202107191245-01" dbms="mysql">
         <dropUniqueConstraint tableName="hospital" uniqueColumns="name" constraintName="name"/>
         <dropUniqueConstraint tableName="hospital" uniqueColumns="address" constraintName="address"/>
     </changeSet>
@@ -324,6 +324,17 @@
         <addUniqueConstraint tableName="hospital"
                        columnNames="name,address"
                        constraintName="CK_hospital_name_address"/>
+    </changeSet>
+
+    <changeSet author="oakinrele" id="202107191245-01" dbms="postgresql">
+        <dropUniqueConstraint schemaName="public"
+                              tableName="hospital"
+                              constraintName="hospital_name_key"
+                              uniqueColumns="name"/>
+        <dropUniqueConstraint schemaName="public"
+                              tableName="hospital"
+                              constraintName="hospital_address_key"
+                              uniqueColumns="address"/>
     </changeSet>
 
 </databaseChangeLog>
