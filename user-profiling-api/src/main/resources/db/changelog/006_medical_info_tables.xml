@@ -326,7 +326,7 @@
                        constraintName="CK_hospital_name_address"/>
     </changeSet>
 
-    <changeSet author="oakinrele" id="202107191245-01" dbms="postgresql">
+    <changeSet author="oakinrele" id="202107191245-03" dbms="postgresql">
         <dropUniqueConstraint schemaName="public"
                               tableName="hospital"
                               constraintName="hospital_name_key"
