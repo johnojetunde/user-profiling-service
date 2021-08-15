@@ -4,6 +4,7 @@ import com.iddera.client.model.Page;
 import com.iddera.client.util.ErrorHandler;
 import com.iddera.usermanagement.client.endpoints.Users;
 import com.iddera.usermanagement.lib.app.request.*;
+import com.iddera.usermanagement.lib.app.response.EmailValidationResponse;
 import com.iddera.usermanagement.lib.domain.model.LoginModel;
 import com.iddera.usermanagement.lib.domain.model.OauthToken;
 import com.iddera.usermanagement.lib.domain.model.UserModel;
@@ -39,6 +40,11 @@ public class UserService {
                                                      UserType userType,
                                                      String token) {
         return users.getAll(pageNumber, pageSize, userType, token)
+                .thenApply(ErrorHandler::handleExceptionally);
+    }
+
+    public CompletableFuture<EmailValidationResponse> validateEmail(EmailModel model) {
+        return users.validateEmail(model)
                 .thenApply(ErrorHandler::handleExceptionally);
     }
 

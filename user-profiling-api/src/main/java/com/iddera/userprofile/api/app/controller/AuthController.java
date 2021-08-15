@@ -3,6 +3,7 @@ package com.iddera.userprofile.api.app.controller;
 import com.iddera.usermanagement.lib.app.request.EmailModel;
 import com.iddera.usermanagement.lib.app.request.ForgotPasswordRequest;
 import com.iddera.usermanagement.lib.app.request.UserVerificationRequest;
+import com.iddera.usermanagement.lib.app.response.EmailValidationResponse;
 import com.iddera.usermanagement.lib.domain.model.LoginModel;
 import com.iddera.usermanagement.lib.domain.model.UserModel;
 import com.iddera.userprofile.api.app.model.LoginResponse;
@@ -48,6 +49,13 @@ public class AuthController {
     public CompletableFuture<ResponseModel> verifyEmail(@Valid @RequestBody UserVerificationRequest request) {
         return userService.verifyEmail(request)
                 .thenApply(__ -> "Email verified successfully")
+                .thenApply(ResponseModel::new);
+    }
+
+    @PostMapping(consumes = APPLICATION_JSON_VALUE, value = "/validate-email")
+    @ApiResponses({@ApiResponse(code = 200, message = "Success", response = EmailValidationResponse.class)})
+    public CompletableFuture<ResponseModel> validateEmail(@Valid @RequestBody EmailModel request) {
+        return userService.validateEmail(request)
                 .thenApply(ResponseModel::new);
     }
 
