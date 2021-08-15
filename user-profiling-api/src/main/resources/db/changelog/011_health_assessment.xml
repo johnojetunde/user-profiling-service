@@ -18,7 +18,7 @@
             <column name="question" type="${text}"/>
             <column name="max_option" type="BIGINT"/>
             <column name="min_option" type="BIGINT"/>
-
+            <column name="options" type="${text}"/>
             <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
             <column name="updated_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
             <column name="created_by" type="VARCHAR(100)" defaultValue="system"/>
@@ -36,14 +36,14 @@
             </not>
         </preConditions>
 
-        <createTable tableName="question">
+        <createTable tableName="answer">
             <column autoIncrement="true" name="id" type="BIGSERIAL">
                 <constraints primaryKey="true"/>
             </column>
 
-            <column name="option" type="${text}"/>
+            <column name="options" type="${text}"/>
             <column name="question_id" type="BIGINT"/>
-
+            <column name="user_id" type="BIGINT"/>
             <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
             <column name="updated_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
             <column name="created_by" type="VARCHAR(100)" defaultValue="system"/>
@@ -55,8 +55,8 @@
     </changeSet>
 
     <changeSet id="2021131235-01" author="johnojetunde">
-        <addForeignKeyConstraint baseColumnNames="question_id" baseTableName="option"
-                                 constraintName="FK_option_question_id" deferrable="false"
+        <addForeignKeyConstraint baseColumnNames="question_id" baseTableName="answer"
+                                 constraintName="FK_answer_question_id" deferrable="false"
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="id" referencedTableName="question" validate="true"/>
     </changeSet>
