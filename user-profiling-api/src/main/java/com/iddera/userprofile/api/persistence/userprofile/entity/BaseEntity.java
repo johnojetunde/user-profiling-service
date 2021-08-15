@@ -13,8 +13,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@NoArgsConstructor
 @SuperBuilder
+@NoArgsConstructor
 @MappedSuperclass
 @Data
 public class BaseEntity implements Serializable {

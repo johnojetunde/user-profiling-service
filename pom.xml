@@ -15,8 +15,6 @@
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
-        <module>user-profiling-lib</module>
-        <module>user-profiling-client-lib</module>
         <module>user-profiling-api</module>
     </modules>
 
