@@ -4,18 +4,21 @@ import com.iddera.userprofile.api.persistence.EntityToDomainMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.Spy;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.openMocks;
 
-class DefaultMedicalRepositoryServiceTest {
+class DefaultCrudRepositoryServiceTest {
     @Mock
     private StringJpaRepository repository;
     @Spy
@@ -36,7 +39,7 @@ class DefaultMedicalRepositoryServiceTest {
         var result = repositoryService.findById(1L).join();
 
         assertThat(result.isPresent()).isTrue();
-        assertThat(result.get()).isEqualTo("model");
+        assertThat(result.get()).isEqualTo("findById");
         verify(repository).findById(1L);
         verify(mapper).toModel(isA(String.class));
     }
@@ -49,7 +52,7 @@ class DefaultMedicalRepositoryServiceTest {
         var result = repositoryService.findByUsername("username").join();
 
         assertThat(result.isPresent()).isTrue();
-        assertThat(result.get()).isEqualTo("model");
+        assertThat(result.get()).isEqualTo("entityWithUsername");
         verify(repository).findByUsername("username");
         verify(mapper).toModel(isA(String.class));
 
@@ -63,7 +66,7 @@ class DefaultMedicalRepositoryServiceTest {
         var result = repositoryService.findAllByUsername("username").join();
 
         assertThat(result.size()).isEqualTo(2);
-        assertThat(result.get(0)).isEqualTo("model");
+        assertThat(result).containsExactly("record", "results");
         verify(repository).findAllByUsername("username");
         verify(mapper, times(2)).toModel(isA(String.class));
     }
@@ -75,7 +78,7 @@ class DefaultMedicalRepositoryServiceTest {
 
         var result = repositoryService.save("String").join();
 
-        assertThat(result).isEqualTo("model");
+        assertThat(result).isEqualTo("savedEntity");
         verify(repository).save(isA(String.class));
         verify(mapper).toEntity(isA(String.class));
         verify(mapper).toModel(isA(String.class));
@@ -88,10 +91,45 @@ class DefaultMedicalRepositoryServiceTest {
 
         var result = repositoryService.update(2L, "model").join();
 
-        assertThat(result).isEqualTo("model");
+        assertThat(result).isEqualTo("doNothing");
         verify(repository).save(isA(String.class));
         verify(mapper).toEntity(isA(String.class), eq(2L));
         verify(mapper).toModel(isA(String.class));
+    }
+
+    @Test
+    void findAll() {
+        when(repository.findAll())
+                .thenReturn(List.of("record", "results"));
+
+        var result = repositoryService.findAll().join();
+
+        assertThat(result).containsExactly("record", "results");
+        verify(repository).findAll();
+        verify(mapper, times(2)).toModel(isA(String.class));
+    }
+
+    @Test
+    void findAll_paged() {
+        var pageable = Mockito.mock(Pageable.class);
+        when(repository.findAll(pageable))
+                .thenReturn(new PageImpl<>(List.of("record", "result")));
+
+        var result = repositoryService.findAll(pageable).join();
+
+        assertThat(result).containsExactly("record", "result");
+        verify(repository).findAll(pageable);
+        verify(mapper, times(2)).toModel(isA(String.class));
+    }
+
+    @Test
+    void deleteById() {
+        doNothing()
+                .when(repository).deleteById(1L);
+
+        repositoryService.delete(1L).join();
+
+        verify(repository).deleteById(1L);
     }
 
     private interface StringJpaRepository extends JpaRepository<String, Long> {
@@ -103,17 +141,17 @@ class DefaultMedicalRepositoryServiceTest {
     private static class StringEntityMapper implements EntityToDomainMapper<String, String> {
         @Override
         public String toEntity(String model) {
-            return "model";
+            return model;
         }
 
         @Override
         public String toEntity(String model, Long id) {
-            return "entity";
+            return model;
         }
 
         @Override
         public String toModel(String entity) {
-            return "model";
+            return entity;
         }
     }
 

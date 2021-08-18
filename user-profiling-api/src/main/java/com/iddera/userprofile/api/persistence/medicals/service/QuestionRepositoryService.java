@@ -5,12 +5,12 @@ import com.iddera.userprofile.api.domain.phonotype.model.QuestionModel;
 import com.iddera.userprofile.api.persistence.EntityToDomainMapper;
 import com.iddera.userprofile.api.persistence.medicals.entity.Question;
 import com.iddera.userprofile.api.persistence.medicals.repository.QuestionRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+@Service
 public class QuestionRepositoryService extends DefaultCrudRepositoryService<QuestionModel, Question> {
     private final UserProfilingExceptionService exceptionService;
     private final QuestionRepository repository;

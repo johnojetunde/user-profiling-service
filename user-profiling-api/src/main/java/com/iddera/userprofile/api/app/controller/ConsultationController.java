@@ -6,7 +6,7 @@ import com.iddera.userprofile.api.domain.consultation.model.ConsultationModel;
 import com.iddera.userprofile.api.domain.consultation.model.ConsultationRequest;
 import com.iddera.userprofile.api.domain.consultation.model.ConsultationSearchCriteria;
 import com.iddera.userprofile.api.domain.consultation.service.ConsultationService;
-import com.iddera.userprofile.api.domain.model.User;
+import com.iddera.userprofile.api.domain.user.model.User;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;

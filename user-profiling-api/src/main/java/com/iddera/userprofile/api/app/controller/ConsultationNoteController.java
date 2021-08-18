@@ -4,7 +4,7 @@ import com.iddera.userprofile.api.app.model.ResponseModel;
 import com.iddera.userprofile.api.domain.consultation.model.ConsultationNoteModel;
 import com.iddera.userprofile.api.domain.consultation.model.ConsultationNoteUpdateModel;
 import com.iddera.userprofile.api.domain.consultation.service.abstracts.ConsultationNoteService;
-import com.iddera.userprofile.api.domain.model.User;
+import com.iddera.userprofile.api.domain.user.model.User;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;

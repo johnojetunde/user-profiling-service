@@ -17,6 +17,8 @@ public class QuestionMapper implements EntityToDomainMapper<QuestionModel, Quest
     public Question toEntity(QuestionModel model, Long id) {
         return Question.builder()
                 .question(model.getQuestion())
+                .maxOption(model.getMaxOptions())
+                .minOption(model.getMinOptions())
                 .options(model.getOptions())
                 .id(model.getId())
                 .build();
@@ -27,6 +29,8 @@ public class QuestionMapper implements EntityToDomainMapper<QuestionModel, Quest
         return QuestionModel.builder()
                 .question(entity.getQuestion())
                 .options(entity.getOptions())
+                .maxOptions(entity.getMaxOption())
+                .minOptions(entity.getMinOption())
                 .id(entity.getId())
                 .build();
     }

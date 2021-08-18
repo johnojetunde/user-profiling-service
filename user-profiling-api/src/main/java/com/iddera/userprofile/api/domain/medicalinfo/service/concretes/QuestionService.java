@@ -12,6 +12,7 @@ import java.util.concurrent.CompletableFuture;
 @Service
 @RequiredArgsConstructor
 public class QuestionService {
+
     private final QuestionRepositoryService repositoryService;
     private final UserProfilingExceptionService exceptionService;
 

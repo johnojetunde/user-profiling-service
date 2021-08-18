@@ -7,7 +7,7 @@ import com.iddera.userprofile.api.domain.consultation.model.Timeslot;
 import com.iddera.userprofile.api.domain.consultation.model.TimeslotFilter;
 import com.iddera.userprofile.api.domain.consultation.model.TimeslotStatus;
 import com.iddera.userprofile.api.domain.consultation.service.DoctorTimeslotService;
-import com.iddera.userprofile.api.domain.model.User;
+import com.iddera.userprofile.api.domain.user.model.User;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;

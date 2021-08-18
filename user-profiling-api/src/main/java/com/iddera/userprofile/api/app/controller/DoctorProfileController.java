@@ -4,7 +4,7 @@ import com.iddera.userprofile.api.app.model.DoctorProfileUpdateRequest;
 import com.iddera.userprofile.api.app.model.ResponseModel;
 import com.iddera.userprofile.api.domain.doctor.model.DoctorProfileModel;
 import com.iddera.userprofile.api.domain.doctor.service.DoctorProfileService;
-import com.iddera.userprofile.api.domain.model.User;
+import com.iddera.userprofile.api.domain.user.model.User;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;

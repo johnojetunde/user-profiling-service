@@ -3,7 +3,7 @@ package com.iddera.userprofile.api.app.controller;
 import com.iddera.userprofile.api.app.model.ResponseModel;
 import com.iddera.userprofile.api.domain.consultation.model.DrugPrescriptionModel;
 import com.iddera.userprofile.api.domain.consultation.service.abstracts.DrugPrescriptionService;
-import com.iddera.userprofile.api.domain.model.User;
+import com.iddera.userprofile.api.domain.user.model.User;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
