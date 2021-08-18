@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Singular;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import java.util.Set;
@@ -16,6 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 @SuperBuilder
 public class Question extends BaseEntity {
+    @Column(unique = true)
     private String question;
     @Singular
     @ElementCollection

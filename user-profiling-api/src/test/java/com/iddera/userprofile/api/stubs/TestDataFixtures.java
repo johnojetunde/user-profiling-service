@@ -64,23 +64,25 @@ public class TestDataFixtures {
     }
 
     public static Illness illness() {
-        return new Illness()
-                .setName("Illness")
-                .setDurationType(CustomFrequencyType.DAYS)
-                .setDurationValue(10)
-                .setDateAdmitted(LocalDate.now())
-                .setRecoveryStatus(RecoveryStatus.PARTLY)
-                .setComment("Comment");
+        return Illness.builder()
+                .name("Illness")
+                .durationType(CustomFrequencyType.DAYS)
+                .durationValue(10)
+                .dateAdmitted(LocalDate.now())
+                .recoveryStatus(RecoveryStatus.PARTLY)
+                .comment("Comment")
+                .build();
     }
 
     public static Medication medication() {
-        return new Medication()
-                .setName("Illness")
-                .setDescription("description")
-                .setCategory("Category")
-                .setDuration(MedicationDuration.INTERMITTENTLY)
-                .setHerbalMedication(HerbalMedicationStatus.CURRENTLY_TAKING)
-                .setComment("comment");
+        return Medication.builder()
+                .name("Illness")
+                .description("description")
+                .category("Category")
+                .duration(MedicationDuration.INTERMITTENTLY)
+                .herbalMedication(HerbalMedicationStatus.CURRENTLY_TAKING)
+                .comment("comment")
+                .build();
     }
 
     public static SmokingHabit smoking() {

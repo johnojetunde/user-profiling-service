@@ -1,6 +1,6 @@
 package com.iddera.userprofile.api.persistence.medicals.service;
 
-import com.iddera.userprofile.api.persistence.medicals.mapper.EntityToDomainMapper;
+import com.iddera.userprofile.api.persistence.EntityToDomainMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -20,7 +20,7 @@ class DefaultMedicalRepositoryServiceTest {
     private StringJpaRepository repository;
     @Spy
     private StringEntityMapper mapper;
-    private DefaultMedicalRepositoryService<String, String> repositoryService;
+    private DefaultCrudRepositoryService<String, String> repositoryService;
 
     @BeforeEach
     void setUp() {
@@ -117,7 +117,7 @@ class DefaultMedicalRepositoryServiceTest {
         }
     }
 
-    private static class StringDefaultMedicalRepositoryService extends DefaultMedicalRepositoryService<String, String> {
+    private static class StringDefaultMedicalRepositoryService extends DefaultCrudRepositoryService<String, String> {
         private final StringJpaRepository repository;
 
         public StringDefaultMedicalRepositoryService(StringJpaRepository repository, StringEntityMapper mapper) {

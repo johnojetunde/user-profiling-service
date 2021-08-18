@@ -1,8 +1,8 @@
 package com.iddera.userprofile.api.persistence.medicals.service;
 
 import com.iddera.userprofile.api.domain.medicalinfo.model.MedicationModel;
+import com.iddera.userprofile.api.persistence.EntityToDomainMapper;
 import com.iddera.userprofile.api.persistence.medicals.entity.Medication;
-import com.iddera.userprofile.api.persistence.medicals.mapper.EntityToDomainMapper;
 import com.iddera.userprofile.api.persistence.medicals.repository.MedicationRepository;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class MedicationRepositoryService extends DefaultMedicalRepositoryService<MedicationModel, Medication> {
+public class MedicationRepositoryService extends DefaultCrudRepositoryService<MedicationModel, Medication> {
     private final MedicationRepository repository;
 
     public MedicationRepositoryService(EntityToDomainMapper<MedicationModel, Medication> mapper, MedicationRepository repository) {

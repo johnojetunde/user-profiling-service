@@ -1,6 +1,7 @@
 package com.iddera.userprofile.api.persistence.medicals.mapper;
 
 import com.iddera.userprofile.api.domain.medicalinfo.model.IllnessModel;
+import com.iddera.userprofile.api.persistence.EntityToDomainMapper;
 import com.iddera.userprofile.api.persistence.medicals.entity.Illness;
 import org.springframework.stereotype.Component;
 
@@ -13,17 +14,16 @@ public class IllnessMapper implements EntityToDomainMapper<IllnessModel, Illness
 
     @Override
     public Illness toEntity(IllnessModel model, Long id) {
-        var entity = new Illness()
-                .setComment(model.getComment())
-                .setDateAdmitted(model.getDateAdmitted())
-                .setDurationType(model.getDuration().getType())
-                .setDurationValue(model.getDuration().getValue())
-                .setName(model.getName())
-                .setRecoveryStatus(model.getRecoveryStatus());
-
-        entity.setId(id);
-        entity.setUsername(model.getUsername());
-        return entity;
+        return Illness.builder()
+                .comment(model.getComment())
+                .dateAdmitted(model.getDateAdmitted())
+                .durationType(model.getDuration().getType())
+                .durationValue(model.getDuration().getValue())
+                .name(model.getName())
+                .recoveryStatus(model.getRecoveryStatus())
+                .id(id)
+                .username(model.getUsername())
+                .build();
     }
 
     @Override

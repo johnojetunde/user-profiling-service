@@ -2,7 +2,7 @@ package com.iddera.userprofile.api.app.controller.medicalinfo;
 
 import com.iddera.userprofile.api.app.model.ResponseModel;
 import com.iddera.userprofile.api.domain.medicalinfo.model.AlcoholHabitModel;
-import com.iddera.userprofile.api.domain.medicalinfo.service.MedicalInfoService;
+import com.iddera.userprofile.api.domain.medicalinfo.service.concretes.MedicalInfoService;
 import com.iddera.userprofile.api.domain.model.User;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;

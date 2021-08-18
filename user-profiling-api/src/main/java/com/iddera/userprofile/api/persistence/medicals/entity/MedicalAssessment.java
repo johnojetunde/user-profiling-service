@@ -6,8 +6,12 @@ import com.iddera.userprofile.api.domain.medicalinfo.model.enums.HealthMotivatio
 import com.iddera.userprofile.api.domain.medicalinfo.model.enums.HealthStatus;
 import com.iddera.userprofile.api.domain.medicalinfo.model.enums.PersonalTime;
 import com.iddera.userprofile.api.persistence.converter.SetOfStringToStringConverter;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -15,8 +19,12 @@ import java.util.Set;
 
 @EntityListeners(AuditingEntityListener.class)
 @Accessors(chain = true)
-@Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+@SuperBuilder
 @Table(name = "medical_assessment")
 public class MedicalAssessment extends BaseMedicalEntity {
     @Enumerated(EnumType.STRING)
