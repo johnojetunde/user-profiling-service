@@ -18,7 +18,7 @@ public class QuestionService {
 
     public CompletableFuture<QuestionModel> create(QuestionModel model) {
         return CompletableFuture.runAsync(() -> {
-            var questionExisting = repositoryService.findByQuestion(model.getQuestion());
+            var questionExisting = repositoryService.findByQuestion(model.getText());
 
             if (questionExisting.isPresent()) {
                 throw exceptionService.handleCreateBadRequest("Question previously exist");
@@ -35,7 +35,7 @@ public class QuestionService {
 
     public CompletableFuture<QuestionModel> update(Long id, QuestionModel model) {
         return CompletableFuture.runAsync(() -> {
-            var isAnotherQuestionExistingWithSameQuestion = repositoryService.findByQuestion(model.getQuestion())
+            var isAnotherQuestionExistingWithSameQuestion = repositoryService.findByQuestion(model.getText())
                     .map(q -> !q.getId().equals(id))
                     .orElse(false);
 

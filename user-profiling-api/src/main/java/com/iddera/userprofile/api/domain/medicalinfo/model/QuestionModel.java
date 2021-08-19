@@ -14,8 +14,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Data
 public class QuestionModel extends BaseModel {
-    @NotBlank(message = "Question field is required")
-    private String question;
+    @NotBlank(message = "Question text is required")
+    private String text;
     @Singular
     private Set<String> options;
     private Integer minOptions;

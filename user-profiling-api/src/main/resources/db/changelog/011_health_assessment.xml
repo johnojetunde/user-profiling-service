@@ -15,7 +15,7 @@
                 <constraints primaryKey="true"/>
             </column>
 
-            <column name="question" type="${text}">
+            <column name="text" type="${text}">
                 <constraints unique="true"/>
             </column>
             <column name="max_option" type="BIGINT"/>

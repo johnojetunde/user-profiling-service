@@ -29,12 +29,12 @@ public class QuestionRepositoryService extends DefaultCrudRepositoryService<Ques
     }
 
     public Optional<QuestionModel> findByQuestion(String question) {
-        return repository.findByQuestionIgnoreCase(question)
+        return repository.findByTextIgnoreCase(question)
                 .map(mapper::toModel);
     }
 
     @Override
     public List<Question> getAllByUsername(String username) {
-        return repository.findAll();
+        throw exceptionService.handleCreateNotImplementedException("Get All By Username not implemented for Question entity");
     }
 }

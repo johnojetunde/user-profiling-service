@@ -47,7 +47,7 @@ class QuestionServiceTest {
         var listQuestion = questionService.getAll().join();
 
         assertThat(listQuestion)
-                .extracting(QuestionModel::getQuestion)
+                .extracting(QuestionModel::getText)
                 .containsExactly("What is your blood group?", "What is your genotype?");
 
         verify(repositoryService).findAll();
@@ -85,7 +85,7 @@ class QuestionServiceTest {
 
         var result = questionService.getById(1L).join();
 
-        assertThat(result.getQuestion()).isEqualTo("What is your age?");
+        assertThat(result.getText()).isEqualTo("What is your age?");
         verify(repositoryService).findById(1L);
     }
 
@@ -117,7 +117,7 @@ class QuestionServiceTest {
 
         var result = questionService.create(question("What is your wellness goal?")).join();
 
-        assertThat(result.getQuestion()).isEqualTo("What is your wellness goal?");
+        assertThat(result.getText()).isEqualTo("What is your wellness goal?");
         assertThat(result.getId()).isEqualTo(2L);
 
         verify(repositoryService).findByQuestion("What is your wellness goal?");
