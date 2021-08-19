@@ -1,7 +1,7 @@
 package com.iddera.userprofile.api.domain.medicalinfo.service.concretes;
 
 import com.iddera.userprofile.api.domain.exception.UserProfilingExceptionService;
-import com.iddera.userprofile.api.domain.phonotype.model.QuestionModel;
+import com.iddera.userprofile.api.domain.medicalinfo.model.QuestionModel;
 import com.iddera.userprofile.api.persistence.medicals.service.QuestionRepositoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class QuestionService {
             var questionExisting = repositoryService.findByQuestion(model.getQuestion());
 
             if (questionExisting.isPresent()) {
-                throw exceptionService.handleCreateBadRequest("Question exist");
+                throw exceptionService.handleCreateBadRequest("Question previously exist");
             }
         }).thenCompose(__ -> repositoryService.save(model));
     }

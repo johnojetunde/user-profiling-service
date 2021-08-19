@@ -1,8 +1,8 @@
 package com.iddera.userprofile.api.app.controller;
 
 import com.iddera.userprofile.api.app.model.ResponseModel;
+import com.iddera.userprofile.api.domain.medicalinfo.model.QuestionModel;
 import com.iddera.userprofile.api.domain.medicalinfo.service.concretes.QuestionService;
-import com.iddera.userprofile.api.domain.phonotype.model.QuestionModel;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;

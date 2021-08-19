@@ -1,6 +1,6 @@
 package com.iddera.userprofile.api.persistence.medicals.mapper;
 
-import com.iddera.userprofile.api.domain.phonotype.model.QuestionModel;
+import com.iddera.userprofile.api.domain.medicalinfo.model.QuestionModel;
 import com.iddera.userprofile.api.persistence.EntityToDomainMapper;
 import com.iddera.userprofile.api.persistence.medicals.entity.Question;
 import org.springframework.stereotype.Component;

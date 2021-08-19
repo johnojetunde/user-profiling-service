@@ -1,7 +1,7 @@
 package com.iddera.userprofile.api.persistence.medicals.service;
 
 import com.iddera.userprofile.api.domain.exception.UserProfilingExceptionService;
-import com.iddera.userprofile.api.domain.phonotype.model.QuestionModel;
+import com.iddera.userprofile.api.domain.medicalinfo.model.QuestionModel;
 import com.iddera.userprofile.api.persistence.EntityToDomainMapper;
 import com.iddera.userprofile.api.persistence.medicals.entity.Question;
 import com.iddera.userprofile.api.persistence.medicals.repository.QuestionRepository;

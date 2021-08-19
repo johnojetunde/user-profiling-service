@@ -1,6 +1,5 @@
-package com.iddera.userprofile.api.domain.phonotype.model;
+package com.iddera.userprofile.api.domain.medicalinfo.model;
 
-import com.iddera.userprofile.api.domain.medicalinfo.model.BaseModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
