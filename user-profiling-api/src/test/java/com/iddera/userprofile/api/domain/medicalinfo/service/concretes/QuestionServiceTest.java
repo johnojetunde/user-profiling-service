@@ -47,7 +47,7 @@ class QuestionServiceTest {
         var listQuestion = questionService.getAll().join();
 
         assertThat(listQuestion)
-                .extracting(QuestionModel::getText)
+                .extracting(QuestionModel::getDescription)
                 .containsExactly("What is your blood group?", "What is your genotype?");
 
         verify(repositoryService).findAll();
@@ -63,7 +63,7 @@ class QuestionServiceTest {
     }
 
     @Test
-    void getById_whenNotFound() {
+    void getByIdFails_whenNotFound() {
         when(repositoryService.findById(1L))
                 .thenReturn(completedFuture(Optional.empty()));
 
@@ -85,12 +85,12 @@ class QuestionServiceTest {
 
         var result = questionService.getById(1L).join();
 
-        assertThat(result.getText()).isEqualTo("What is your age?");
+        assertThat(result.getDescription()).isEqualTo("What is your age?");
         verify(repositoryService).findById(1L);
     }
 
     @Test
-    void create_whenQuestionExist() {
+    void createFails_whenQuestionExist() {
         when(repositoryService.findByQuestion("What is your wellness goal?"))
                 .thenReturn(Optional.of(question("What is your wellness goal?")));
 
@@ -98,7 +98,7 @@ class QuestionServiceTest {
 
         assertThatThrownBy(result::join)
                 .isInstanceOf(CompletionException.class)
-                .hasCause(new UserProfilingException("Question previously exist"))
+                .hasCause(new UserProfilingException("Question with same description exists"))
                 .extracting(Throwable::getCause)
                 .hasFieldOrPropertyWithValue("code", BAD_REQUEST.value());
 
@@ -117,7 +117,7 @@ class QuestionServiceTest {
 
         var result = questionService.create(question("What is your wellness goal?")).join();
 
-        assertThat(result.getText()).isEqualTo("What is your wellness goal?");
+        assertThat(result.getDescription()).isEqualTo("What is your wellness goal?");
         assertThat(result.getId()).isEqualTo(2L);
 
         verify(repositoryService).findByQuestion("What is your wellness goal?");
@@ -126,7 +126,7 @@ class QuestionServiceTest {
 
 
     @Test
-    void update_questionWithAnExistingQuestionDescription() {
+    void updateFails_withAnExistingQuestionDescription() {
         var question1 = question("What is your wellness goal?", 2L);
         when(repositoryService.findByQuestion("What is your wellness goal?"))
                 .thenReturn(Optional.of(question1));
@@ -136,7 +136,7 @@ class QuestionServiceTest {
 
         assertThatThrownBy(result::join)
                 .isInstanceOf(CompletionException.class)
-                .hasCause(new UserProfilingException("Question exists with the same question description"))
+                .hasCause(new UserProfilingException("Another question with the same description already exists"))
                 .extracting(Throwable::getCause)
                 .hasFieldOrPropertyWithValue("code", BAD_REQUEST.value());
 
@@ -144,7 +144,7 @@ class QuestionServiceTest {
     }
 
     @Test
-    void update_withSameQuestionText() {
+    void update_withSameDescription() {
         var question1 = question("What is your wellness goal?", 1L);
         when(repositoryService.findByQuestion("What is your wellness goal?"))
                 .thenReturn(Optional.of(question1));
@@ -161,7 +161,7 @@ class QuestionServiceTest {
     }
 
     @Test
-    void update_withAnotherText() {
+    void update_withAnotherDescription() {
         var question1 = question("What is your wellness goal?", 1L);
         when(repositoryService.findByQuestion("What is your wellness goal?"))
                 .thenReturn(Optional.empty());

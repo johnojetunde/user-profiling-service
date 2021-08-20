@@ -57,7 +57,7 @@ class QuestionRepositoryServiceTest {
         var result = repositoryService.findByQuestion("What is your age?");
 
         assertThat(result.isPresent()).isTrue();
-        assertThat(result.get().getText()).isEqualTo("What is your age?");
+        assertThat(result.get().getDescription()).isEqualTo("What is your age?");
 
         verify(repository).findByTextIgnoreCase("What is your age?");
     }

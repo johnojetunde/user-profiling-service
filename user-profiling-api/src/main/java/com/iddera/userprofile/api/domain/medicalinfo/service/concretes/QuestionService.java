@@ -18,10 +18,10 @@ public class QuestionService {
 
     public CompletableFuture<QuestionModel> create(QuestionModel model) {
         return CompletableFuture.runAsync(() -> {
-            var questionExisting = repositoryService.findByQuestion(model.getText());
+            var questionExisting = repositoryService.findByQuestion(model.getDescription().strip());
 
             if (questionExisting.isPresent()) {
-                throw exceptionService.handleCreateBadRequest("Question previously exist");
+                throw exceptionService.handleCreateBadRequest("Question with same description exists");
             }
         }).thenCompose(__ -> repositoryService.save(model));
     }
@@ -35,12 +35,12 @@ public class QuestionService {
 
     public CompletableFuture<QuestionModel> update(Long id, QuestionModel model) {
         return CompletableFuture.runAsync(() -> {
-            var isAnotherQuestionExistingWithSameQuestion = repositoryService.findByQuestion(model.getText())
+            var isAnotherQuestionExistingWithSameQuestion = repositoryService.findByQuestion(model.getDescription())
                     .map(q -> !q.getId().equals(id))
                     .orElse(false);
 
             if (isAnotherQuestionExistingWithSameQuestion) {
-                throw exceptionService.handleCreateBadRequest("Question exists with the same question description");
+                throw exceptionService.handleCreateBadRequest("Another question with the same description already exists");
             }
         }).thenCompose(__ -> repositoryService.update(id, model));
     }

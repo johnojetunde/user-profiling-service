@@ -18,7 +18,7 @@ import java.util.Set;
 @SuperBuilder
 public class Question extends BaseEntity {
     @Column(unique = true)
-    private String text;
+    private String description;
     @Singular
     @ElementCollection
     private Set<String> options;
