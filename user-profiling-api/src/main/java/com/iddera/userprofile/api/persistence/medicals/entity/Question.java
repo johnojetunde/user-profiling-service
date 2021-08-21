@@ -1,14 +1,13 @@
 package com.iddera.userprofile.api.persistence.medicals.entity;
 
+import com.iddera.userprofile.api.domain.medicalinfo.model.enums.QuestionFlow;
 import com.iddera.userprofile.api.persistence.userprofile.entity.BaseEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Singular;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.Set;
 
 
@@ -22,6 +21,8 @@ public class Question extends BaseEntity {
     @Singular
     @ElementCollection
     private Set<String> options;
+    @Enumerated(EnumType.STRING)
+    private QuestionFlow flow;
     private Integer minOption;
     private Integer maxOption;
 }

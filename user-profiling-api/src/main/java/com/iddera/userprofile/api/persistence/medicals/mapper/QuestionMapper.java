@@ -20,6 +20,7 @@ public class QuestionMapper implements EntityToDomainMapper<QuestionModel, Quest
                 .maxOption(model.getMaxOptions())
                 .minOption(model.getMinOptions())
                 .options(model.getOptions())
+                .flow(model.getFlow())
                 .id(model.getId())
                 .build();
     }
@@ -31,6 +32,7 @@ public class QuestionMapper implements EntityToDomainMapper<QuestionModel, Quest
                 .options(entity.getOptions())
                 .maxOptions(entity.getMaxOption())
                 .minOptions(entity.getMinOption())
+                .flow(entity.getFlow())
                 .id(entity.getId())
                 .build();
     }

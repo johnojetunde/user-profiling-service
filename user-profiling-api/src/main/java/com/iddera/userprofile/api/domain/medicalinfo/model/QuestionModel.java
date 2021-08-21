@@ -1,5 +1,7 @@
 package com.iddera.userprofile.api.domain.medicalinfo.model;
 
+import com.iddera.commons.annotation.ValidEnum;
+import com.iddera.userprofile.api.domain.medicalinfo.model.enums.QuestionFlow;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +20,8 @@ public class QuestionModel extends BaseModel {
     private String description;
     @Singular
     private Set<String> options;
+    @ValidEnum(message = "Question flow required")
+    private QuestionFlow flow;
     private Integer minOptions;
     private Integer maxOptions;
 }

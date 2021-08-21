@@ -15,8 +15,11 @@
                 <constraints primaryKey="true"/>
             </column>
 
-            <column name="text" type="${text}">
+            <column name="description" type="${text}">
                 <constraints unique="true"/>
+            </column>
+            <column name="flow" type="VARCHAR(100)">
+                <constraints nullable="false"/>
             </column>
             <column name="max_option" type="BIGINT"/>
             <column name="min_option" type="BIGINT"/>
