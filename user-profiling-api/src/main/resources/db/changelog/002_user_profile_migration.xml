@@ -14,7 +14,7 @@
                 <constraints nullable="false" primaryKey="true" unique="true"/>
             </column>
 
-            <column name="username" type="BIGINT">
+            <column name="username" type="VARCHAR(255)">
                 <constraints unique="true" nullable="false"/>
             </column>
             <column name="gender" type="VARCHAR(50)"/>
