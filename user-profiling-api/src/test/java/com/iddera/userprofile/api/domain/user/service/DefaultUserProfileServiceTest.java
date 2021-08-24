@@ -16,7 +16,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
 import static com.iddera.userprofile.api.stubs.TestDataFixtures.buildLga;
@@ -27,7 +26,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
-import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 public class DefaultUserProfileServiceTest {
     @Mock
@@ -47,20 +47,6 @@ public class DefaultUserProfileServiceTest {
                 userProfileRepository,
                 lgaRepository,
                 exception);
-    }
-
-    @Test
-    void updateProfileFails_WhenLgaDoesNotExists() {
-        when(userProfileRepository.findByUsernameIgnoreCase("username"))
-                .thenReturn(Optional.of(buildUserProfile()));
-
-        CompletableFuture<UserProfileModel> result = userProfileServiceImpl.update("username", mockedUser(), buildUserProfileUpdateRequest());
-
-        assertThatThrownBy(result::join)
-                .isInstanceOf(CompletionException.class)
-                .hasCause(new UserProfilingException("Local government area with id:1 does not exist."))
-                .extracting(Throwable::getCause)
-                .hasFieldOrPropertyWithValue("code", BAD_REQUEST.value());
     }
 
     @Test

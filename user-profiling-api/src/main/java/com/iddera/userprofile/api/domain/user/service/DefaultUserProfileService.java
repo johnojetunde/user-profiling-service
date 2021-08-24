@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
-import static java.lang.String.format;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 
 @Service
@@ -77,7 +76,7 @@ public class DefaultUserProfileService implements UserProfileService {
     private LocalGovernmentArea getLga(Long lgaId) {
         return Optional.ofNullable(lgaId)
                 .flatMap(lgaRepository::findById)
-                .orElseThrow(() -> exceptions.handleCreateBadRequest(format("Local government area with id:%d does not exist.", lgaId)));
+                .orElse(null);
     }
 
     private void ensureProfileUpdateIsMadeByOwner(String username, User user) {
