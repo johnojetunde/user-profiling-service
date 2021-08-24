@@ -22,7 +22,7 @@ class ZoomMeetingProviderIntegrationTest {
     @Test
     void testZoomProvider() {
         var participant = MeetingParticipant.builder()
-                .userId(1L)
+                .username("username")
                 .email("john.ojetunde@telesoftas.com")
                 .firstname("Oluwayemisi")
                 .lastname("Ooreofeoluwa")

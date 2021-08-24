@@ -1,15 +1,23 @@
 package com.iddera.userprofile.api.stubs;
 
+import com.iddera.usermanagement.lib.domain.model.Gender;
 import com.iddera.usermanagement.lib.domain.model.UserModel;
+import com.iddera.usermanagement.lib.domain.model.UserType;
 import com.iddera.userprofile.api.domain.consultation.model.ConsultationMode;
 import com.iddera.userprofile.api.domain.consultation.model.ConsultationStatus;
 import com.iddera.userprofile.api.domain.medicalinfo.model.MedicalForm;
 import com.iddera.userprofile.api.domain.medicalinfo.model.enums.*;
+import com.iddera.userprofile.api.domain.model.User;
+import com.iddera.userprofile.api.domain.user.enums.MaritalStatus;
 import com.iddera.userprofile.api.persistence.consultation.entity.Consultation;
 import com.iddera.userprofile.api.persistence.consultation.entity.ConsultationParticipant;
 import com.iddera.userprofile.api.persistence.consultation.entity.DoctorTimeslot;
 import com.iddera.userprofile.api.persistence.doctorprofile.entity.DoctorProfile;
 import com.iddera.userprofile.api.persistence.medicals.entity.*;
+import com.iddera.userprofile.api.persistence.userprofile.entity.Country;
+import com.iddera.userprofile.api.persistence.userprofile.entity.LocalGovernmentArea;
+import com.iddera.userprofile.api.persistence.userprofile.entity.State;
+import com.iddera.userprofile.api.persistence.userprofile.entity.UserProfile;
 
 import java.time.Clock;
 import java.time.LocalDate;
@@ -136,7 +144,7 @@ public class TestDataFixtures {
 
     public static ConsultationParticipant consultationParticipant(UserModel user) {
         return new ConsultationParticipant()
-                .setUserId(user.getId())
+                .setUsername(user.getUsername())
                 .setEmail(user.getEmail())
                 .setUserType(user.getType())
                 .setRegistrantId(user.getEmail())
@@ -150,5 +158,64 @@ public class TestDataFixtures {
                 .setTimeslot(timeslot)
                 .setMode(ConsultationMode.AUDIO)
                 .setStatus(ConsultationStatus.SCHEDULED);
+    }
+
+    public static UserModel newUserModel(Long id, String email, String firstname, UserType type) {
+        return new UserModel()
+                .setId(id)
+                .setEmail(email)
+                .setUsername("username")
+                .setFirstName(firstname)
+                .setLastName("lastname")
+                .setType(type);
+    }
+
+    public static UserProfile buildUserProfile() {
+        UserProfile userProfile = new UserProfile();
+        userProfile.setLga(buildLga());
+        userProfile.setUsername("username");
+        userProfile.setId(1L);
+        userProfile.setMaritalStatus(MaritalStatus.SINGLE);
+        userProfile.setGender(Gender.FEMALE);
+
+        return userProfile;
+    }
+
+    public static Country buildCountry() {
+        Country country = new Country();
+        country.setName("Nigeria");
+        country.setCode("NGA");
+        country.setId(1L);
+
+        return country;
+    }
+
+    public static State buildState() {
+        State state = new State();
+        state.setId(1L);
+        state.setCountry(buildCountry());
+        state.setName("Ogun state");
+        state.setCode("NGA-OGUN-STATE");
+
+        return state;
+    }
+
+    public static LocalGovernmentArea buildLga() {
+        LocalGovernmentArea localGovernmentArea = new LocalGovernmentArea();
+        localGovernmentArea.setCode("NGA-OGUN");
+        localGovernmentArea.setState(buildState());
+        localGovernmentArea.setName("LGA-OGUN");
+        localGovernmentArea.setId(1L);
+
+        return localGovernmentArea;
+    }
+
+    public static User buildUser(Long id) {
+        User user = new User();
+        user.setEmail("Test@email.com");
+        user.setUsername("username");
+        user.setUserType(UserType.CLIENT);
+        user.setId(id);
+        return user;
     }
 }

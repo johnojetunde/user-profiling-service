@@ -13,15 +13,15 @@ import java.util.Collection;
 public interface ConsultationRepository extends JpaRepository<Consultation, Long>, JpaSpecificationExecutor<Consultation> {
 
     @Query("select c from Consultation  c  join ConsultationParticipant cp on cp.consultation=c where " +
-            "cp.userId IN :userIds and c.timeslot.id=:timeslotId")
-    Page<Consultation> findAllByTimeslotAndParticipantsUserId(@Param("userIds") Collection<Long> userId,
-                                                              @Param("timeslotId") Long timeslotId,
-                                                              Pageable pageable);
+            "cp.username IN :usernames and c.timeslot.id=:timeslotId")
+    Page<Consultation> findAllByTimeslotAndParticipantsUserName(@Param("usernames") Collection<String> usernames,
+                                                                @Param("timeslotId") Long timeslotId,
+                                                                Pageable pageable);
 
     @Query("select c from Consultation  c  join ConsultationParticipant cp on cp.consultation=c where " +
-            "cp.userId IN :userIds ")
-    Page<Consultation> findAllByParticipantsUserId(@Param("userIds") Collection<Long> userId,
-                                                   Pageable pageable);
+            "cp.username IN :usernames ")
+    Page<Consultation> findAllByParticipantsUsername(@Param("usernames") Collection<String> usernames,
+                                                     Pageable pageable);
 
     Page<Consultation> findAllByTimeslot_Id(Long timeslotId,
                                             Pageable pageable);

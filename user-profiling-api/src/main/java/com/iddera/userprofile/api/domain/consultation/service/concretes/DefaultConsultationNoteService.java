@@ -62,8 +62,8 @@ public class DefaultConsultationNoteService implements ConsultationNoteService {
 
     public void ensureUserIsAConsultationParticipant(Consultation consultation, User user){
         boolean isUserAParticipant = emptyIfNullStream(consultation.getParticipants())
-                .map(ConsultationParticipant::getUserId)
-                .anyMatch(uId -> user.getId().equals(uId));
+                .map(ConsultationParticipant::getUsername)
+                .anyMatch(uName -> user.getUsername().equals(uName));
         if(!isUserAParticipant){
             throw  exceptions.handleCreateUnAuthorized("User is not a participant of this consultation.");
         }

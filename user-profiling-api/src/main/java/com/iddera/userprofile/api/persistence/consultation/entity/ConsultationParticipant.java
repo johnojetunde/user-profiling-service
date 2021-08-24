@@ -19,7 +19,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "consultation_participant")
 public class ConsultationParticipant extends BaseEntity {
-    private Long userId;
+    private String username;
     @Enumerated(EnumType.STRING)
     private UserType userType;
     private String email;
@@ -34,7 +34,7 @@ public class ConsultationParticipant extends BaseEntity {
     public static ConsultationParticipant from(MeetingRegistrant reg, Consultation consultation) {
         return new ConsultationParticipant()
                 .setConsultation(consultation)
-                .setUserId(reg.getParticipantDetails().getUserId())
+                .setUsername(reg.getParticipantDetails().getUsername())
                 .setEmail(reg.getParticipantDetails().getEmail())
                 .setUserType(reg.getParticipantDetails().getUserType())
                 .setRegistrantId(reg.getRegistrantId())
@@ -45,7 +45,7 @@ public class ConsultationParticipant extends BaseEntity {
     public ConsultationParticipantModel toModel() {
         return ConsultationParticipantModel.builder()
                 .id(id)
-                .userId(userId)
+                .username(username)
                 .email(email)
                 .userType(userType)
                 .registrantId(registrantId)

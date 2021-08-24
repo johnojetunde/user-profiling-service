@@ -7,15 +7,15 @@ import com.iddera.userprofile.api.domain.user.enums.MaritalStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 
-@Accessors(chain = true)
+@SuperBuilder
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class UserProfileUpdateRequest {
+public class NewClientModel extends NewUserModel {
     @ValidEnum(message = "Invalid marital status value")
     private MaritalStatus maritalStatus;
     @ValidEnum(message = "Invalid gender value")

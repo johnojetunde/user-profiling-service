@@ -209,7 +209,7 @@ class ConsultationServiceTest {
 
     @Test
     void getConsultationById_whenUserIdIsNotAParticipant() {
-        var userDetails = new User().setId(5L).setPassword("token");
+        var userDetails = buildUser(1L).setUsername("user#name");
         var timeslot = timeslot(clock)
                 .setStatus(TimeslotStatus.FREE);
 
@@ -231,7 +231,7 @@ class ConsultationServiceTest {
 
     @Test
     void getConsultationById() {
-        var userDetails = new User().setId(1L).setPassword("token");
+        var userDetails = buildUser(1L);
         var timeslot = timeslot(clock)
                 .setStatus(TimeslotStatus.FREE);
 
@@ -257,18 +257,18 @@ class ConsultationServiceTest {
 
 
         var request = new ConsultationSearchCriteria()
-                .addUserId(1L)
+                .addUsername("username")
                 .setTimeslotId(1L);
 
         Consultation consultation = buildConsultationEntity(timeslot);
 
-        when(consultationRepository.findAllByTimeslotAndParticipantsUserId(request.getParticipantUserIds(), request.getTimeslotId(), pageable))
+        when(consultationRepository.findAllByTimeslotAndParticipantsUserName(request.getParticipantUsernames(), request.getTimeslotId(), pageable))
                 .thenReturn(new PageImpl<>(List.of(consultation)));
 
         var result = consultationService.search(request, pageable).join();
 
         assertThat(result).hasSize(1);
-        verify(consultationRepository).findAllByTimeslotAndParticipantsUserId(request.getParticipantUserIds(), request.getTimeslotId(), pageable);
+        verify(consultationRepository).findAllByTimeslotAndParticipantsUserName(request.getParticipantUsernames(), request.getTimeslotId(), pageable);
     }
 
     @Test
@@ -297,7 +297,7 @@ class ConsultationServiceTest {
         var pageable = Mockito.mock(Pageable.class);
         var request = new ConsultationSearchCriteria()
                 .setTimeslotId(null)
-                .setParticipantUserIds(null);
+                .setParticipantUsernames(null);
 
         Consultation consultation = buildConsultationEntity(timeslot);
 
@@ -316,17 +316,17 @@ class ConsultationServiceTest {
                 .setStatus(TimeslotStatus.FREE);
         var pageable = Mockito.mock(Pageable.class);
         var request = new ConsultationSearchCriteria()
-                .addUserId(1L);
+                .addUsername("username");
 
         Consultation consultation = buildConsultationEntity(timeslot);
 
-        when(consultationRepository.findAllByParticipantsUserId(request.getParticipantUserIds(), pageable))
+        when(consultationRepository.findAllByParticipantsUsername(request.getParticipantUsernames(), pageable))
                 .thenReturn(new PageImpl<>(List.of(consultation)));
 
         var result = consultationService.search(request, pageable).join();
 
         assertThat(result).hasSize(1);
-        verify(consultationRepository).findAllByParticipantsUserId(request.getParticipantUserIds(), pageable);
+        verify(consultationRepository).findAllByParticipantsUsername(request.getParticipantUsernames(), pageable);
     }
 
     private Consultation buildConsultationEntity(DoctorTimeslot timeslot) {
@@ -352,14 +352,5 @@ class ConsultationServiceTest {
                 .meetingUrl("meetingurl")
                 .meetingPasscode("meetingpasscode")
                 .build();
-    }
-
-    private UserModel newUserModel(Long id, String email, String firstname, UserType type) {
-        return new UserModel()
-                .setId(id)
-                .setEmail(email)
-                .setFirstName(firstname)
-                .setLastName("lastname")
-                .setType(type);
     }
 }

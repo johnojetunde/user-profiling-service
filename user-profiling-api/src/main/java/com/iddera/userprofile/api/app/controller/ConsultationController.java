@@ -55,7 +55,7 @@ public class ConsultationController {
                                                                @PageableDefault(sort = "id", direction = ASC) Pageable pageable,
                                                                @AuthenticationPrincipal User user) {
         if (!ADMIN.equals(user.getUserType())) {
-            request.addUserId(user.getId());
+            request.addUsername(user.getUsername());
         }
         return consultationService.search(request, pageable)
                 .thenApply(ConsultationResult::new)

@@ -25,12 +25,12 @@ public class ClientController {
     private final UserProfileService userProfileService;
 
     @PreAuthorize("hasAuthority('CLIENT')")
-    @PutMapping(consumes = APPLICATION_JSON_VALUE, value = "/{userId}/profile")
+    @PutMapping(consumes = APPLICATION_JSON_VALUE, value = "/{username}/profile")
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = UserProfileModel.class)})
-    public CompletableFuture<ResponseModel> createProfile(@PathVariable("userId") Long userId,
+    public CompletableFuture<ResponseModel> updateProfile(@PathVariable("username") String username,
                                                           @Valid @RequestBody UserProfileUpdateRequest request,
                                                           @AuthenticationPrincipal User user) {
-        return userProfileService.update(userId, user, request)
+        return userProfileService.update(username, user, request)
                 .thenApply(ResponseModel::new);
     }
 
@@ -43,10 +43,10 @@ public class ClientController {
     }
 
     @PreAuthorize("hasAnyAuthority('DOCTOR','ADMIN')")
-    @GetMapping(value = "/{userId}/profile")
+    @GetMapping(value = "/{username}/profile")
     @ApiResponses({@ApiResponse(code = 200, message = "Success", response = UserProfileModel.class)})
-    public CompletableFuture<ResponseModel> getProfileById(@PathVariable("userId") Long userId) {
-        return userProfileService.get(userId)
+    public CompletableFuture<ResponseModel> getProfileByUsername(@PathVariable("username") String username) {
+        return userProfileService.get(username)
                 .thenApply(ResponseModel::new);
     }
 }

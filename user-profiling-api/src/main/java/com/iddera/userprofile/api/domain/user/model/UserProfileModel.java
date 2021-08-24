@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Data
 public class UserProfileModel {
-    private Long userId;
+    private String username;
     private Gender gender;
     private LocalDate dateOfBirth;
     private MaritalStatus maritalStatus;

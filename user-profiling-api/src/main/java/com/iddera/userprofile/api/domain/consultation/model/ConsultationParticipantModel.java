@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Builder
 public class ConsultationParticipantModel {
     private Long id;
-    private Long userId;
+    private String username;
     private UserType userType;
     private String email;
     private String registrantId;

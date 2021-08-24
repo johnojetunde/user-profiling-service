@@ -6,17 +6,17 @@ import lombok.experimental.Accessors;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.iddera.usermanagement.lib.domain.utils.FunctionUtil.emptyIfNull;
+import static com.iddera.commons.utils.FunctionUtil.emptyIfNull;
 
 @Accessors(chain = true)
 @Data
 public class ConsultationSearchCriteria {
     private Long timeslotId;
-    private List<Long> participantUserIds;
+    private List<String> participantUsernames;
 
-    public ConsultationSearchCriteria addUserId(Long userId) {
-        participantUserIds = new ArrayList<>(emptyIfNull(participantUserIds));
-        participantUserIds.add(userId);
+    public ConsultationSearchCriteria addUsername(String username) {
+        participantUsernames = new ArrayList<>(emptyIfNull(participantUsernames));
+        participantUsernames.add(username);
         return this;
     }
 }

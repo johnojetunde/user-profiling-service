@@ -7,7 +7,7 @@ spring:
     format:
       date: yyyy-MM-dd
   datasource:
-    url: jdbc:postgresql://${RDS_HOSTNAME:localhost}:${RDS_PORT:5432}/${RDS_DB_NAME:user_profiling_db}
+    url: jdbc:postgresql://${RDS_HOSTNAME:localhost}:${RDS_PORT:5432}/${RDS_DB_NAME:ups_db}
     username: ${RDS_USERNAME:postgres}
     password: ${RDS_PASSWORD:password}
     maxConnections: 10

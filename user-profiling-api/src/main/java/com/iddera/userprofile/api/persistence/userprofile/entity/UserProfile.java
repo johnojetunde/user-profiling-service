@@ -20,8 +20,7 @@ import static java.util.Optional.ofNullable;
 @Entity
 @Table(name = "user_profile")
 public class UserProfile extends BaseEntity {
-    @Column(unique = true, nullable = false)
-    private Long userId;
+    private String username;
     @Enumerated(EnumType.STRING)
     private Gender gender;
     @Enumerated(EnumType.STRING)
@@ -33,7 +32,7 @@ public class UserProfile extends BaseEntity {
 
     public UserProfileModel toModel() {
         return new UserProfileModel()
-                .setUserId(userId)
+                .setUsername(username)
                 .setGender(gender)
                 .setMaritalStatus(maritalStatus)
                 .setDateOfBirth(dateOfBirth)

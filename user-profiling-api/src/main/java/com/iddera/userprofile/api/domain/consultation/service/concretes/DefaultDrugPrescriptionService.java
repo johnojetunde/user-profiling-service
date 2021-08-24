@@ -38,7 +38,7 @@ public class DefaultDrugPrescriptionService implements DrugPrescriptionService {
                             () -> exceptions.handleCreateNotFoundException("Cannot find consultation with id %d", consultationId)
                     );
                     if (user.getUserType().equals(UserType.CLIENT))
-                        ensureClientWasAParticipantInConsultation(consultation, user.getId());
+                        ensureClientWasAParticipantInConsultation(consultation, user.getUsername());
                     return emptyIfNullStream(drugPrescriptionRepository.findByConsultation_Id(consultationId))
                             .map(DrugPrescription::toModel)
                             .collect(Collectors.toList());
@@ -52,10 +52,10 @@ public class DefaultDrugPrescriptionService implements DrugPrescriptionService {
         return supplyAsync(() -> {
             DrugPrescription drugPrescription = drugPrescriptionRepository.findById(id).orElseThrow(() ->
                     exceptions.handleCreateNotFoundException("Drug Prescription does not exist for %d", id));
-           Consultation consultation = drugPrescription.getConsultation();
-           if(user.getUserType().equals(UserType.CLIENT))
-               ensureClientWasAParticipantInConsultation(consultation, user.getId());
-           return drugPrescription.toModel();
+            Consultation consultation = drugPrescription.getConsultation();
+            if (user.getUserType().equals(UserType.CLIENT))
+                ensureClientWasAParticipantInConsultation(consultation, user.getUsername());
+            return drugPrescription.toModel();
         });
     }
 
@@ -78,15 +78,9 @@ public class DefaultDrugPrescriptionService implements DrugPrescriptionService {
         });
     }
 
-    private void ensureConsultationIdIsNotChanged(DrugPrescriptionModel originalModel, DrugPrescriptionModel updatedModel) {
-        if (!originalModel.getConsultationId().equals(updatedModel.getConsultationId())) {
-            throw exceptions.handleCreateBadRequest("Cannot change consultation Id of a drug prescription");
-        }
-    }
-
-    private void ensureClientWasAParticipantInConsultation(Consultation consultation, Long userId) {
+    private void ensureClientWasAParticipantInConsultation(Consultation consultation, String username) {
         List<ConsultationParticipant> participants = consultation.getParticipants().stream()
-                .filter(consultationParticipant -> consultationParticipant.getUserId().equals(userId))
+                .filter(consultationParticipant -> consultationParticipant.getUsername().equals(username))
                 .collect(Collectors.toList());
         if (participants.isEmpty())
             throw exceptions.handleCreateBadRequest("Client cannot have access to prescriptions whose consultation they aren't a participant of.");

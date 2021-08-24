@@ -81,14 +81,14 @@ public class ConsultationService {
 
     public CompletableFuture<Page<ConsultationModel>> search(ConsultationSearchCriteria request, Pageable pageable) {
         return supplyAsync(() -> {
-            var userIds = emptyIfNull(request.getParticipantUserIds());
+            var usernames = emptyIfNull(request.getParticipantUsernames());
             Page<Consultation> result;
 
             //TODO: method to be clean up when specification issues resolved
-            if (!userIds.isEmpty() && Objects.nonNull(request.getTimeslotId())) {
-                result = consultationRepository.findAllByTimeslotAndParticipantsUserId(userIds, request.getTimeslotId(), pageable);
-            } else if (!userIds.isEmpty()) {
-                result = consultationRepository.findAllByParticipantsUserId(userIds, pageable);
+            if (!usernames.isEmpty() && Objects.nonNull(request.getTimeslotId())) {
+                result = consultationRepository.findAllByTimeslotAndParticipantsUserName(usernames, request.getTimeslotId(), pageable);
+            } else if (!usernames.isEmpty()) {
+                result = consultationRepository.findAllByParticipantsUsername(usernames, pageable);
             } else if (Objects.nonNull(request.getTimeslotId())) {
                 result = consultationRepository.findAllByTimeslot_Id(request.getTimeslotId(), pageable);
             } else {
@@ -169,7 +169,7 @@ public class ConsultationService {
 
     MeetingParticipant toParticipant(UserModel user) {
         return MeetingParticipant.builder()
-                .userId(user.getId())
+                .username(user.getUsername())
                 .email(user.getEmail())
                 .firstname(user.getFirstName())
                 .lastname(user.getLastName())

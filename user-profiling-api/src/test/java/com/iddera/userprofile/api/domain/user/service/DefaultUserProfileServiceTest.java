@@ -7,9 +7,6 @@ import com.iddera.userprofile.api.domain.exception.UserProfilingExceptionService
 import com.iddera.userprofile.api.domain.model.User;
 import com.iddera.userprofile.api.domain.user.enums.MaritalStatus;
 import com.iddera.userprofile.api.domain.user.model.UserProfileModel;
-import com.iddera.userprofile.api.persistence.userprofile.entity.Country;
-import com.iddera.userprofile.api.persistence.userprofile.entity.LocalGovernmentArea;
-import com.iddera.userprofile.api.persistence.userprofile.entity.State;
 import com.iddera.userprofile.api.persistence.userprofile.entity.UserProfile;
 import com.iddera.userprofile.api.persistence.userprofile.repository.LgaRepository;
 import com.iddera.userprofile.api.persistence.userprofile.repository.UserProfileRepository;
@@ -22,6 +19,8 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
+import static com.iddera.userprofile.api.stubs.TestDataFixtures.buildLga;
+import static com.iddera.userprofile.api.stubs.TestDataFixtures.buildUserProfile;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
@@ -52,10 +51,10 @@ public class DefaultUserProfileServiceTest {
 
     @Test
     void updateProfileFails_WhenLgaDoesNotExists() {
-        when(userProfileRepository.findByUserId(eq(1L)))
+        when(userProfileRepository.findByUsernameIgnoreCase("username"))
                 .thenReturn(Optional.of(buildUserProfile()));
 
-        CompletableFuture<UserProfileModel> result = userProfileServiceImpl.update(1L, mockedUser(), buildUserProfileUpdateRequest());
+        CompletableFuture<UserProfileModel> result = userProfileServiceImpl.update("username", mockedUser(), buildUserProfileUpdateRequest());
 
         assertThatThrownBy(result::join)
                 .isInstanceOf(CompletionException.class)
@@ -66,30 +65,31 @@ public class DefaultUserProfileServiceTest {
 
     @Test
     void updateProfile_Successfully() {
-        when(userProfileRepository.findByUserId(eq(1L)))
+        when(userProfileRepository.findByUsernameIgnoreCase("username"))
                 .thenReturn(Optional.of(buildUserProfile()));
         when(lgaRepository.findById(eq(1L)))
                 .thenReturn(Optional.of(buildLga()));
         when(userProfileRepository.save(any(UserProfile.class)))
                 .thenReturn(buildUserProfile());
 
-        UserProfileModel result = userProfileServiceImpl.update(1L, mockedUser(), buildUserProfileUpdateRequest()).join();
+        UserProfileModel result = userProfileServiceImpl.update("username", mockedUser(), buildUserProfileUpdateRequest()).join();
 
         assertUserProfileValues(result);
     }
 
     @Test
     void updateProfile_unAuthorisedUser() {
-        var user = mockedUser().setId(2L);
+        var user = mockedUser().setId(2L)
+                .setUsername("anotherUsername");
 
-        when(userProfileRepository.findByUserId(eq(1L)))
+        when(userProfileRepository.findByUsernameIgnoreCase("username"))
                 .thenReturn(Optional.of(buildUserProfile()));
         when(lgaRepository.findById(eq(1L)))
                 .thenReturn(Optional.of(buildLga()));
         when(userProfileRepository.save(any(UserProfile.class)))
                 .thenReturn(buildUserProfile());
 
-        var result = userProfileServiceImpl.update(1L, user, buildUserProfileUpdateRequest());
+        var result = userProfileServiceImpl.update("username", user, buildUserProfileUpdateRequest());
 
         assertThatThrownBy(result::join)
                 .isInstanceOf(CompletionException.class)
@@ -98,30 +98,29 @@ public class DefaultUserProfileServiceTest {
                 .hasFieldOrPropertyWithValue("code", FORBIDDEN.value());
     }
 
-
     @Test
     void createNewProfile_Successfully() {
-        when(userProfileRepository.findByUserId(eq(1L)))
+        when(userProfileRepository.findByUsernameIgnoreCase("username"))
                 .thenReturn(Optional.empty());
         when(lgaRepository.findById(eq(1L)))
                 .thenReturn(Optional.of(buildLga()));
         when(userProfileRepository.save(any(UserProfile.class)))
                 .thenReturn(buildUserProfile());
 
-        UserProfileModel result = userProfileServiceImpl.update(1L, mockedUser(), buildUserProfileUpdateRequest()).join();
+        UserProfileModel result = userProfileServiceImpl.update("username", mockedUser(), buildUserProfileUpdateRequest()).join();
 
         assertUserProfileValues(result);
     }
 
     @Test
-    void getById_notFound() {
-        when(userProfileRepository.findByUserId(2L))
+    void getByUsername_notFound() {
+        when(userProfileRepository.findByUsernameIgnoreCase("username"))
                 .thenReturn(Optional.empty());
 
-        var result = userProfileServiceImpl.get(2L);
+        var result = userProfileServiceImpl.get("username");
         assertThatThrownBy(result::join)
                 .isInstanceOf(CompletionException.class)
-                .hasCause(new UserProfilingException("User profile does not exist for 2"))
+                .hasCause(new UserProfilingException("User profile does not exist for username"))
                 .extracting(Throwable::getCause)
                 .hasFieldOrPropertyWithValue("code", NOT_FOUND.value());
     }
@@ -129,49 +128,41 @@ public class DefaultUserProfileServiceTest {
     @Test
     void getByUser_notFound() {
         var user = mockedUser().setId(3L);
-        when(userProfileRepository.findByUserId(3L))
+        when(userProfileRepository.findByUsernameIgnoreCase("username"))
                 .thenReturn(Optional.empty());
 
         var result = userProfileServiceImpl.get(user);
         assertThatThrownBy(result::join)
                 .isInstanceOf(CompletionException.class)
-                .hasCause(new UserProfilingException("User profile does not exist for 3"))
+                .hasCause(new UserProfilingException("User profile does not exist for username"))
                 .extracting(Throwable::getCause)
                 .hasFieldOrPropertyWithValue("code", NOT_FOUND.value());
     }
 
     @Test
-    void getById_successfully() {
-        when(userProfileRepository.findByUserId(4L))
+    void getByUsername_successfully() {
+        when(userProfileRepository.findByUsernameIgnoreCase("username"))
                 .thenReturn(Optional.of(buildUserProfile()));
 
-        var result = userProfileServiceImpl.get(4L).join();
+        var result = userProfileServiceImpl.get("username").join();
         assertUserProfileValues(result);
     }
 
     @Test
     void getByUser_successfully() {
         var user = mockedUser().setId(3L);
-        when(userProfileRepository.findByUserId(3L))
+        when(userProfileRepository.findByUsernameIgnoreCase("username"))
                 .thenReturn(Optional.of(buildUserProfile()));
 
         var result = userProfileServiceImpl.get(user).join();
         assertUserProfileValues(result);
     }
 
-    private UserProfile buildUserProfile() {
-        UserProfile userProfile = new UserProfile();
-        userProfile.setLga(buildLga());
-        userProfile.setUserId(1L);
-        userProfile.setId(1L);
-        userProfile.setMaritalStatus(MaritalStatus.SINGLE);
-        userProfile.setGender(Gender.FEMALE);
 
-        return userProfile;
-    }
 
     private User mockedUser() {
         return new User()
+                .setUsername("username")
                 .setId(1L);
     }
 
@@ -184,38 +175,9 @@ public class DefaultUserProfileServiceTest {
         return userProfileUpdateRequest;
     }
 
-    private Country buildCountry() {
-        Country country = new Country();
-        country.setName("Nigeria");
-        country.setCode("NGA");
-        country.setId(1L);
-
-        return country;
-    }
-
-    private State buildState() {
-        State state = new State();
-        state.setId(1L);
-        state.setCountry(buildCountry());
-        state.setName("Ogun state");
-        state.setCode("NGA-OGUN-STATE");
-
-        return state;
-    }
-
-    private LocalGovernmentArea buildLga() {
-        LocalGovernmentArea localGovernmentArea = new LocalGovernmentArea();
-        localGovernmentArea.setCode("NGA-OGUN");
-        localGovernmentArea.setState(buildState());
-        localGovernmentArea.setName("LGA-OGUN");
-        localGovernmentArea.setId(1L);
-
-        return localGovernmentArea;
-    }
-
     private void assertUserProfileValues(UserProfileModel profile) {
         assertThat(profile.getLga()).isNotNull();
-        assertThat(profile.getUserId()).isEqualTo(1L);
+        assertThat(profile.getUsername()).isEqualTo("username");
         assertThat(profile.getGender()).isEqualTo(Gender.FEMALE);
         assertThat(profile.getMaritalStatus()).isEqualTo(MaritalStatus.SINGLE);
     }

@@ -9,7 +9,6 @@ import com.iddera.userprofile.api.domain.consultation.service.abstracts.DrugPres
 import com.iddera.userprofile.api.domain.consultation.service.concretes.DefaultDrugPrescriptionService;
 import com.iddera.userprofile.api.domain.exception.UserProfilingException;
 import com.iddera.userprofile.api.domain.exception.UserProfilingExceptionService;
-import com.iddera.userprofile.api.domain.model.User;
 import com.iddera.userprofile.api.persistence.consultation.entity.Consultation;
 import com.iddera.userprofile.api.persistence.consultation.entity.ConsultationParticipant;
 import com.iddera.userprofile.api.persistence.consultation.entity.DrugPrescription;
@@ -23,6 +22,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletionException;
 
+import static com.iddera.userprofile.api.stubs.TestDataFixtures.buildUser;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
@@ -57,7 +57,7 @@ public class DefaultDrugPrescriptionServiceTest {
         when(consultationRepository.findById(2L))
                 .thenReturn(Optional.of(buildConsultation()));
 
-        var result = drugPrescriptionService.findById(1L,buildUser()).join();
+        var result = drugPrescriptionService.findById(1L, buildUser(1L)).join();
 
         assertDrugPrescriptionValues(result);
         verify(repository).findById(1L);
@@ -69,7 +69,7 @@ public class DefaultDrugPrescriptionServiceTest {
                 .thenReturn(List.of(buildDrugPrescription()));
         when(consultationRepository.findById(2L))
                 .thenReturn(Optional.of(buildConsultation()));
-        var result = drugPrescriptionService.findByConsultation(2L,buildUser()).join();
+        var result = drugPrescriptionService.findByConsultation(2L, buildUser(1L)).join();
 
         assertThat(result).isNotEmpty();
         verify(repository).findByConsultation_Id(2L);
@@ -82,7 +82,7 @@ public class DefaultDrugPrescriptionServiceTest {
         when(consultationRepository.findById(2L))
                 .thenReturn(Optional.of(buildConsultation()));
 
-        var result = drugPrescriptionService.findByConsultation(2L,buildUser()).join();
+        var result = drugPrescriptionService.findByConsultation(2L, buildUser(1L)).join();
 
         assertThat(result).isEmpty();
         verify(repository).findByConsultation_Id(2L);
@@ -93,13 +93,13 @@ public class DefaultDrugPrescriptionServiceTest {
         Consultation consultation = buildConsultation();
         List<ConsultationParticipant> participants = consultation.getParticipants();
         participants.get(0).setUserType(UserType.CLIENT);
-        participants.get(0).setUserId(2L);
+        participants.get(0).setUsername("username1234");
         when(repository.findByConsultation_Id(2L))
                 .thenReturn(List.of(buildDrugPrescription()));
         when(consultationRepository.findById(2L))
                 .thenReturn(Optional.of(consultation));
 
-        var result = drugPrescriptionService.findByConsultation(2L,buildUser());
+        var result = drugPrescriptionService.findByConsultation(2L, buildUser(1L));
 
         assertThatThrownBy(result::join)
                 .isInstanceOf(CompletionException.class)
@@ -191,17 +191,10 @@ public class DefaultDrugPrescriptionServiceTest {
         consultation.setStatus(ConsultationStatus.SCHEDULED);
         consultation.setMeetingId("OMOOOO");
         ConsultationParticipant consultationParticipant =  new ConsultationParticipant();
-        consultationParticipant.setUserId(1L);
+        consultationParticipant.setUsername("username");
         consultation.setParticipants(List.of(consultationParticipant));
 
         return consultation;
-    }
-
-    private User buildUser(){
-        User user = new User();
-        user.setId(1L);
-        user.setUserType(UserType.CLIENT);
-        return user;
     }
 
     private DrugPrescriptionModel toModel(DrugPrescription prescription){

@@ -18,7 +18,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+
+import static com.iddera.userprofile.api.domain.utils.UserUtil.generateUsername;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -53,11 +56,17 @@ public class UserService {
                 .thenApply(ErrorHandler::handleExceptionally);
     }
 
+    public CompletableFuture<UserModel> getByUsername(String username, String token) {
+        return users.getByUsername(username, token)
+                .thenApply(ErrorHandler::handleExceptionally);
+    }
+
     public CompletableFuture<List<UserModel>> getByIds(List<Long> userIds, String token) {
         var search = new UserSearch().setIds(userIds);
         return users.getByIds(search, token)
                 .thenApply(ErrorHandler::handleExceptionally);
     }
+
 
     public CompletableFuture<UserModel> changePassword(Long userId, ChangeUserPasswordRequest request) {
         return users.changePassword(userId, request)
@@ -108,6 +117,9 @@ public class UserService {
     }
 
     private UserRequest toUserRequest(NewUserModel request, UserType userType) {
+        String username = Optional.ofNullable(request.getUsername())
+                .orElseGet(() -> generateUsername(request.getEmail(), request.getFirstName()));
+
         return new UserRequest()
                 .setFirstName(request.getFirstName())
                 .setLastName(request.getLastName())
@@ -115,6 +127,6 @@ public class UserService {
                 .setPassword(request.getPassword())
                 .setConfirmPassword(request.getConfirmPassword())
                 .setType(userType)
-                .setUsername(request.getEmail());
+                .setUsername(username);
     }
 }

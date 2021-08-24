@@ -15,16 +15,16 @@
                 <constraints primaryKey="true"/>
             </column>
             <column name="date" type="DATE">
-                <constraints nullable="false" unique="true"/>
+                <constraints nullable="false"/>
             </column>
             <column name="start_time" type="TIME">
-                <constraints nullable="false" unique="true"/>
+                <constraints nullable="false"/>
             </column>
             <column name="end_time" type="TIME">
-                <constraints nullable="false" unique="true"/>
+                <constraints nullable="false"/>
             </column>
             <column name="status" type="VARCHAR(10)">
-                <constraints nullable="false" unique="true"/>
+                <constraints nullable="false"/>
             </column>
             <column name="doctor_id" type="BIGINT">
                 <constraints nullable="false"/>
@@ -41,38 +41,5 @@
                                  constraintName="FK_doctor_timeslot_doctor_id" deferrable="false"
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="id" referencedTableName="doctor_profile" validate="true"/>
-    </changeSet>
-
-    <changeSet author="johnojetunde" id="20210100314-02" dbms="postgresql">
-        <dropUniqueConstraint schemaName="public"
-                              tableName="doctor_timeslot"
-                              constraintName="doctor_timeslot_status_key"
-                              uniqueColumns="status"/>
-        <dropUniqueConstraint schemaName="public"
-                              tableName="doctor_timeslot"
-                              constraintName="doctor_timeslot_end_time_key"
-                              uniqueColumns="end_time"/>
-        <dropUniqueConstraint schemaName="public"
-                              tableName="doctor_timeslot"
-                              constraintName="doctor_timeslot_start_time_key"
-                              uniqueColumns="start_time"/>
-        <dropUniqueConstraint schemaName="public"
-                              tableName="doctor_timeslot"
-                              constraintName="doctor_timeslot_date_key"
-                              uniqueColumns="date"/>
-    </changeSet>
-    <changeSet author="johnojetunde" id="20210100314-03" dbms="mysql">
-        <dropUniqueConstraint tableName="doctor_timeslot"
-                              constraintName="status"
-                              uniqueColumns="status"/>
-        <dropUniqueConstraint tableName="doctor_timeslot"
-                              constraintName="end_time"
-                              uniqueColumns="end_time"/>
-        <dropUniqueConstraint tableName="doctor_timeslot"
-                              constraintName="start_time"
-                              uniqueColumns="start_time"/>
-        <dropUniqueConstraint tableName="doctor_timeslot"
-                              constraintName="date"
-                              uniqueColumns="date"/>
     </changeSet>
 </databaseChangeLog>

@@ -5,7 +5,6 @@ import com.iddera.userprofile.api.domain.consultation.model.ConsultationNoteUpda
 import com.iddera.userprofile.api.domain.consultation.service.concretes.DefaultConsultationNoteService;
 import com.iddera.userprofile.api.domain.exception.UserProfilingException;
 import com.iddera.userprofile.api.domain.exception.UserProfilingExceptionService;
-import com.iddera.userprofile.api.domain.model.User;
 import com.iddera.userprofile.api.persistence.consultation.entity.Consultation;
 import com.iddera.userprofile.api.persistence.consultation.entity.ConsultationNote;
 import com.iddera.userprofile.api.persistence.consultation.entity.ConsultationParticipant;
@@ -24,6 +23,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletionException;
 
+import static com.iddera.userprofile.api.stubs.TestDataFixtures.buildUser;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
@@ -42,14 +42,14 @@ class ConsultationNoteServiceTest {
 
     @BeforeEach
     void setUp() {
-        defaultConsultationNoteService = new DefaultConsultationNoteService(consultationNoteRepository,consultationRepository,exceptions);
+        defaultConsultationNoteService = new DefaultConsultationNoteService(consultationNoteRepository, consultationRepository, exceptions);
     }
 
     @Test
-    void createFails_WhenUserIsNotAConsultationParticipant(){
+    void createFails_WhenUserIsNotAConsultationParticipant() {
         when(consultationRepository.findById(any()))
                 .thenReturn(Optional.of(buildConsultation()));
-        var result = defaultConsultationNoteService.create(buildRequest(1L),buildUser(3L));
+        var result = defaultConsultationNoteService.create(buildRequest(1L), buildUser(3L));
 
         assertThatThrownBy(result::join)
                 .isInstanceOf(CompletionException.class)
@@ -59,8 +59,8 @@ class ConsultationNoteServiceTest {
     }
 
     @Test
-    void updateFails_WhenNoteDoesNotExist(){
-        var result = defaultConsultationNoteService.update(2L,buildUpdateRequest(),buildUser(2L));
+    void updateFails_WhenNoteDoesNotExist() {
+        var result = defaultConsultationNoteService.update(2L, buildUpdateRequest(), buildUser(2L));
         assertThatThrownBy(result::join)
                 .isInstanceOf(CompletionException.class)
                 .hasCause(new UserProfilingException("Cannot find consultation note with id 2."))
@@ -69,12 +69,12 @@ class ConsultationNoteServiceTest {
     }
 
     @Test
-    void update_Successfully(){
+    void update_Successfully() {
         when(consultationNoteRepository.findById(any()))
                 .thenReturn(Optional.of(buildConsultationNote()));
         when(consultationNoteRepository.save(any(ConsultationNote.class)))
                 .thenReturn(buildConsultationNote());
-        var result = defaultConsultationNoteService.update(1L,buildUpdateRequest(),buildUser(2L)).join();
+        var result = defaultConsultationNoteService.update(1L, buildUpdateRequest(), buildUser(2L)).join();
         assertNoteValues(result);
     }
 
@@ -86,12 +86,15 @@ class ConsultationNoteServiceTest {
                 .thenReturn(buildConsultationNote());
         ConsultationNoteModel request = buildRequest(1L);
         request.setId(null);
-        var result = defaultConsultationNoteService.create(request,buildUser(1L)).join();
+
+        var user = buildUser(1L).setUsername("username1");
+
+        var result = defaultConsultationNoteService.create(request, user).join();
         assertNoteValues(result);
     }
 
     @Test
-    void findNoteById_Fails(){
+    void findNoteById_Fails() {
         var result = defaultConsultationNoteService.findById(1L);
         assertThatThrownBy(result::join)
                 .isInstanceOf(CompletionException.class)
@@ -101,7 +104,7 @@ class ConsultationNoteServiceTest {
     }
 
     @Test
-    void findNoteById_IsSuccessful(){
+    void findNoteById_IsSuccessful() {
         when(consultationNoteRepository.findById(any()))
                 .thenReturn(Optional.of(buildConsultationNote()));
         var result = defaultConsultationNoteService.findById(1L).join();
@@ -109,15 +112,17 @@ class ConsultationNoteServiceTest {
     }
 
     @Test
-    void findNotesByConsultationId_IsSuccessful(){
+    void findNotesByConsultationId_IsSuccessful() {
         when(consultationNoteRepository.findAllByConsultation_Id(any()))
                 .thenReturn(Arrays.asList(buildConsultationNote()));
         var result = defaultConsultationNoteService.findNotesByConsultation(1L).join();
         assertNoteValues(result.get(0));
     }
 
-   private ConsultationNoteModel buildRequest(Long consultationId){
-        if(consultationId == null){ consultationId = 2L;}
+    private ConsultationNoteModel buildRequest(Long consultationId) {
+        if (consultationId == null) {
+            consultationId = 2L;
+        }
         return ConsultationNoteModel.builder()
                 .plan("Request plan.")
                 .consultationId(consultationId)
@@ -127,9 +132,9 @@ class ConsultationNoteServiceTest {
                 .investigation("Request investigation.")
                 .id(1L)
                 .build();
-   }
+    }
 
-    private ConsultationNoteUpdateModel buildUpdateRequest(){
+    private ConsultationNoteUpdateModel buildUpdateRequest() {
         return ConsultationNoteUpdateModel.builder()
                 .plan("Request plan.")
                 .diagnosis("Request diagnosis.")
@@ -139,7 +144,7 @@ class ConsultationNoteServiceTest {
                 .build();
     }
 
-    private ConsultationNote buildConsultationNote(){
+    private ConsultationNote buildConsultationNote() {
         ConsultationNote consultationNote = new ConsultationNote();
         consultationNote.setPlan("This is a test plan.");
         consultationNote.setInvestigation("This is a test investigation.");
@@ -151,32 +156,24 @@ class ConsultationNoteServiceTest {
         return consultationNote;
     }
 
-    private Consultation buildConsultation(){
+    private Consultation buildConsultation() {
         Consultation consultation = new Consultation();
         consultation.setId(1L);
         consultation.setParticipants(buildParticipants());
         return consultation;
     }
 
-    private List<ConsultationParticipant> buildParticipants(){
+    private List<ConsultationParticipant> buildParticipants() {
         List<ConsultationParticipant> participants = new ArrayList<>();
-        for(int i = 1; i < 3; i++){
+        for (int i = 1; i < 3; i++) {
             ConsultationParticipant consultationParticipant = new ConsultationParticipant();
-            consultationParticipant.setUserId((long) i);
+            consultationParticipant.setUsername("username" + i);
             participants.add(consultationParticipant);
         }
         return participants;
     }
 
-    private User buildUser(Long id){
-        User user = new User();
-        user.setEmail("Test@email.com");
-        user.setUsername("testuser");
-        user.setId(id);
-        return user;
-    }
-
-    private void assertNoteValues(ConsultationNoteModel doctorNoteModel){
+    private void assertNoteValues(ConsultationNoteModel doctorNoteModel) {
         assertThat(doctorNoteModel.getId()).isEqualTo(1L);
         assertThat(doctorNoteModel.getDiagnosis()).isEqualTo("This is a test diagnosis.");
         assertThat(doctorNoteModel.getConsultationId()).isEqualTo(1L);

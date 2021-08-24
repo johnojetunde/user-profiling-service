@@ -13,8 +13,8 @@ public class ConsultationUtil {
 
     public static void ensureUserIsAConsultationParticipant(Consultation consultation, User user, UserProfilingExceptionService exceptions) {
         boolean isUserAParticipant = emptyIfNullStream(consultation.getParticipants())
-                .map(ConsultationParticipant::getUserId)
-                .anyMatch(uId -> user.getId().equals(uId));
+                .map(ConsultationParticipant::getUsername)
+                .anyMatch(uName -> user.getUsername().equals(uName));
         if (!isUserAParticipant) {
             throw exceptions.handleCreateForbidden("User is not a participant of this consultation");
         }
