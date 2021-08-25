@@ -6,9 +6,10 @@ import com.iddera.usermanagement.lib.domain.model.UserType;
 import com.iddera.userprofile.api.domain.consultation.model.ConsultationMode;
 import com.iddera.userprofile.api.domain.consultation.model.ConsultationStatus;
 import com.iddera.userprofile.api.domain.medicalinfo.model.MedicalForm;
+import com.iddera.userprofile.api.domain.medicalinfo.model.QuestionModel;
 import com.iddera.userprofile.api.domain.medicalinfo.model.enums.*;
-import com.iddera.userprofile.api.domain.model.User;
 import com.iddera.userprofile.api.domain.user.enums.MaritalStatus;
+import com.iddera.userprofile.api.domain.user.model.User;
 import com.iddera.userprofile.api.persistence.consultation.entity.Consultation;
 import com.iddera.userprofile.api.persistence.consultation.entity.ConsultationParticipant;
 import com.iddera.userprofile.api.persistence.consultation.entity.DoctorTimeslot;
@@ -190,6 +191,19 @@ public class TestDataFixtures {
         country.setId(1L);
 
         return country;
+    }
+
+    public static QuestionModel question(String question) {
+        return QuestionModel.builder()
+                .description(question)
+                .build();
+    }
+
+    public static QuestionModel question(String questionText, Long id) {
+        var question = question(questionText);
+        question.setId(id);
+
+        return question;
     }
 
     public static State buildState() {
