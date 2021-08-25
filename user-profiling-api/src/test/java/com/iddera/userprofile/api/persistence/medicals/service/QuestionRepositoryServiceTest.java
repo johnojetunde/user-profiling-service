@@ -51,7 +51,7 @@ class QuestionRepositoryServiceTest {
     @Test
     void findByQuestion() {
         var question = mapper.toEntity(question("What is your age?"));
-        when(repository.findByTextIgnoreCase("What is your age?"))
+        when(repository.findByDescriptionIgnoreCase("What is your age?"))
                 .thenReturn(Optional.of(question));
 
         var result = repositoryService.findByQuestion("What is your age?");
@@ -59,6 +59,6 @@ class QuestionRepositoryServiceTest {
         assertThat(result.isPresent()).isTrue();
         assertThat(result.get().getDescription()).isEqualTo("What is your age?");
 
-        verify(repository).findByTextIgnoreCase("What is your age?");
+        verify(repository).findByDescriptionIgnoreCase("What is your age?");
     }
 }

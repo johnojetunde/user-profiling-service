@@ -29,7 +29,7 @@ public class QuestionRepositoryService extends DefaultCrudRepositoryService<Ques
     }
 
     public Optional<QuestionModel> findByQuestion(String question) {
-        return repository.findByTextIgnoreCase(question)
+        return repository.findByDescriptionIgnoreCase(question)
                 .map(mapper::toModel);
     }
 
