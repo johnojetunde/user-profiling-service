@@ -1,6 +1,8 @@
 package com.iddera.userprofile.api.domain.medicalinfo.service;
 
 import com.iddera.userprofile.api.domain.medicalinfo.model.*;
+import com.iddera.userprofile.api.domain.medicalinfo.service.concretes.MedicalFormService;
+import com.iddera.userprofile.api.domain.medicalinfo.service.concretes.MedicalInfoService;
 import com.iddera.userprofile.api.stubs.TestDataFixtures;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

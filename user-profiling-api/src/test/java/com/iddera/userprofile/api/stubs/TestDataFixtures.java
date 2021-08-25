@@ -6,9 +6,10 @@ import com.iddera.usermanagement.lib.domain.model.UserType;
 import com.iddera.userprofile.api.domain.consultation.model.ConsultationMode;
 import com.iddera.userprofile.api.domain.consultation.model.ConsultationStatus;
 import com.iddera.userprofile.api.domain.medicalinfo.model.MedicalForm;
+import com.iddera.userprofile.api.domain.medicalinfo.model.QuestionModel;
 import com.iddera.userprofile.api.domain.medicalinfo.model.enums.*;
-import com.iddera.userprofile.api.domain.model.User;
 import com.iddera.userprofile.api.domain.user.enums.MaritalStatus;
+import com.iddera.userprofile.api.domain.user.model.User;
 import com.iddera.userprofile.api.persistence.consultation.entity.Consultation;
 import com.iddera.userprofile.api.persistence.consultation.entity.ConsultationParticipant;
 import com.iddera.userprofile.api.persistence.consultation.entity.DoctorTimeslot;
@@ -64,23 +65,25 @@ public class TestDataFixtures {
     }
 
     public static Illness illness() {
-        return new Illness()
-                .setName("Illness")
-                .setDurationType(CustomFrequencyType.DAYS)
-                .setDurationValue(10)
-                .setDateAdmitted(LocalDate.now())
-                .setRecoveryStatus(RecoveryStatus.PARTLY)
-                .setComment("Comment");
+        return Illness.builder()
+                .name("Illness")
+                .durationType(CustomFrequencyType.DAYS)
+                .durationValue(10)
+                .dateAdmitted(LocalDate.now())
+                .recoveryStatus(RecoveryStatus.PARTLY)
+                .comment("Comment")
+                .build();
     }
 
     public static Medication medication() {
-        return new Medication()
-                .setName("Illness")
-                .setDescription("description")
-                .setCategory("Category")
-                .setDuration(MedicationDuration.INTERMITTENTLY)
-                .setHerbalMedication(HerbalMedicationStatus.CURRENTLY_TAKING)
-                .setComment("comment");
+        return Medication.builder()
+                .name("Illness")
+                .description("description")
+                .category("Category")
+                .duration(MedicationDuration.INTERMITTENTLY)
+                .herbalMedication(HerbalMedicationStatus.CURRENTLY_TAKING)
+                .comment("comment")
+                .build();
     }
 
     public static SmokingHabit smoking() {
@@ -188,6 +191,19 @@ public class TestDataFixtures {
         country.setId(1L);
 
         return country;
+    }
+
+    public static QuestionModel question(String question) {
+        return QuestionModel.builder()
+                .description(question)
+                .build();
+    }
+
+    public static QuestionModel question(String questionText, Long id) {
+        var question = question(questionText);
+        question.setId(id);
+
+        return question;
     }
 
     public static State buildState() {

@@ -1,6 +1,7 @@
 package com.iddera.userprofile.api.persistence.medicals.mapper;
 
 import com.iddera.userprofile.api.domain.medicalinfo.model.SmokingHabitModel;
+import com.iddera.userprofile.api.persistence.EntityToDomainMapper;
 import com.iddera.userprofile.api.persistence.medicals.entity.SmokingHabit;
 import org.springframework.stereotype.Component;
 
@@ -13,13 +14,12 @@ public class SmokingHabitMapper implements EntityToDomainMapper<SmokingHabitMode
 
     @Override
     public SmokingHabit toEntity(SmokingHabitModel model, Long id) {
-        var entity = new SmokingHabit()
-                .setConsumption(model.getConsumption())
-                .setFrequency(model.getFrequency());
-
-        entity.setId(id);
-        entity.setUsername(model.getUsername());
-        return entity;
+        return SmokingHabit.builder()
+                .consumption(model.getConsumption())
+                .frequency(model.getFrequency())
+                .id(id)
+                .username(model.getUsername())
+                .build();
     }
 
     @Override

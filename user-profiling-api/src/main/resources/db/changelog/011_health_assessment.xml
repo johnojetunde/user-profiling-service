@@ -1,0 +1,68 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="johnojetunde" id="20211308-01">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="question"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="question">
+            <column autoIncrement="true" name="id" type="BIGSERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="description" type="${text}">
+                <constraints unique="true"/>
+            </column>
+            <column name="flow" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="max_option" type="BIGINT"/>
+            <column name="min_option" type="BIGINT"/>
+            <column name="options" type="${text}"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" type="VARCHAR(100)" defaultValue="system"/>
+            <column name="updated_by" type="VARCHAR(100)" defaultValue="system"/>
+            <column name="is_deleted" defaultValue="false" type="${boolean}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="johnojetunde" id="20211308-02">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="answer"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="answer">
+            <column autoIncrement="true" name="id" type="BIGSERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="options" type="${text}"/>
+            <column name="question_id" type="BIGINT"/>
+            <column name="user_id" type="BIGINT"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_by" type="VARCHAR(100)" defaultValue="system"/>
+            <column name="updated_by" type="VARCHAR(100)" defaultValue="system"/>
+            <column name="is_deleted" defaultValue="false" type="${boolean}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2021131235-01" author="johnojetunde">
+        <addForeignKeyConstraint baseColumnNames="question_id" baseTableName="answer"
+                                 constraintName="FK_answer_question_id" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="question" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

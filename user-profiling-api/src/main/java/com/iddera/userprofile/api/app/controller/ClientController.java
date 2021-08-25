@@ -2,7 +2,7 @@ package com.iddera.userprofile.api.app.controller;
 
 import com.iddera.userprofile.api.app.model.ResponseModel;
 import com.iddera.userprofile.api.app.model.UserProfileUpdateRequest;
-import com.iddera.userprofile.api.domain.model.User;
+import com.iddera.userprofile.api.domain.user.model.User;
 import com.iddera.userprofile.api.domain.user.model.UserProfileModel;
 import com.iddera.userprofile.api.domain.user.service.UserProfileService;
 import io.swagger.annotations.ApiResponse;

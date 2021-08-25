@@ -2,8 +2,12 @@ package com.iddera.userprofile.api.persistence.medicals.entity;
 
 import com.iddera.userprofile.api.domain.medicalinfo.model.MedicalProcedureModel;
 import com.iddera.userprofile.api.domain.medicalinfo.model.enums.RecoveryStatus;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Entity;
@@ -16,8 +20,12 @@ import static javax.persistence.EnumType.STRING;
 
 @EntityListeners(AuditingEntityListener.class)
 @Accessors(chain = true)
-@Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+@SuperBuilder
 @Table(name = "medical_procedure")
 public class MedicalProcedure extends BaseMedicalEntity {
     private String name;

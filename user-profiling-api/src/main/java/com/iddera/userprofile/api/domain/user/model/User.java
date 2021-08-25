@@ -1,4 +1,4 @@
-package com.iddera.userprofile.api.domain.model;
+package com.iddera.userprofile.api.domain.user.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.iddera.usermanagement.lib.domain.model.RoleModel;

@@ -1,6 +1,6 @@
 package com.iddera.userprofile.api.app.service;
 
-import com.iddera.userprofile.api.domain.model.User;
+import com.iddera.userprofile.api.domain.user.model.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.AuditorAware;

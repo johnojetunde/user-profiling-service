@@ -5,7 +5,7 @@ import com.iddera.usermanagement.lib.domain.model.UserModel;
 import com.iddera.userprofile.api.app.model.NewClientModel;
 import com.iddera.userprofile.api.app.model.NewUserModel;
 import com.iddera.userprofile.api.app.model.ResponseModel;
-import com.iddera.userprofile.api.domain.model.User;
+import com.iddera.userprofile.api.domain.user.model.User;
 import com.iddera.userprofile.api.domain.user.service.UserService;
 import com.iddera.userprofile.api.domain.user.service.UserSignupService;
 import io.swagger.annotations.ApiImplicitParam;

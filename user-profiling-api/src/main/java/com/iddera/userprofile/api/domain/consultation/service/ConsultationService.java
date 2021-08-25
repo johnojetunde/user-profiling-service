@@ -3,7 +3,7 @@ package com.iddera.userprofile.api.domain.consultation.service;
 import com.iddera.usermanagement.lib.domain.model.UserModel;
 import com.iddera.userprofile.api.domain.consultation.model.*;
 import com.iddera.userprofile.api.domain.exception.UserProfilingExceptionService;
-import com.iddera.userprofile.api.domain.model.User;
+import com.iddera.userprofile.api.domain.user.model.User;
 import com.iddera.userprofile.api.domain.user.service.UserService;
 import com.iddera.userprofile.api.persistence.consultation.entity.Consultation;
 import com.iddera.userprofile.api.persistence.consultation.entity.ConsultationParticipant;

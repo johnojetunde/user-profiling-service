@@ -1,7 +1,9 @@
 package com.iddera.userprofile.api.domain.medicalinfo.service;
 
+import com.iddera.userprofile.api.domain.RepositoryService;
 import com.iddera.userprofile.api.domain.exception.UserProfilingExceptionService;
 import com.iddera.userprofile.api.domain.medicalinfo.model.AlcoholHabitModel;
+import com.iddera.userprofile.api.domain.medicalinfo.service.concretes.AlcoholHabitService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

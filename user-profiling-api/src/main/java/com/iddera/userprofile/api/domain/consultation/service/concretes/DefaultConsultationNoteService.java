@@ -4,7 +4,7 @@ import com.iddera.userprofile.api.domain.consultation.model.ConsultationNoteMode
 import com.iddera.userprofile.api.domain.consultation.model.ConsultationNoteUpdateModel;
 import com.iddera.userprofile.api.domain.consultation.service.abstracts.ConsultationNoteService;
 import com.iddera.userprofile.api.domain.exception.UserProfilingExceptionService;
-import com.iddera.userprofile.api.domain.model.User;
+import com.iddera.userprofile.api.domain.user.model.User;
 import com.iddera.userprofile.api.persistence.consultation.entity.Consultation;
 import com.iddera.userprofile.api.persistence.consultation.entity.ConsultationNote;
 import com.iddera.userprofile.api.persistence.consultation.entity.ConsultationParticipant;

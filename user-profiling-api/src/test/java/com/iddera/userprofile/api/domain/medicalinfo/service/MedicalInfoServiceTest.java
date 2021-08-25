@@ -1,8 +1,10 @@
 package com.iddera.userprofile.api.domain.medicalinfo.service;
 
+import com.iddera.userprofile.api.domain.RepositoryService;
 import com.iddera.userprofile.api.domain.exception.UserProfilingException;
 import com.iddera.userprofile.api.domain.exception.UserProfilingExceptionService;
 import com.iddera.userprofile.api.domain.medicalinfo.model.BaseModel;
+import com.iddera.userprofile.api.domain.medicalinfo.service.concretes.MedicalInfoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

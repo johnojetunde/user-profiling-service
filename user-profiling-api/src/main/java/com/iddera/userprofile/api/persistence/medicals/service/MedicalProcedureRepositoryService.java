@@ -1,8 +1,8 @@
 package com.iddera.userprofile.api.persistence.medicals.service;
 
 import com.iddera.userprofile.api.domain.medicalinfo.model.MedicalProcedureModel;
+import com.iddera.userprofile.api.persistence.EntityToDomainMapper;
 import com.iddera.userprofile.api.persistence.medicals.entity.MedicalProcedure;
-import com.iddera.userprofile.api.persistence.medicals.mapper.EntityToDomainMapper;
 import com.iddera.userprofile.api.persistence.medicals.repository.MedicalProcedureRepository;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class MedicalProcedureRepositoryService extends DefaultMedicalRepositoryService<MedicalProcedureModel, MedicalProcedure> {
+public class MedicalProcedureRepositoryService extends DefaultCrudRepositoryService<MedicalProcedureModel, MedicalProcedure> {
     private final MedicalProcedureRepository repository;
 
     public MedicalProcedureRepositoryService(EntityToDomainMapper<MedicalProcedureModel, MedicalProcedure> mapper, MedicalProcedureRepository repository) {

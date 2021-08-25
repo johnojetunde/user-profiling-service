@@ -1,5 +1,6 @@
-package com.iddera.userprofile.api.domain.medicalinfo.service;
+package com.iddera.userprofile.api.domain.medicalinfo.service.concretes;
 
+import com.iddera.userprofile.api.domain.RepositoryService;
 import com.iddera.userprofile.api.domain.exception.UserProfilingExceptionService;
 import com.iddera.userprofile.api.domain.medicalinfo.model.AllergyModel;
 import org.springframework.stereotype.Service;

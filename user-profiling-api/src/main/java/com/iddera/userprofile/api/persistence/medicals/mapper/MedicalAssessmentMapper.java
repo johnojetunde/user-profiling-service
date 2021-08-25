@@ -2,6 +2,7 @@ package com.iddera.userprofile.api.persistence.medicals.mapper;
 
 import com.iddera.userprofile.api.domain.medicalinfo.model.MedicalAssessmentModel;
 import com.iddera.userprofile.api.domain.medicalinfo.service.abstracts.HospitalService;
+import com.iddera.userprofile.api.persistence.EntityToDomainMapper;
 import com.iddera.userprofile.api.persistence.medicals.entity.MedicalAssessment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,33 +26,30 @@ public class MedicalAssessmentMapper implements EntityToDomainMapper<MedicalAsse
 
     @Override
     public MedicalAssessment toEntity(MedicalAssessmentModel model, Long id) {
-        var entity = new MedicalAssessment().
-                setCurrentHealthFeel(model.getCurrentHealthFeel())
-                .setLastCheckUp(model.getLastCheckUp())
-                .setLastTimeFeltGood(model.getLastTimeFeltGood())
-                .setGoodHealthMotivation(model.getGoodHealthMotivation())
-                .setAverageBusyDay(model.getAverageBusyDay())
-                .setWellnessGoals(model.getWellnessGoals())
-                .setConditionsOrConcerns(model.getConditionsOrConcerns())
-                .setFamilyHeartDisease(model.getFamilyHeartDisease())
-                .setFamilyCancer(model.getFamilyCancer())
-                .setHadHeartOrCancerGenTest(model.getHadHeartOrCancerGenTest())
-                .setHomePhysician(model.getHomePhysician())
-                .setHaveFitnessPressureSensor(model.getHaveFitnessPressureSensor())
-                .setAbleToGetPrescriptionDelivery(model.getAbleToGetPrescriptionDelivery())
-                .setTakingStepsToImproveHealth(model.getTakingStepsToImproveHealth())
-                .setMentalStressTherapist(model.getMentalStressTherapist())
-                .setHospital(hospitalService.findById(model.getHospitalId()).join().toEntity());
-
-
-        entity.setId(id);
-        entity.setUsername(model.getUsername());
-        return entity;
+        return MedicalAssessment.builder()
+                .currentHealthFeel(model.getCurrentHealthFeel())
+                .lastCheckUp(model.getLastCheckUp())
+                .lastTimeFeltGood(model.getLastTimeFeltGood())
+                .goodHealthMotivation(model.getGoodHealthMotivation())
+                .averageBusyDay(model.getAverageBusyDay())
+                .wellnessGoals(model.getWellnessGoals())
+                .conditionsOrConcerns(model.getConditionsOrConcerns())
+                .familyHeartDisease(model.getFamilyHeartDisease())
+                .familyCancer(model.getFamilyCancer())
+                .hadHeartOrCancerGenTest(model.getHadHeartOrCancerGenTest())
+                .homePhysician(model.getHomePhysician())
+                .haveFitnessPressureSensor(model.getHaveFitnessPressureSensor())
+                .ableToGetPrescriptionDelivery(model.getAbleToGetPrescriptionDelivery())
+                .takingStepsToImproveHealth(model.getTakingStepsToImproveHealth())
+                .mentalStressTherapist(model.getMentalStressTherapist())
+                .hospital(hospitalService.findById(model.getHospitalId()).join().toEntity())
+                .id(id)
+                .username(model.getUsername())
+                .build();
     }
 
     @Override
     public MedicalAssessmentModel toModel(MedicalAssessment entity) {
         return entity.toModel();
-
     }
 }

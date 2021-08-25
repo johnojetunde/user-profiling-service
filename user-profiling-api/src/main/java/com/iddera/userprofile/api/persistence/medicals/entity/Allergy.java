@@ -37,6 +37,5 @@ public class Allergy extends BaseMedicalEntity {
                 .reactions(new HashSet<>(reactions))
                 .comment(comment)
                 .build();
-
     }
 }

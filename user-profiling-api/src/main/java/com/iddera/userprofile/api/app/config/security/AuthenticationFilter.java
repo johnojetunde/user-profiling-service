@@ -5,7 +5,7 @@ import com.iddera.commons.utils.TokenExtractor;
 import com.iddera.usermanagement.client.UserManagementClient;
 import com.iddera.usermanagement.lib.domain.model.UserModel;
 import com.iddera.userprofile.api.domain.exception.UserProfilingExceptionService;
-import com.iddera.userprofile.api.domain.model.User;
+import com.iddera.userprofile.api.domain.user.model.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

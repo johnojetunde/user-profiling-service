@@ -1,6 +1,7 @@
 package com.iddera.userprofile.api.persistence.medicals.mapper;
 
 import com.iddera.userprofile.api.domain.medicalinfo.model.AllergyModel;
+import com.iddera.userprofile.api.persistence.EntityToDomainMapper;
 import com.iddera.userprofile.api.persistence.medicals.entity.Allergy;
 import org.springframework.stereotype.Component;
 

@@ -3,7 +3,7 @@ package com.iddera.userprofile.api.domain.consultation.service.abstracts;
 
 import com.iddera.userprofile.api.domain.consultation.model.ConsultationNoteModel;
 import com.iddera.userprofile.api.domain.consultation.model.ConsultationNoteUpdateModel;
-import com.iddera.userprofile.api.domain.model.User;
+import com.iddera.userprofile.api.domain.user.model.User;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;

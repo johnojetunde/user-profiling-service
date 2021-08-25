@@ -1,9 +1,11 @@
 package com.iddera.userprofile.api.persistence.medicals.service;
 
-import com.iddera.userprofile.api.domain.medicalinfo.service.RepositoryService;
-import com.iddera.userprofile.api.persistence.medicals.mapper.EntityToDomainMapper;
+import com.iddera.userprofile.api.domain.RepositoryService;
+import com.iddera.userprofile.api.persistence.EntityToDomainMapper;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -11,13 +13,14 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 import static com.iddera.commons.utils.FunctionUtil.emptyIfNullStream;
+import static java.util.concurrent.CompletableFuture.runAsync;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 import static java.util.stream.Collectors.toList;
 
 @RequiredArgsConstructor
-public abstract class DefaultMedicalRepositoryService<T, V> implements RepositoryService<T> {
+public abstract class DefaultCrudRepositoryService<T, V> implements RepositoryService<T> {
 
-    private final EntityToDomainMapper<T, V> mapper;
+    final EntityToDomainMapper<T, V> mapper;
     private final JpaRepository<V, Long> repository;
 
     @Override
@@ -57,6 +60,26 @@ public abstract class DefaultMedicalRepositoryService<T, V> implements Repositor
                 emptyIfNullStream(getAllByUsername(username))
                         .map(mapper::toModel)
                         .collect(toList()));
+    }
+
+    @Override
+    public CompletableFuture<List<T>> findAll() {
+        return supplyAsync(() ->
+                emptyIfNullStream(repository.findAll())
+                        .map(mapper::toModel)
+                        .collect(toList()));
+    }
+
+    @Override
+    public CompletableFuture<Page<T>> findAll(Pageable pageable) {
+        return supplyAsync(() ->
+                repository.findAll(pageable)
+                        .map(mapper::toModel));
+    }
+
+    @Override
+    public CompletableFuture<Void> delete(Long id) {
+        return runAsync(() -> repository.deleteById(id));
     }
 
     public abstract Optional<V> getByUsername(String username);

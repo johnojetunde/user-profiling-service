@@ -2,7 +2,7 @@ package com.iddera.userprofile.api.domain.user.service;
 
 import com.iddera.userprofile.api.app.model.NewClientModel;
 import com.iddera.userprofile.api.app.model.UserProfileUpdateRequest;
-import com.iddera.userprofile.api.domain.model.User;
+import com.iddera.userprofile.api.domain.user.model.User;
 import com.iddera.userprofile.api.domain.user.model.UserProfileModel;
 
 import java.util.concurrent.CompletableFuture;

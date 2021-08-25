@@ -1,5 +1,6 @@
 package com.iddera.userprofile.api.persistence.userprofile.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -13,10 +14,11 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@NoArgsConstructor
 @SuperBuilder
+@NoArgsConstructor
 @MappedSuperclass
 @Data
+@AllArgsConstructor
 public class BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

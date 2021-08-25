@@ -6,7 +6,7 @@ import com.iddera.userprofile.api.domain.consultation.model.Timeslot;
 import com.iddera.userprofile.api.domain.consultation.model.TimeslotFilter;
 import com.iddera.userprofile.api.domain.exception.UserProfilingException;
 import com.iddera.userprofile.api.domain.exception.UserProfilingExceptionService;
-import com.iddera.userprofile.api.domain.model.User;
+import com.iddera.userprofile.api.domain.user.model.User;
 import com.iddera.userprofile.api.persistence.consultation.entity.DoctorTimeslot;
 import com.iddera.userprofile.api.persistence.consultation.persistence.DoctorTimeslotRepository;
 import com.iddera.userprofile.api.persistence.consultation.persistence.TimeslotSpecification;
