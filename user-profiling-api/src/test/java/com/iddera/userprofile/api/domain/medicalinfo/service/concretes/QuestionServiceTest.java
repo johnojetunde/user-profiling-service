@@ -107,6 +107,21 @@ class QuestionServiceTest {
     }
 
     @Test
+    void createFails_whenQuestionOptionMinimumIsGreaterThanMaximum() {
+        var question = question("What is your wellness goal?");
+        question.setMinOptions(5);
+        question.setMaxOptions(4);
+
+        var result = questionService.create(question);
+
+        assertThatThrownBy(result::join)
+                .isInstanceOf(CompletionException.class)
+                .hasCause(new UserProfilingException("Minimum option value is greater than maximum option value"))
+                .extracting(Throwable::getCause)
+                .hasFieldOrPropertyWithValue("code", BAD_REQUEST.value());
+    }
+
+    @Test
     void create() {
         when(repositoryService.findByQuestion("What is your wellness goal?"))
                 .thenReturn(Optional.empty());

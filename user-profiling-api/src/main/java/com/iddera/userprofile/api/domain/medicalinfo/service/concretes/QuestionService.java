@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import static java.util.Optional.ofNullable;
+import static java.util.concurrent.CompletableFuture.runAsync;
+
 @Service
 @RequiredArgsConstructor
 public class QuestionService {
@@ -17,7 +20,10 @@ public class QuestionService {
     private final UserProfilingExceptionService exceptionService;
 
     public CompletableFuture<QuestionModel> create(QuestionModel model) {
-        return CompletableFuture.runAsync(() -> {
+        return runAsync(() -> {
+
+            ensureMinimumIsLessThanMaximum(model);
+
             var questionExisting = repositoryService.findByQuestion(model.getDescription().strip());
 
             if (questionExisting.isPresent()) {
@@ -34,7 +40,7 @@ public class QuestionService {
     }
 
     public CompletableFuture<QuestionModel> update(Long id, QuestionModel model) {
-        return CompletableFuture.runAsync(() -> {
+        return runAsync(() -> {
             var isAnotherQuestionExistingWithSameQuestion = repositoryService.findByQuestion(model.getDescription())
                     .map(q -> !q.getId().equals(id))
                     .orElse(false);
@@ -51,5 +57,14 @@ public class QuestionService {
 
     public CompletableFuture<Void> delete(Long id) {
         return repositoryService.delete(id);
+    }
+
+    private void ensureMinimumIsLessThanMaximum(QuestionModel model) {
+        boolean isMinimumGreaterThanMaximum = ofNullable(model.getMaxOptions())
+                .map(max -> model.getMinOptions() > max)
+                .orElse(false);
+
+        if (isMinimumGreaterThanMaximum)
+            throw exceptionService.handleCreateBadRequest("Minimum option value is greater than maximum option value");
     }
 }

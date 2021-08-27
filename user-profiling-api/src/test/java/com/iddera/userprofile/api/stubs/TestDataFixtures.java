@@ -5,6 +5,7 @@ import com.iddera.usermanagement.lib.domain.model.UserModel;
 import com.iddera.usermanagement.lib.domain.model.UserType;
 import com.iddera.userprofile.api.domain.consultation.model.ConsultationMode;
 import com.iddera.userprofile.api.domain.consultation.model.ConsultationStatus;
+import com.iddera.userprofile.api.domain.medicalinfo.model.AnswerModel;
 import com.iddera.userprofile.api.domain.medicalinfo.model.MedicalForm;
 import com.iddera.userprofile.api.domain.medicalinfo.model.QuestionModel;
 import com.iddera.userprofile.api.domain.medicalinfo.model.enums.*;
@@ -25,6 +26,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import static com.iddera.userprofile.api.domain.consultation.model.TimeslotStatus.FREE;
 import static com.iddera.userprofile.api.domain.medicalinfo.model.enums.DietaryType.WEIGHT_GAIN;
@@ -193,9 +195,39 @@ public class TestDataFixtures {
         return country;
     }
 
+    public static AnswerModel answerModel() {
+        return AnswerModel.builder()
+                .answers(Set.of("answer1", "anseer2"))
+                .user(buildUserProfile().toModel())
+                .username("username")
+                .questionId(1L)
+                .id(1L)
+                .question(question("What is your name?"))
+                .build();
+    }
+
+    public static Answer answer() {
+        return Answer.builder()
+                .options(Set.of("answer"))
+                .user(buildUserProfile())
+                .username("username")
+                .id(1L)
+                .question(questionEntity())
+                .build();
+    }
+
     public static QuestionModel question(String question) {
         return QuestionModel.builder()
+                .id(1L)
                 .description(question)
+                .build();
+    }
+
+    public static Question questionEntity() {
+        return Question.builder()
+                .flow(QuestionFlow.PRE_ON_BOARDING)
+                .id(1L)
+                .description("What is your name?")
                 .build();
     }
 
