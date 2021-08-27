@@ -1,4 +1,4 @@
-package com.iddera.userprofile.api.domain.jobs;
+package com.iddera.userprofile.api.jobs;
 
 import com.iddera.userprofile.api.domain.consultation.service.DoctorTimeslotService;
 import lombok.RequiredArgsConstructor;

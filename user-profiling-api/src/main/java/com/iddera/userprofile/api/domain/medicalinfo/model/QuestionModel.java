@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Singular;
 import lombok.experimental.SuperBuilder;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
@@ -22,6 +23,7 @@ public class QuestionModel extends BaseModel {
     private Set<String> options;
     @ValidEnum(message = "Question flow required")
     private QuestionFlow flow;
+    @Min(value = 1, message = "Minimum option for any question should be 1")
     private Integer minOptions;
     private Integer maxOptions;
 }
